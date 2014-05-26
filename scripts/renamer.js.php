@@ -5,12 +5,12 @@
 GLPI Plugin MantisBT
 Copyright (C) 2014 by the GLPI Plugin MantisBT Development Team.
 
-https://forge.indepnet.net/projects/mantis
+https://forge.indepnet.net/projects/renamer
 ------------------------------------------------------------------------
 
 LICENSE
 
-This file is part of GLPI Plugin MantisBT project.
+This file is part of GLPI Plugin Renamer project.
 
 GLPI Plugin MantisBT is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -27,14 +27,12 @@ along with GLPI Plugin MantisBT. If not, see <http://www.gnu.org/licenses/>.
 
 ------------------------------------------------------------------------
 
-@package   GLPI Plugin MantisBT
+@package   GLPI Plugin Renamer
 @author    Stanislas Kita (teclib')
-@co-author François Legastelois (teclib')
-@co-author Le Conseil d'Etat
 @copyright Copyright (c) 2014 GLPI Plugin MantisBT Development team
 @license   GPLv3 or (at your option) any later version
 http://www.gnu.org/licenses/gpl.html
-@link      https://forge.indepnet.net/projects/mantis
+@link      https://forge.indepnet.net/projects/renamer
 @since     2014
 
 ------------------------------------------------------------------------

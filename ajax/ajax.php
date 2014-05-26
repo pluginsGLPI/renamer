@@ -1,11 +1,10 @@
 <?php
-
 /*
    ------------------------------------------------------------------------
    GLPI Plugin MantisBT
    Copyright (C) 2014 by the GLPI Plugin MantisBT Development Team.
 
-   https://forge.indepnet.net/projects/mantis
+   https://forge.indepnet.net/projects/rennamer
    ------------------------------------------------------------------------
 
    LICENSE
@@ -27,19 +26,16 @@
 
    ------------------------------------------------------------------------
 
-   @package   GLPI Plugin MantisBT
+   @package   GLPI Plugin Renamer
    @author    Stanislas Kita (teclib')
-   @co-author François Legastelois (teclib')
-   @co-author Le Conseil d'Etat
    @copyright Copyright (c) 2014 GLPI Plugin MantisBT Development team
    @license   GPLv3 or (at your option) any later version
               http://www.gnu.org/licenses/gpl.html
-   @link      https://forge.indepnet.net/projects/mantis
+   @link      https://forge.indepnet.net/projects/renamer
    @since     2014
 
    ------------------------------------------------------------------------
  */
-
 include('../../../inc/includes.php');
 
 if (isset($_POST['action'])) {
@@ -143,16 +139,12 @@ if (isset($_POST['action'])) {
                 echo __("Please complete the field 'new Substitut'","rename");
             }else{
 
-
                 $renamer = new PluginRenamerRenamer();
                 $res = $renamer->updateOverloadWord($_POST['id'],$_POST['new_word']);
 
                 echo $res;
 
-
             }
-
-
 
             break;
 
@@ -163,9 +155,6 @@ if (isset($_POST['action'])) {
 } else {
     echo 0;
 }
-
-
-
 
 
 function returnSuccess(){

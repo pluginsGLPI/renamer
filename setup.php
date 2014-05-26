@@ -5,7 +5,7 @@
    GLPI Plugin Renamer
    Copyright (C) 2014 by the GLPI Plugin Renamer Development Team.
 
-   https://forge.indepnet.net/projects/mantis
+   https://forge.indepnet.net/projects/renamer
    ------------------------------------------------------------------------
 
    LICENSE
@@ -29,12 +29,10 @@
 
    @package   GLPI Plugin Renamer
    @author    Stanislas Kita (teclib')
-   @co-author François Legastelois (teclib')
-   @co-author Le Conseil d'Etat
    @copyright Copyright (c) 2014 GLPI Plugin Renamer Development team
    @license   GPLv3 or (at your option) any later version
               http://www.gnu.org/licenses/gpl.html
-   @link      https://forge.indepnet.net/projects/mantis
+   @link      https://forge.indepnet.net/projects/renamer
    @since     2014
 
    ------------------------------------------------------------------------

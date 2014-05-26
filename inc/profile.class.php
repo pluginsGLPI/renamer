@@ -27,9 +27,8 @@
 
    ------------------------------------------------------------------------
 
-   @package   GLPI Plugin renamer
+   @package   GLPI Plugin Renamer
    @author    Stanislas Kita (teclib)
-   @co-author François Legastelois (teclib)
    @copyright Copyright (c) 2014 GLPI Plugin renamer Development team
    @license   GPLv3 or (at your option) any later version
               http://www.gnu.org/licenses/gpl.html
