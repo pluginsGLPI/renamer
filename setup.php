@@ -56,7 +56,7 @@ function plugin_init_renamer() {
 
     $PLUGIN_HOOKS['csrf_compliant']['renamer'] = true;
     $PLUGIN_HOOKS['change_profile']['renamer'] = array('PluginRenamerProfile', 'changeProfile');
-    $PLUGIN_HOOKS['add_javascript']['renamer'] = array('scripts/jquery-1.11.0.min.js','scripts/renamer.js');
+    $PLUGIN_HOOKS['add_javascript']['renamer'] = array('scripts/jquery-1.11.0.min.js','scripts/renamer.js.php');
 
 
     $plugin = new Plugin();
