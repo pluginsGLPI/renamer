@@ -60,8 +60,11 @@ class PluginRenamerRenamer extends CommonDBTM
 
 
     function showForm(){
+
+        echo "<div>";
         $this->showBtnToOverloadRestoreLanguage();
         $this->showHistory();
+        echo "</div>";
     }
 
 
@@ -73,7 +76,7 @@ class PluginRenamerRenamer extends CommonDBTM
         if ($res->num_rows > 0) {
 
             $content .= "<table id='table2'  class='tab_cadre_fixe' >";
-            $content .= "<th colspan='8'>" . __("Already MantisBT tickets linked", "renamer") . "</th>";
+            $content .= "<th colspan='8'>" . __("History of overload", "renamer") . "</th>";
 
             $content .= "<tr class='headerRow'>";
             $content .= "<th>" . __("ID", "renamer") . "</th>";
@@ -82,8 +85,8 @@ class PluginRenamerRenamer extends CommonDBTM
             $content .= "<th>" . __("Original", "renamer") . "</th>";
             $content .= "<th>" . __("Overload", "renamer") . "</th>";
             $content .= "<th>" . __("User", "renamer") . "</th>";
-            $content .= "<th></th>";
-            $content .= "<th></th>";
+            $content .= "<th>" . __("Delete", "renamer") . "</th>";
+            $content .= "<th>" . __("Update", "renamer") . "</th>";
             $content .= "</tr>";
 
             $user = new User();

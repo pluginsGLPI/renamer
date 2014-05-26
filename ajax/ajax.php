@@ -131,7 +131,7 @@ if (isset($_POST['action'])) {
 
             $DB->query("TRUNCATE TABLE `glpi_plugin_renamer_renamers`", "renamer");
 
-            Session::addMessageAfterRedirect(__("Complete restoration", "renamer"), false, INFO);
+            Session::addMessageAfterRedirect(__("Restoration Complete", "renamer"), false, INFO);
 
             echo true;
 
