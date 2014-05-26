@@ -45,35 +45,29 @@
  * @global array $PLUGIN_HOOKS
  */
 function plugin_init_renamer() {
-   global $PLUGIN_HOOKS;
 
-    
-   $PLUGIN_HOOKS['csrf_compliant']['renamer'] = true;
+    global $PLUGIN_HOOKS;
+
     Plugin::registerClass('PluginRenamerInstall');
-   /*
-   $PLUGIN_HOOKS['change_profile']['mantis'] = array('PluginMantisProfile','changeProfile');
+    Plugin::registerClass('PluginRenamerRenamer');
 
-   $plugin = new Plugin();
 
-   if (Session::getLoginUserID() && $plugin->isActivated('mantis')) {
-      if(plugin_mantis_haveRight("right","w")){
-         $PLUGIN_HOOKS['menu_entry']['mantis']  = 'front/config.form.php';
-         $PLUGIN_HOOKS['config_page']['mantis'] = 'front/config.form.php';
-      }
-   }
+    Plugin::registerClass('PluginRenamerProfile', array('addtabon' => array('Profile')));
 
-   $PLUGIN_HOOKS['add_javascript']['mantis'] = array('scripts/scriptMantis.js.php',
-                                                   'scripts/jquery-1.11.0.min.js');
+    $PLUGIN_HOOKS['csrf_compliant']['renamer'] = true;
+    $PLUGIN_HOOKS['change_profile']['renamer'] = array('PluginRenamerProfile', 'changeProfile');
+    $PLUGIN_HOOKS['add_javascript']['renamer'] = array('scripts/jquery-1.11.0.min.js','scripts/renamer.js');
 
-   Plugin::registerClass('PluginMantisProfile', array('addtabon' => array('Profile')));
 
-   Plugin::registerClass('PluginMantisConfig');
-
-   Plugin::registerClass('PluginMantisMantisws');
-
-   Plugin::registerClass('PluginMantisMantis', array('addtabon' => array('Ticket')));
-*/
+    $plugin = new Plugin();
+    if (Session::getLoginUserID() && $plugin->isActivated('renamer')) {
+        if(plugin_renamer_haveRight("right","w")){
+            $PLUGIN_HOOKS['menu_entry']['renamer']  = 'front/renamer.form.php';
+            $PLUGIN_HOOKS['config_page']['renamer'] = 'front/renamer.form.php';
+        }
+    }
 }
+
 
 /**
  *function to define the version for glpi for plugin
@@ -137,8 +131,9 @@ function plugin_renamer_haveRight($module,$right) {
    "1" => array("1"),
    "0" => array("0","1"), // ne doit pas arriver non plus
    );
-   if (isset($_SESSION["glpi_plugin_mantis_profile"][$module])
-         && in_array($_SESSION["glpi_plugin_mantis_profile"][$module],$matches[$right]))
+
+   if (isset($_SESSION["glpi_plugin_renamer_profile"][$module])
+         && in_array($_SESSION["glpi_plugin_renamer_profile"][$module],$matches[$right]))
       return true;
    else return false;
 }
