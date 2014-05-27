@@ -57,15 +57,15 @@ msgstr "The word '%1$s' is already an overload, please restore this word and try
 
 #: ajax/ajax.php:69
 msgid "Please complete the field 'word'"
-msgstr "Please complete the field 'word'"
+msgstr "Please fill the field 'word'"
 
 #: ajax/ajax.php:71
 msgid "Please complete the field 'language'"
-msgstr "Please complete the field 'language'"
+msgstr "Please fill the field 'language'"
 
 #: ajax/ajax.php:73
 msgid "Please complete the field 'Substitut'"
-msgstr "Please complete the field 'Substitut'"
+msgstr "Please fill the field 'Substitut'"
 
 #: ajax/ajax.php:83
 msgid "The word '%1$s' does not exist."
@@ -73,11 +73,11 @@ msgstr "The word '%1$s' does not exist."
 
 #: ajax/ajax.php:130
 msgid "Restoration Complete"
-msgstr "Restoration Complete"
+msgstr "Restoration Completed"
 
 #: ajax/ajax.php:139
 msgid "Please complete the field 'new Substitut'"
-msgstr "Please complete the field 'new Substitut'"
+msgstr "Please fill the field 'new Substitut'"
 
 #: front/renamer.form.php:68
 msgid "Setup - Renamer"
