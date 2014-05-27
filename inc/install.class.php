@@ -68,7 +68,7 @@ class PluginRenamerInstall extends CommonDBTM
 
                 if ($fichier != '.' && $fichier != '..' && $fichier != '.htaccess') {
                     if (!copy($source_path . $fichier, $destination_path . $fichier)) {
-                        Toolbox::logInFile('renamer', sprintf(__('Error during backup files  %1$s ', 'renamer'), $source_path . $fichier) . "\n");
+                        Toolbox::logInFile('renamer', sprintf(__('Error when saving files  \'%1$s\' ', 'renamer'), $source_path . $fichier) . "\n");
                         return false;
 
                     }
@@ -97,7 +97,7 @@ class PluginRenamerInstall extends CommonDBTM
 
                 if ($fichier != '.' && $fichier != '..' && $fichier != '.htaccess' && $fichier != 'test.txt') {
                     if (!unlink($source_path . $fichier)) {
-                        Toolbox::logInFile('renamer', sprintf(__('Error during deleting backup files  %1$s ', 'renamer'), $source_path . $fichier) . "\n");
+                        Toolbox::logInFile('renamer', sprintf(__('Error while deleting backup file  \'%1$s\' ', 'renamer'), $source_path . $fichier) . "\n");
                         return false;
                     }
                 }
@@ -126,7 +126,7 @@ class PluginRenamerInstall extends CommonDBTM
 
                 if ($fichier != '.' && $fichier != '..' && $fichier != '.htaccess' && $fichier != 'test.txt') {
                     if (!unlink($source_path . $fichier)) {
-                        Toolbox::logInFile('renamer', sprintf(__('Error during cleaning locales glpi files  %1$s ', 'renamer'), $source_path . $fichier) . "\n");
+                        Toolbox::logInFile('renamer', sprintf(__('Error while cleaning local glpi file  \'%1$s\' ', 'renamer'), $source_path . $fichier) . "\n");
                         return false;
                     }
                 }
@@ -157,7 +157,7 @@ class PluginRenamerInstall extends CommonDBTM
 
                 if ($fichier != '.' && $fichier != '..' && $fichier != '.htaccess') {
                     if (!copy($source_path . $fichier, $destination_path . $fichier)) {
-                        Toolbox::logInFile('renamer', sprintf(__('Error during restore locales files  %1$s ', 'renamer'), $source_path . $fichier) . "\n");
+                        Toolbox::logInFile('renamer', sprintf(__('Error during the restoration of local file \'%1$s\' ', 'renamer'), $source_path . $fichier) . "\n");
                         return false;
                     }
                 }

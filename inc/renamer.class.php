@@ -361,7 +361,7 @@ class PluginRenamerRenamer extends CommonDBTM
             $contenuMod = str_replace($line_original, $line_overload, $contenu);
             fclose($text);
         } else {
-            return __("Error when access to the file '" . $file . "' Please give write permission to the 'locales' folder of Glpi", "renamer");
+            return  sprintf(__('Error when access to the file \'%1$s\' Please give write permission to the \'locales\' folder of Glpi', "renamer"),$file);
         }
 
 
@@ -370,7 +370,7 @@ class PluginRenamerRenamer extends CommonDBTM
             fwrite($text2, $contenuMod);
             fclose($text2);
         } else {
-            return __("Error when access to the file '" . $file . "' Please give write permission to the 'locales' folder of Glpi", "renamer");
+            return  sprintf(__('Error when access to the file \'%1$s\' Please give write permission to the \'locales\' folder of Glpi', "renamer"),$file);
         }
 
         if ($this->add($_post) == false) {
@@ -378,7 +378,7 @@ class PluginRenamerRenamer extends CommonDBTM
         }
 
         shell_exec("sh ../tools/update.sh");
-        Session::addMessageAfterRedirect("'" . __($this->fields['original'] . "' replace by '" . $this->fields['overload'] . "'", "renamer"), false, INFO);
+        Session::addMessageAfterRedirect(sprintf( __('\'%1$s\' replaced by \'%2$s\'', "renamer"),$this->fields['original'],$this->fields['overload'] ), false, INFO);
         return true;
 
     }
@@ -411,7 +411,7 @@ class PluginRenamerRenamer extends CommonDBTM
             $contenuMod = str_replace($line_original, $line_overload, $contenu);
             fclose($text);
         } else {
-            Session::addMessageAfterRedirect(__("Error when access to the file '" . $file_patch . "'", "renamer"), false, ERROR);
+            Session::addMessageAfterRedirect(sprintf(__('Error when access to the file \'%1$s\'', "renamer"),$file_patch), false, ERROR);
             return false;
         }
 
@@ -420,7 +420,7 @@ class PluginRenamerRenamer extends CommonDBTM
             fwrite($text2, $contenuMod);
             fclose($text2);
         } else {
-            Session::addMessageAfterRedirect(__("Error when access to the file  '" . $file_patch . "'", "renamer"), false, ERROR);
+            Session::addMessageAfterRedirect(sprintf(__('Error when access to the file \'%1$s\'', "renamer"),$file_patch), false, ERROR);
             return false;
         }
 
@@ -430,7 +430,7 @@ class PluginRenamerRenamer extends CommonDBTM
         }
 
         shell_exec("sh ../tools/update.sh");
-        Session::addMessageAfterRedirect("'" . __($this->fields['overload'] . "' replace by '" . $this->fields['original'] . "'", "renamer"), false, INFO);
+        Session::addMessageAfterRedirect(sprintf( __('\'%1$s\' replaced by \'%2$s\'', "renamer"),$this->fields['overload'],$this->fields['original']), false, INFO);
         return true;
 
     }
@@ -476,7 +476,7 @@ class PluginRenamerRenamer extends CommonDBTM
             $contenuMod = str_replace($line_original, $line_overload, $contenu);
             fclose($text);
         } else {
-            return __("Error when access to the file '" . $file . "' Please give write permission to the 'locales' folder of Glpi", "renamer");
+           return sprintf(__('Error when access to the file \'%1$s\' Please give write permission to the \'locales\' folder of Glpi', "renamer"),$file);
         }
 
         $text2 = fopen($file_patch, 'w+');
@@ -484,7 +484,7 @@ class PluginRenamerRenamer extends CommonDBTM
             fwrite($text2, $contenuMod);
             fclose($text2);
         } else {
-            return __("Error when access to the file '" . $file . "' Please give write permission to the 'locales' folder of Glpi", "renamer");
+            return  sprintf(__('Error when access to the file \'%1$s\' Please give write permission to the \'locales\' folder of Glpi', "renamer"),$file);
         }
 
         $old_world = $this->fields['overload'];
@@ -495,7 +495,7 @@ class PluginRenamerRenamer extends CommonDBTM
         }
 
         shell_exec("sh ../tools/update.sh");
-        Session::addMessageAfterRedirect("'" . __($old_world . "' update by '" . $new_word . "'", "renamer"), false, INFO);
+        Session::addMessageAfterRedirect(sprintf( __('\'%1$s\' updated by \'%2$s\'', "renamer"),$old_world,$new_word), false, INFO);
         return true;
 
     }

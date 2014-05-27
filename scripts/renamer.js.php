@@ -1,5 +1,4 @@
 <?php
-
 /*
 ------------------------------------------------------------------------
 GLPI Plugin MantisBT
@@ -46,6 +45,8 @@ $root_ajax = $CFG_GLPI['root_doc']."/plugins/renamer/ajax/ajax.php";
 
 $JS = <<<JAVASCRIPT
 
+
+//Function to search word in locale file
 function searchOriginalWord(){
 
     var word = $("#original").val();
@@ -72,7 +73,6 @@ function searchOriginalWord(){
             }else{
                 img_wait.css('display', 'none');
                 div_info2.append(msg);
-
             }
 
         },
@@ -82,13 +82,12 @@ function searchOriginalWord(){
             div_info.append("Ajax problem !");
 
         }
-
     });
     return false; // permet de rester sur la même page à la soumission du formulaire
-
 }
 
 
+//function to overload a word
 function overloadWord(){
 
     var word = $("#original").val();
@@ -99,7 +98,6 @@ function overloadWord(){
 
     var img_wait = $("#wait");
     var div_info = $("#infoOverloadWord");
-
 
     img_wait.css('display', 'block');
     div_info.empty();
@@ -127,7 +125,6 @@ function overloadWord(){
 
         },
         error: function () {
-
             img_wait.css('display', 'none');
             div_info.append("Ajax problem !");
             return false;
@@ -137,6 +134,7 @@ function overloadWord(){
 }
 
 
+//Function to restore all locales files
 function restoreLocaleFiles(){
 
     $.ajax({ // fonction permettant de faire de l'ajax
@@ -149,13 +147,14 @@ function restoreLocaleFiles(){
 
         },
         error: function () {
-
             alert("Ajax problem");
         }
 
     });
 }
 
+
+//Function to restore an overload word
 function restoreWord(id){
 
     $.ajax({ // fonction permettant de faire de l'ajax
@@ -169,14 +168,12 @@ function restoreWord(id){
 
         },
         error: function () {
-
             alert("Ajax problem");
         }
-
     });
 }
 
-
+//Function to update an overload word
 function updateOverloadWord(id , input){
 
     var img_wait = $("#waitUpdateOverload");
@@ -196,22 +193,15 @@ function updateOverloadWord(id , input){
         success: function (msg) { // si l'appel a bien fonctionné
 
             if (msg ) {
-
                 eval(popupName).hide();
                 window.location.reload();
-
             }else {
-
                 img_wait.css('display', 'none');
                 div_info.append(msg);
-
             }
-
-
 
         },
         error: function () {
-
             alert("Ajax problem");
         }
 

@@ -51,23 +51,23 @@ function plugin_renamer_install() {
 
 
     if(!PluginRenamerInstall::checkRightAccessOnGlpiLocalesFiles()){
-        Session::addMessageAfterRedirect(__("Please give write permission to the 'locales' folder of Glpi"), false, ERROR);
+        Session::addMessageAfterRedirect(__("Please give write permission to the 'locales' folder of Glpi" , "renamer"), false, ERROR);
         return false;
     }
 
     if(!PluginRenamerInstall::checkRightAccesOnRenamerPlugin()){
-        Session::addMessageAfterRedirect(__("Please give write permission to the plugin Renamer"), false, ERROR);
+        Session::addMessageAfterRedirect(__("Please give write permission to the plugin Renamer", "renamer"), false, ERROR);
         return false;
     }
 
 
     if(!PluginRenamerInstall::cleanBackupFolder()){
-        Session::addMessageAfterRedirect(__("Error while cleaning backup folder"), false, ERROR);
+        Session::addMessageAfterRedirect(__("Error while cleaning backup folder", "renamer"), false, ERROR);
         return false;
     }
 
     if(!PluginRenamerInstall::backupLocaleFiles()){
-        Session::addMessageAfterRedirect(__("Error while backup glpi locale files"), false, ERROR);
+        Session::addMessageAfterRedirect(__("Error while backup glpi locale files", "renamer"), false, ERROR);
         return false;
     }
 
@@ -127,17 +127,17 @@ function plugin_renamer_uninstall() {
 
 
     if(!PluginRenamerInstall::cleanLocalesFilesOfGlpi()){
-        Session::addMessageAfterRedirect(__("Error while cleaning glpi locale files"), false, ERROR);
+        Session::addMessageAfterRedirect(__("Error while cleaning glpi locale files", "renamer"), false, ERROR);
         return false;
     }
 
     if(!PluginRenamerInstall::restoreLocalesFielsOfGlpi()){
-        Session::addMessageAfterRedirect(__("Error while restore glpi locale files"), false, ERROR);
+        Session::addMessageAfterRedirect(__("Error while restore glpi locale files", "renamer"), false, ERROR);
         return false;
     }
 
     if(!PluginRenamerInstall::cleanBackupFolder()){
-        Session::addMessageAfterRedirect(__("Error while cling backup folder"), false, ERROR);
+        Session::addMessageAfterRedirect(__("Error while cling backup folder", "renamer"), false, ERROR);
         return false;
     }
 
