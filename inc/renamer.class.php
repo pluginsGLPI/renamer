@@ -377,7 +377,10 @@ class PluginRenamerRenamer extends CommonDBTM
             return __("Error when adding history in the database", "renamer");
         }
 
-        shell_exec("sh ../tools/update.sh");
+        // Convert XXX.po to XXX.mo
+        require($_SERVER['DOCUMENT_ROOT'].$CFG_GLPI["root_doc"].'/plugins/renamer/lib/php-mo.php');
+        @phpmo_convert($file_patch,substr($file_patch,0,-3).".mo");
+
         Session::addMessageAfterRedirect(sprintf( __('\'%1$s\' replaced by \'%2$s\'', "renamer"),$this->fields['original'],$this->fields['overload'] ), false, INFO);
         return true;
 
@@ -429,7 +432,10 @@ class PluginRenamerRenamer extends CommonDBTM
             return false;
         }
 
-        shell_exec("sh ../tools/update.sh");
+        // Convert XXX.po to XXX.mo
+        require($_SERVER['DOCUMENT_ROOT'].$CFG_GLPI["root_doc"].'/plugins/renamer/lib/php-mo.php');
+        @phpmo_convert($file_patch,substr($file_patch,0,-3).".mo");
+        
         Session::addMessageAfterRedirect(sprintf( __('\'%1$s\' replaced by \'%2$s\'', "renamer"),$this->fields['overload'],$this->fields['original']), false, INFO);
         return true;
 
