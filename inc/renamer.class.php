@@ -612,7 +612,11 @@ class PluginRenamerRenamer extends CommonDBTM
 
     }
 
-
+    /**
+     * function to update translation
+     * $file_patch -> file to update
+     * @param $file_patch
+     */
     public function updateTranslation($file_patch){
         // Convert XXX.po to XXX.mo
         global $CFG_GLPI;
