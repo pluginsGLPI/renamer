@@ -237,8 +237,6 @@ class PluginRenamerRenamer extends CommonDBTM
 
     function showFormToOverloadLanguage(){
 
-        $this->searchWord("config","Français");
-
         global $CFG_GLPI;
 
         $content = "<form action='#' >";
