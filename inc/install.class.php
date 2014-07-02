@@ -10,7 +10,7 @@ class PluginRenamerInstall extends CommonDBTM
     static function checkRightAccessOnGlpiLocalesFiles()
     {
         global $CFG_GLPI;
-        $locale_path = $_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . "/locales/";
+        $locale_path = GLPI_ROOT . "/locales/";
 
         if ($dossier = opendir($locale_path)) {
 
@@ -35,7 +35,7 @@ class PluginRenamerInstall extends CommonDBTM
     static function checkRightAccesOnRenamerPlugin()
     {
         global $CFG_GLPI;
-        $locale_path = $_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . "/plugins/renamer/backup/";
+        $locale_path = GLPI_ROOT. "/plugins/renamer/backup/";
 
         if ($dossier = opendir($locale_path)) {
 
@@ -59,8 +59,8 @@ class PluginRenamerInstall extends CommonDBTM
     static function backupLocaleFiles()
     {
         global $CFG_GLPI;
-        $source_path = $_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . "/locales/";
-        $destination_path = $_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . "/plugins/renamer/backup/";
+        $source_path = GLPI_ROOT . "/locales/";
+        $destination_path = GLPI_ROOT . "/plugins/renamer/backup/";
 
         if ($dossier = opendir($source_path)) {
 
@@ -89,7 +89,7 @@ class PluginRenamerInstall extends CommonDBTM
     static function cleanBackupFolder()
     {
         global $CFG_GLPI;
-        $source_path = $_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . "/plugins/renamer/backup/";
+        $source_path = GLPI_ROOT . "/plugins/renamer/backup/";
 
         if ($dossier = opendir($source_path)) {
 
@@ -118,7 +118,7 @@ class PluginRenamerInstall extends CommonDBTM
     static function cleanLocalesFilesOfGlpi()
     {
         global $CFG_GLPI;
-        $source_path = $_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . "/locales/";
+        $source_path = GLPI_ROOT. "/locales/";
 
         if ($dossier = opendir($source_path)) {
 
@@ -148,8 +148,8 @@ class PluginRenamerInstall extends CommonDBTM
     {
         global $CFG_GLPI;
 
-        $destination_path = $_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . "/locales/";
-        $source_path = $_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . "/plugins/renamer/backup/";
+        $destination_path = GLPI_ROOT . "/locales/";
+        $source_path = GLPI_ROOT . "/plugins/renamer/backup/";
 
         if ($dossier = opendir($source_path)) {
 
