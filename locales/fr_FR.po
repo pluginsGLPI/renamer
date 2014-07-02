@@ -18,7 +18,7 @@ msgstr ""
 
 #: hook.php:54 ajax/ajax.php:90 ajax/ajax.php:105 ajax/ajax.php:114
 msgid "Please give write permission to the 'locales' folder of Glpi"
-msgstr "Veuillez donner les droit d'écriture sur le repèrtoire 'locales' de Glpi."
+msgstr "Veuillez donner les droits d'écriture sur le répertoire 'locales' de Glpi."
 
 #: hook.php:59
 msgid "Please give write permission to the plugin Renamer"
@@ -73,7 +73,7 @@ msgstr "Le mot '%1$s' n'éxiste pas."
 
 #: ajax/ajax.php:130
 msgid "Restoration Complete"
-msgstr "Restauration des fichiers de langues effectué avec succés."
+msgstr "Restauration des fichiers de langues effectué avec succès."
 
 #: ajax/ajax.php:139
 msgid "Please complete the field 'new Substitut'"
@@ -100,7 +100,7 @@ msgstr "Erreur lors de la supression du fichier de sauvegarde '%1$s' ."
 #: inc/install.class.php:129
 #, php-format
 msgid "Error while cleaning local glpi file  '%1$s' "
-msgstr "Erreur lors du nettoyage du fichier local '%1$s' de Glpi. "
+msgstr "Erreur lors du nettoyage du fichier de locales '%1$s' de Glpi. "
 
 #: inc/install.class.php:160
 #, php-format
@@ -191,7 +191,7 @@ msgstr "Nouveau Mot"
 msgid ""
 "Error when access to the file '%1$s' Please give write permission to the "
 "'locales' folder of Glpi"
-msgstr "Erreur lors del'acces au fichier '%1$s', Veuillez donner les droit d'écriture sur le repèrtoire 'locales' de Glpi."
+msgstr "Erreur lors de l'accès au fichier '%1$s', Veuillez donner les droits d'écriture sur le repèrtoire 'locales' de Glpi."
 
 #: inc/renamer.class.php:377
 msgid "Error when adding history in the database"
@@ -205,7 +205,7 @@ msgstr "'%1$s' remplacer par '%2$s'"
 #: inc/renamer.class.php:414 inc/renamer.class.php:423
 #, php-format
 msgid "Error when access to the file '%1$s'"
-msgstr "Erreur lors de l'acces au fichier '%1$s'."
+msgstr "Erreur lors de l'accès au fichier '%1$s'."
 
 #: inc/renamer.class.php:428
 msgid "Error when deleting history in the database"
