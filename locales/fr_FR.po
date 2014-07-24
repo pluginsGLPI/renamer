@@ -69,7 +69,7 @@ msgstr "Veuillez renseigner le champs 'Nouveau mot' ."
 
 #: ajax/ajax.php:83
 msgid "The word '%1$s' does not exist."
-msgstr "Le mot '%1$s' n'éxiste pas."
+msgstr "Le mot  \"%1$s\" n'éxiste pas."
 
 #: ajax/ajax.php:130
 msgid "Restoration Complete"
@@ -200,7 +200,7 @@ msgstr "Erreur lors de la création de l'historique"
 #: inc/renamer.class.php:381 inc/renamer.class.php:433
 #, php-format
 msgid "'%1$s' replaced by '%2$s'"
-msgstr "'%1$s' remplacer par '%2$s'"
+msgstr "'%1$s' remplacé par '%2$s'"
 
 #: inc/renamer.class.php:414 inc/renamer.class.php:423
 #, php-format
