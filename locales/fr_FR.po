@@ -130,7 +130,7 @@ msgstr "Original"
 
 #: inc/renamer.class.php:85 inc/renamer.class.php:282
 msgid "Overload"
-msgstr "Surcharger"
+msgstr "Surcharge"
 
 #: inc/renamer.class.php:86
 msgid "User"

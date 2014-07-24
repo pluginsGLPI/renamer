@@ -134,7 +134,7 @@ msgstr "Overload"
 
 #: inc/renamer.class.php:86
 msgid "User"
-msgstr "USer"
+msgstr "User"
 
 #: inc/renamer.class.php:87
 msgid "Delete"
