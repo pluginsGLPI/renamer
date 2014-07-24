@@ -343,7 +343,7 @@ class PluginRenamerRenamer extends CommonDBTM
         global $CFG_GLPI;
 
         $lang = $_post['lang'];
-        $original = $_post['original'];
+        $original = stripslashes($_post['original']);
         $overload = $_post['overload'];
 
         $file = $this->getLanguageFile($lang);
@@ -377,7 +377,7 @@ class PluginRenamerRenamer extends CommonDBTM
 
         $this->updateTranslation($file_patch);
 
-        Session::addMessageAfterRedirect(sprintf( __('\'%1$s\' replaced by \'%2$s\'', "renamer"),$this->fields['original'],$this->fields['overload'] ), false, INFO);
+        Session::addMessageAfterRedirect(sprintf( __('\'%1$s\' replaced by \'%2$s\'', "renamer"),$original,$overload ), false, INFO);
         return true;
 
     }
@@ -583,6 +583,7 @@ class PluginRenamerRenamer extends CommonDBTM
     {
 
         global $CFG_GLPI;
+
 
         $file = $this->getLanguageFile($lang);
         $file_patch = $_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . "/locales/" . $file;

@@ -74,13 +74,14 @@ if (isset($_POST['action'])) {
             }else{
 
                 $renamer = new PluginRenamerRenamer();
+                $word = stripslashes($_POST['original']);
 
                 if ($renamer->isAlreadyOverload($_POST)){
-                    echo  sprintf(__('The word \'%1$s\' is already an overload, please restore this word and try again', "renamer"),$_POST['original']);
+                    echo  sprintf(__('The word \'%1$s\' is already an overload, please restore this word and try again', "renamer"),$word);
                 }else{
-                    $res = $renamer->searchWord($_POST['original'] , $_POST['lang']);
+                    $res = $renamer->searchWord($word , $_POST['lang']);
 
-                    if (!$res)  echo sprintf(__('The word \'%1$s\' does not exist.',"renamer"),$_POST['original']);
+                    if (!$res)  echo sprintf(__('The word \'%1$s\' does not exist.',"renamer"),$word);
                     else {
 
                         if(PluginRenamerInstall::checkRightAccessOnGlpiLocalesFiles()){
