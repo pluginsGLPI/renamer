@@ -116,6 +116,7 @@ class PluginRenamerRenamer extends CommonDBTM
                 $content .= "</tr>";
 
             }
+            $content .= "</table>";
 
         } else {
             $content = "";
