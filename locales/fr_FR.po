@@ -183,7 +183,7 @@ msgstr "Substitut"
 
 #: inc/renamer.class.php:208
 msgid "New substitut"
-msgstr "Nouveau Mot"
+msgstr "Nouveau substitut"
 
 #: inc/renamer.class.php:364 inc/renamer.class.php:373
 #: inc/renamer.class.php:479 inc/renamer.class.php:487
