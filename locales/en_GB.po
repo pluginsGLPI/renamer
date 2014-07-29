@@ -167,7 +167,7 @@ msgstr "Overload language"
 
 #: inc/renamer.class.php:167
 msgid "Restore Language"
-msgstr "Restore Language"
+msgstr "Restore all string overload"
 
 #: inc/renamer.class.php:184
 msgid "Update overload Language"

@@ -167,7 +167,7 @@ msgstr "Surcharger une langue"
 
 #: inc/renamer.class.php:167
 msgid "Restore Language"
-msgstr "Restaurer les langues"
+msgstr "Restaurer toutes les chaines surchargées"
 
 #: inc/renamer.class.php:184
 msgid "Update overload Language"
