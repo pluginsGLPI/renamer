@@ -72,6 +72,7 @@ class PluginRenamerProfile extends CommonDBTM {
 
     }
 
+
     function showForm($id, $options=array()) {
 
         $target = $this->getFormURL();
