@@ -170,6 +170,61 @@ class PluginRenamerInstall extends CommonDBTM
         return true;
     }
 
+    public static function cleanLocalesFileOfGlpi($file)
+    {
+
+        global $CFG_GLPI;
+        $source_path = GLPI_ROOT. "/locales/";
+
+        if ($dossier = opendir($source_path)) {
+
+            while (false !== ($fichier = readdir($dossier))) {
+
+                if ($fichier != '.' && $fichier != '..' && $fichier != '.htaccess' && $fichier != 'test.txt' && $fichier == $file) {
+                    if (!unlink($source_path . $fichier)) {
+                        Toolbox::logInFile('renamer', sprintf(__('Error while cleaning local glpi file  \'%1$s\' ', 'renamer'), $source_path . $fichier) . "\n");
+                        return false;
+                    }
+                }
+            }
+
+        } else {
+            return false;
+        }
+
+        return true;
+
+
+    }
+
+    public static function restoreLocalesFielOfGlpi($file)
+    {
+
+        global $CFG_GLPI;
+
+        $destination_path = GLPI_ROOT . "/locales/";
+        $source_path = GLPI_ROOT . "/plugins/renamer/backup/";
+
+        if ($dossier = opendir($source_path)) {
+
+            while (false !== ($fichier = readdir($dossier))) {
+
+                if ($fichier != '.' && $fichier != '..' && $fichier != '.htaccess' && $fichier == $file) {
+                    if (!copy($source_path . $fichier, $destination_path . $fichier)) {
+                        Toolbox::logInFile('renamer', sprintf(__('Error during the restoration of local file \'%1$s\' ', 'renamer'), $source_path . $fichier) . "\n");
+                        return false;
+                    }
+                }
+            }
+
+        } else {
+            return false;
+        }
+
+        return true;
+
+    }
+
 }
 
 ?>
