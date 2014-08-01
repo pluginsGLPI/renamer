@@ -42,114 +42,205 @@ include ('../../../inc/includes.php');
 global $CFG_GLPI;
 
 $root_ajax = $CFG_GLPI['root_doc']."/plugins/renamer/ajax/ajax.php";
+$info = __('Thank you to inform the field','renamer');
 
 $JS = <<<JAVASCRIPT
 
+function restoreLocaleFiles(){
 
-//Function to search word in locale file
-function searchOriginalWord(){
+ var lang = $("#dropdown_language").find(":selected").text();
 
-    var word = $("#original").val();
-    var img_wait = $("#wait");
-    var div_info = $("#infoSearchWord");
-    var lang = $("#dropdown_language").find(":selected").text();;
-    var div_info2 = $("#infoOverloadWord");
+ $.ajax({ // fonction permettant de faire de l'ajax
+                type: "POST", // methode de transmission des données au fichier php
+                url: "{$root_ajax}", // url du fichier php
+                data: "action=restoreALanguage&" +
+                    "lang=" + lang , // données à transmettre
 
-    img_wait.css('display', 'block');
-    div_info.empty();
-    div_info2.empty();
+                success: function (msg) { // si l'appel a bien fonctionné
 
-    $.ajax({ // fonction permettant de faire de l'ajax
-        type: "POST", // methode de transmission des données au fichier php
-        url: "{$root_ajax}", // url du fichier php
-        data: "action=searchOriginalWord&" +
-            "original=" + word +"&" +
-            "lang=" + lang, // données à transmettre
-        success: function (msg) { // si l'appel a bien fonctionné
+                     window.location.reload();
 
-            if (msg.indexOf('check') != -1 || msg.indexOf('cross') != -1) {
-                img_wait.css('display', 'none');
-                div_info.append(msg);
-            }else{
-                img_wait.css('display', 'none');
-                div_info2.append(msg);
-            }
+                },
+                error: function () {
 
-        },
-        error: function () {
+                }
+            });
+            return false; // permet de rester sur la même page à la soumission du formulaire
 
-            img_wait.css('display', 'none');
-            div_info.append("Ajax problem !");
-
-        }
-    });
-    return false; // permet de rester sur la même page à la soumission du formulaire
 }
 
 
-//function to overload a word
-function overloadWord(){
 
-    var word = $("#original").val();
-    var lang = $("#dropdown_language").find(":selected").text();
-    var overload = $("#overload").val();
-    var userid = $("#users_id").val();
-    var date = $("#date_overload").val();
+function updateOverload(id){
 
-    var img_wait = $("#wait");
-    var div_info = $("#infoOverloadWord");
+    var input = $('#updateWord' + id);
+    var newWord = $('#updateWord' + id).val();
+    var id = id;
+    var img = $("#waitLoadingOnUpdate");
 
-    img_wait.css('display', 'block');
-    div_info.empty();
+    if(newWord.length == 0 || newWord == ' '){
+
+        input.css('border-color','red');
+        alert('Veuillez renseigner le nouveau mot');
+
+    }else{
+img.css('display', 'block');
+        input.css('border-color','#888888');
+        $.ajax({ // fonction permettant de faire de l'ajax
+                type: "POST", // methode de transmission des données au fichier php
+                url: "{$root_ajax}", // url du fichier php
+                data: "action=updateOverload&" +
+                    "newWord=" + newWord +"&" +
+                    "id=" + id , // données à transmettre
+
+                success: function (msg) { // si l'appel a bien fonctionné
+
+                     window.location.reload();
+
+                },
+                error: function () {
+
+                }
+            });
+            return false; // permet de rester sur la même page à la soumission du formulaire
+
+    }
+
+
+}
+
+
+jQuery(document).ready(function()
+{
+    var currentRequest = null;
+    jQuery('#searchword').keyup(function()
+    {
+
+        var table = $("#tableOverloadWord");
+        var word = $("#searchword").val();
+        var lang = $("#dropdown_language").find(":selected").text();
+        var img = $("#waitLoading");
+        img.css('display', 'block');
+
+        currentRequest = jQuery.ajax(
+            {
+                type: "POST", // methode de transmission des données au fichier php
+                url: "{$root_ajax}", // url du fichier php
+                data: "action=getWords&" +
+                    "word=" + word +"&" +
+                    "lang=" + lang, // données à transmettre
+                beforeSend : function() {
+                   if(currentRequest != null){
+                        currentRequest.abort();
+                   }
+                },
+                success: function (msg) { // si l'appel a bien fonctionné
+                    $("#tbody").children().remove();
+                    $("#tbody").append(msg);
+                    img.css('display', 'none');
+                },
+                error: function (request, status, error) {
+                       if(error == 'abort'){
+                       }else{
+                       alert(error);
+                       }
+
+                }
+            });
+    });
+});
+
+function overloadWord(index){
+
+    var newWord = $('#newWord' + index).val();
+    var lang = $("#dropdown_language").find(":selected").text();;
+    var id =  $('#msgid' + index).val();
+    var wordToOverload =  $('#msgstr' + index).val();
+    var divInfo = $('#info' + index);
+    var img = $('#waitLoadingOverload'+index);
+
+img.css('display', 'block');
+    divInfo.empty();
 
     $.ajax({ // fonction permettant de faire de l'ajax
         type: "POST", // methode de transmission des données au fichier php
         url: "{$root_ajax}", // url du fichier php
         data: "action=overloadWord&" +
-            "original=" + word +"&" +
-            "lang=" + lang+"&" +
-            "overload=" + overload+"&" +
-            "users_id=" + userid+"&" +
-            "date_overload=" + date, // données à transmettre
+            "word=" + newWord +"&" +
+            "id=" + id +"&" +
+            "wordToOverload=" + wordToOverload +"&" +
+            "lang=" + lang, // données à transmettre
+
         success: function (msg) { // si l'appel a bien fonctionné
-
-            img_wait.css('display', 'none');
-
-            if (msg == true) {
-                popupOverloadLanguage.hide();
-                window.location.reload();
-            }else{
-                div_info.append(msg);
-                return false;
-            }
+img.css('display', 'none');
+        divInfo.html(msg);
 
         },
-        error: function () {
-            img_wait.css('display', 'none');
-            div_info.append("Ajax problem !");
-            return false;
-        }
 
+        error: function () {
+img.css('display', 'none');
+        }
     });
+    return false; // permet de rester sur la même page à la soumission du formulaire
+
+
 }
 
 
+function findWord(){
+
+var table = $("#tableOverloadWord");
+var word = $("#word").val();
+var lang = $("#dropdown_language").find(":selected").text();
+var xhr = null ;  //notre appel ajax
+
+xhr = $.ajax({ // fonction permettant de faire de l'ajax
+        type: "POST", // methode de transmission des données au fichier php
+        url: "{$root_ajax}", // url du fichier php
+        data: "action=getWords&" +
+            "word=" + word +"&" +
+            "lang=" + lang, // données à transmettre
+        beforeSend : function()    {
+            if(xhr != null) { //kill de l'appel ajax car mutliple
+                alert("abort");
+                 xhr.abort();
+            }
+        },
+        success: function (msg) { // si l'appel a bien fonctionné
+
+
+                $("#tbody").children().remove();
+                $("#tbody").append(msg);
+
+
+
+
+
+        },
+        error: function () {
+            alert('pb ajax');
+        }
+    });
+    return false; // permet de rester sur la même page à la soumission du formulaire
+
+}
+
+
+
+
 //Function to restore all locales files
-function restoreLocaleFiles(){
+function restoreAllLocaleFiles(){
 
     $.ajax({ // fonction permettant de faire de l'ajax
         type: "POST", // methode de transmission des données au fichier php
         url: "{$root_ajax}", // url du fichier php
         data: "action=restore", // données à transmettre
         success: function (msg) { // si l'appel a bien fonctionné
-
             window.location.reload();
-
         },
         error: function () {
             alert("Ajax problem");
         }
-
     });
 }
 
@@ -173,40 +264,6 @@ function restoreWord(id){
     });
 }
 
-//Function to update an overload word
-function updateOverloadWord(id , input){
-
-    var img_wait = $("#waitUpdateOverload");
-    var div_info = $("#infoUpdateOverloadWord");
-    var popupName = "popupToUpdate" + id;
-    var new_word = $("#newoverload"+id).val();
-
-    img_wait.css('display', 'block');
-    div_info.empty();
-
-    $.ajax({ // fonction permettant de faire de l'ajax
-        type: "POST", // methode de transmission des données au fichier php
-        url: "{$root_ajax}", // url du fichier php
-        data: "action=updateWord&"+
-            "id=" + id+"&"+
-        "new_word=" + new_word, // données à transmettre
-        success: function (msg) { // si l'appel a bien fonctionné
-
-            if (msg ) {
-                eval(popupName).hide();
-                window.location.reload();
-            }else {
-                img_wait.css('display', 'none');
-                div_info.append(msg);
-            }
-
-        },
-        error: function () {
-            alert("Ajax problem");
-        }
-
-    });
-}
 
 JAVASCRIPT;
 

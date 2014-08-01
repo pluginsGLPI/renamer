@@ -91,6 +91,7 @@ function plugin_renamer_install() {
 
         $query = "CREATE TABLE `glpi_plugin_renamer_renamers` (
                `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+               `msgid` VARCHAR(500) NOT NULL,
                `lang` VARCHAR(45) NOT NULL,
                `overload` VARCHAR(255) NOT NULL,
                `original` VARCHAR(255) NOT NULL,
@@ -137,7 +138,7 @@ function plugin_renamer_uninstall() {
     }
 
     if(!PluginRenamerInstall::cleanBackupFolder()){
-        Session::addMessageAfterRedirect(__("Error while cling backup folder", "renamer"), false, ERROR);
+        Session::addMessageAfterRedirect(__("Error while cleaning backup folder", "renamer"), false, ERROR);
         return false;
     }
 
