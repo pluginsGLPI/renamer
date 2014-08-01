@@ -6,17 +6,19 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0\n"
-"Report-Msgid-Bugs-To: skita@teclib.com\n"
-"POT-Creation-Date: 2014-05-27 14:31+0100\n"
-"PO-Revision-Date: 2014-05-27 14:31+0100\n"
-"Last-Translator: Stanislas Kita <teclib.com>\n"
-"Language-Team: TECLIB <teclib.com>\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-01 11:54+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: hook.php:54 ajax/ajax.php:90 ajax/ajax.php:105 ajax/ajax.php:114
+#: hook.php:54 ajax/ajax.php:85 ajax/ajax.php:169 ajax/ajax.php:372
+#: ajax/ajax.php:384 ajax/ajax.php:430
 msgid "Please give write permission to the 'locales' folder of Glpi"
 msgstr ""
 
@@ -32,15 +34,15 @@ msgstr ""
 msgid "Error while backup glpi locale files"
 msgstr ""
 
-#: hook.php:130 ajax/ajax.php:119
+#: hook.php:131 ajax/ajax.php:66 ajax/ajax.php:390
 msgid "Error while cleaning glpi locale files"
 msgstr ""
 
-#: hook.php:135 ajax/ajax.php:124
+#: hook.php:136 ajax/ajax.php:72 ajax/ajax.php:396
 msgid "Error while restore glpi locale files"
 msgstr ""
 
-#: hook.php:140
+#: hook.php:141
 msgid "Error while cling backup folder"
 msgstr ""
 
@@ -48,36 +50,40 @@ msgstr ""
 msgid "Renamer"
 msgstr ""
 
-#: ajax/ajax.php:54 ajax/ajax.php:79
-#, php-format
-msgid ""
-"The word '%1$s' is already an overload, please restore this word and try "
-"again"
-msgstr ""
-
-#: ajax/ajax.php:69
-msgid "Please complete the field 'word'"
-msgstr ""
-
-#: ajax/ajax.php:71
-msgid "Please complete the field 'language'"
-msgstr ""
-
-#: ajax/ajax.php:73
-msgid "Please complete the field 'Substitut'"
-msgstr ""
-
-#: ajax/ajax.php:83
-#, php-format
-msgid "The word '%1$s' does not exist."
-msgstr ""
-
-#: ajax/ajax.php:130
+#: ajax/ajax.php:78 ajax/ajax.php:402
 msgid "Restoration Complete"
 msgstr ""
 
-#: ajax/ajax.php:139
-msgid "Please complete the field 'new Substitut'"
+#: ajax/ajax.php:151 ajax/ajax.php:357
+#, php-format
+msgid "'%1$s' replaced by '%2$s'"
+msgstr ""
+
+#: ajax/ajax.php:159 ajax/ajax.php:293
+#, php-format
+msgid "Can't access to file '%1$s'"
+msgstr ""
+
+#: ajax/ajax.php:164 ajax/ajax.php:297 ajax/ajax.php:367
+#: inc/renamer.class.php:322
+#, php-format
+msgid "Can't save file  '%1$s' in tmp folder"
+msgstr ""
+
+#: ajax/ajax.php:231
+msgid "This Word is already overload "
+msgstr ""
+
+#: ajax/ajax.php:362
+msgid "Can't access to file "
+msgstr ""
+
+#: ajax/ajax.php:536
+msgid "No"
+msgstr ""
+
+#: ajax/ajax.php:547 inc/renamer.class.php:106 inc/renamer.class.php:148
+msgid "Overload"
 msgstr ""
 
 #: front/renamer.form.php:68
@@ -98,125 +104,113 @@ msgstr ""
 msgid "Error while deleting backup file  '%1$s' "
 msgstr ""
 
-#: inc/install.class.php:129
+#: inc/install.class.php:129 inc/install.class.php:185
 #, php-format
 msgid "Error while cleaning local glpi file  '%1$s' "
 msgstr ""
 
-#: inc/install.class.php:160
+#: inc/install.class.php:160 inc/install.class.php:214
 #, php-format
 msgid "Error during the restoration of local file '%1$s' "
 msgstr ""
 
-#: inc/renamer.class.php:78 inc/renamer.class.php:123
-msgid "History of overload"
-msgstr ""
-
 #: inc/renamer.class.php:81
-msgid "ID"
-msgstr ""
-
-#: inc/renamer.class.php:82
-msgid "Date"
-msgstr ""
-
-#: inc/renamer.class.php:83 inc/renamer.class.php:187
-#: inc/renamer.class.php:249
-msgid "Language"
-msgstr ""
-
-#: inc/renamer.class.php:84
-msgid "Original"
-msgstr ""
-
-#: inc/renamer.class.php:85 inc/renamer.class.php:282
-msgid "Overload"
-msgstr ""
-
-#: inc/renamer.class.php:86
-msgid "User"
-msgstr ""
-
-#: inc/renamer.class.php:87
-msgid "Delete"
-msgstr ""
-
-#: inc/renamer.class.php:88 inc/renamer.class.php:99
-msgid "Update"
-msgstr ""
-
-#: inc/renamer.class.php:112
-msgid "Delete overload"
-msgstr ""
-
-#: inc/renamer.class.php:115 inc/renamer.class.php:217
-msgid "Update Overload"
-msgstr ""
-
-#: inc/renamer.class.php:128
-msgid "No history to show for the moment"
-msgstr ""
-
-#: inc/renamer.class.php:152 inc/renamer.class.php:163
-#: inc/renamer.class.php:246
 msgid "Overload Language"
 msgstr ""
 
-#: inc/renamer.class.php:157
-msgid "Overload language"
+#: inc/renamer.class.php:84 inc/renamer.class.php:146
+msgid "Language"
 msgstr ""
 
-#: inc/renamer.class.php:167
-msgid "Restore Language"
+#: inc/renamer.class.php:85
+msgid "Search Word"
 msgstr ""
 
-#: inc/renamer.class.php:184
-msgid "Update overload Language"
+#: inc/renamer.class.php:101
+msgid "List of words found"
 msgstr ""
 
-#: inc/renamer.class.php:194 inc/renamer.class.php:258
-msgid "Word"
+#: inc/renamer.class.php:103 inc/renamer.class.php:143
+msgid "ID"
 msgstr ""
 
-#: inc/renamer.class.php:201 inc/renamer.class.php:271
-msgid "Substitut"
+#: inc/renamer.class.php:104
+msgid "plural"
 msgstr ""
 
-#: inc/renamer.class.php:208
-msgid "New substitut"
+#: inc/renamer.class.php:105
+msgid "String"
 msgstr ""
 
-#: inc/renamer.class.php:364 inc/renamer.class.php:373
-#: inc/renamer.class.php:479 inc/renamer.class.php:487
+#: inc/renamer.class.php:140 inc/renamer.class.php:189
+msgid "History of overload"
+msgstr ""
+
+#: inc/renamer.class.php:144
+msgid "msgid"
+msgstr ""
+
+#: inc/renamer.class.php:145
+msgid "Date"
+msgstr ""
+
+#: inc/renamer.class.php:147
+msgid "Original"
+msgstr ""
+
+#: inc/renamer.class.php:149
+msgid "User"
+msgstr ""
+
+#: inc/renamer.class.php:150 inc/renamer.class.php:216
+#: inc/renamer.class.php:230 inc/renamer.class.php:239
+msgid "Restore"
+msgstr ""
+
+#: inc/renamer.class.php:151
+msgid "Update"
+msgstr ""
+
+#: inc/renamer.class.php:172
+msgid "Delete overload"
+msgstr ""
+
+#: inc/renamer.class.php:176
+msgid "Update overload"
+msgstr ""
+
+#: inc/renamer.class.php:194
+msgid "No history to show for the moment"
+msgstr ""
+
+#: inc/renamer.class.php:221
+msgid "Restore all languages"
+msgstr ""
+
+#: inc/renamer.class.php:222
+msgid "Restore a language "
+msgstr ""
+
+#: inc/renamer.class.php:339
 #, php-format
-msgid ""
-"Error when access to the file '%1$s' Please give write permission to the "
-"'locales' folder of Glpi"
+msgid "Can't remove file  '%1$s' in tmp folder"
 msgstr ""
 
-#: inc/renamer.class.php:377
-msgid "Error when adding history in the database"
-msgstr ""
-
-#: inc/renamer.class.php:381 inc/renamer.class.php:433
+#: inc/renamer.class.php:359
 #, php-format
-msgid "'%1$s' replaced by '%2$s'"
+msgid "Can't restore file  '%1$s' in locale folder of Glpi"
 msgstr ""
 
-#: inc/renamer.class.php:414 inc/renamer.class.php:423
+#: inc/renamer.class.php:380
 #, php-format
-msgid "Error when access to the file '%1$s'"
+msgid "Can't remove file  '%1$s' in locale folder of Glpi"
 msgstr ""
 
-#: inc/renamer.class.php:428
-msgid "Error when deleting history in the database"
-msgstr ""
-
-#: inc/renamer.class.php:494
-msgid "Error when updating history in the database"
-msgstr ""
-
-#: inc/renamer.class.php:498
+#: lib/PoParser.php:576
 #, php-format
-msgid "'%1$s' updated by '%2$s'"
+msgid "Impossible d'accéder au fichier  '%1$s' "
+msgstr ""
+
+#: scripts/renamer.js.php:45
+msgid "Thank you to inform the field"
 msgstr ""
