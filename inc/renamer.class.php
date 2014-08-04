@@ -61,6 +61,7 @@ class PluginRenamerRenamer extends CommonDBTM
     function showForm(){
 
 
+
         echo "<div>";
         $this->showBtnToRestoreLanguage();
         echo "<br>";
@@ -69,6 +70,18 @@ class PluginRenamerRenamer extends CommonDBTM
         $this->showFormToOverload();
         echo "</div>";
 
+        /*require_once('../lib/PoParser.php');
+
+        global $CFG_GLPI;
+        $file = $this->getLanguageFile('Français');
+        $poParser = new PoParser();
+        $entries = $poParser->parse($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/'.$file);
+
+        foreach($entries as $entry){
+            var_dump($entry);
+        }*/
+
+        //$this->updateTranslation($this->getLanguageFile('Français'));
 
 
     }
@@ -274,6 +287,25 @@ class PluginRenamerRenamer extends CommonDBTM
 
 
     /**
+     * Function to retrieve language file with name of language
+     * @param $lang
+     * @return mixed|string
+     */
+    public function getLanguageFileMo($lang)
+    {
+        global $CFG_GLPI;
+        $file = "";
+
+        foreach ($CFG_GLPI["languages"] as &$local) {
+            if ($lang == $local[0]) $file = $local[1];
+        }
+
+
+        return $file;
+    }
+
+
+    /**
      * Function to find all links record for an item
      * @param $item
      * @return Query
@@ -302,10 +334,14 @@ class PluginRenamerRenamer extends CommonDBTM
      * @param $file_patch
      */
     public function updateTranslation($file_patch){
+
+        $file_patch_mo = str_replace('po', 'mo', $file_patch);
+        exec("msgcat ".$file_patch." | msgfmt -o ".$file_patch_mo." - ");
+
         // Convert XXX.po to XXX.mo
-        global $CFG_GLPI;
-        require($_SERVER['DOCUMENT_ROOT'].$CFG_GLPI["root_doc"].'/plugins/renamer/lib/php-mo.php');
-        @phpmo_convert($file_patch,substr($file_patch,0,-3).".mo");
+        //global $CFG_GLPI;
+        //require($_SERVER['DOCUMENT_ROOT'].$CFG_GLPI["root_doc"].'/plugins/renamer/lib/php-mo.php');
+        //@phpmo_convert($file_patch,substr($file_patch,0,-3).".mo");
     }
 
 
