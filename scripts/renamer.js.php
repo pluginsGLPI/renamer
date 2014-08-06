@@ -46,6 +46,9 @@ $info = __('Thank you to inform the field','renamer');
 
 $JS = <<<JAVASCRIPT
 
+
+
+
 function restoreLocaleFiles(){
 
  var lang = $("#dropdown_language").find(":selected").text();
@@ -263,6 +266,26 @@ function restoreWord(id){
         }
     });
 }
+
+
+$(document).ready(function() {
+       $("#pick_list_lang").pickList({
+    mainClass:       "foobar",
+    sourceListLabel: "Non selectionné",
+    targetListLabel: "Selectionné",
+    addAllLabel:     ">>",
+    addLabel:        ">",
+    removeAllLabel:  "<<",
+    removeLabel:     "<",
+    sortItems:       true
+});
+});
+
+
+
+
+
+
 
 
 JAVASCRIPT;
