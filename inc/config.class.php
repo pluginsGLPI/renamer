@@ -85,13 +85,13 @@ class PluginRenamerConfig extends CommonDBTM {
         $content .= "<table class='tab_cadre' >";
 
         $content .= "<tr>";
-        $content .= "<th colspan='2'>" . __("Renamer plugin setup", "renamer") . "</th>";
+        $content .= "<th colspan='2'>" . __("Setup - Renamer","renamer") . "</th>";
         $content .= "</tr>";
 
 
         $content .= "<tr class='tab_bg_1'>";
 
-        $content .= "<th>" . __("Choose languages to display", "mantis") . "</th>";
+        $content .= "<th>" . __("Choose languages to display","renamer") . "</th>";
 
 
 
@@ -118,7 +118,7 @@ class PluginRenamerConfig extends CommonDBTM {
         $content .= "</table>";
 
         $content .= "<br><center><input id='update'  class='submit center-h' type='submit' name='update' value='"
-            . __("Update", "renamer") . "' ></center>";
+            . __("Update","renamer") . "' ></center>";
         $content .= Html::closeForm(false);
 
         echo $content;

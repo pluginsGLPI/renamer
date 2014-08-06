@@ -43,6 +43,8 @@ global $CFG_GLPI;
 
 $root_ajax = $CFG_GLPI['root_doc']."/plugins/renamer/ajax/ajax.php";
 $info = __('Thank you to inform the field','renamer');
+$noSelected = __('No selected','renamer');
+$selected = __('Selected','renamer');
 
 $JS = <<<JAVASCRIPT
 
@@ -271,8 +273,8 @@ function restoreWord(id){
 $(document).ready(function() {
        $("#pick_list_lang").pickList({
     mainClass:       "foobar",
-    sourceListLabel: "Non selectionné",
-    targetListLabel: "Selectionné",
+    sourceListLabel: "{$noSelected}",
+    targetListLabel: "{$selected}",
     addAllLabel:     ">>",
     addLabel:        ">",
     removeAllLabel:  "<<",

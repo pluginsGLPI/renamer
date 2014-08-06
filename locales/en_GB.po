@@ -215,3 +215,15 @@ msgstr ""
 #: inc/renamer.class.php:101
 msgid "List of words found"
 msgstr ""
+
+msgid "Choose languages to display"
+msgstr ""
+
+msgid "No selected"
+msgstr ""
+
+msgid "Selected"
+msgstr ""
+
+msgid "Thank you to select a language"
+msgstr ""

@@ -107,7 +107,7 @@ msgstr "Erreur lors de la suppression du fichier de sauvegarde '%1$s' "
 #: inc/install.class.php:129
 #, php-format
 msgid "Error while cleaning local glpi file  '%1$s' "
-msgstr "Erreur lors du nettoyage du du fichier locale '%1$s' "
+msgstr "Erreur lors du nettoyage du fichier locale '%1$s' "
 
 #: inc/install.class.php:160
 #, php-format
@@ -216,3 +216,16 @@ msgstr "Restaurer toutes les langues"
 #: inc/renamer.class.php:101
 msgid "List of words found"
 msgstr "Liste des mots trouvés"
+
+#: inc/config.class.php:94
+msgid "Choose languages to display"
+msgstr "Choisissez les langues à afficher"
+
+msgid "No selected"
+msgstr "non selectionné"
+
+msgid "Selected"
+msgstr "Selectionné"
+
+msgid "Thank you to select a language"
+msgstr "Merci de selectionner un language"
