@@ -46,25 +46,29 @@ function plugin_init_renamer() {
 
     global $PLUGIN_HOOKS;
 
-    Plugin::registerClass('PluginRenamerInstall');
-    Plugin::registerClass('PluginRenamerRenamer');
-    //Plugin::registerClass('PluginRenamerConfig');
-
-
-    Plugin::registerClass('PluginRenamerProfile', array('addtabon' => array('Profile')));
-
     $PLUGIN_HOOKS['csrf_compliant']['renamer'] = true;
     $PLUGIN_HOOKS['change_profile']['renamer'] = array('PluginRenamerProfile', 'changeProfile');
-    $PLUGIN_HOOKS['add_javascript']['renamer'] = array('scripts/jquery-1.11.0.min.js','scripts/renamer.js.php');
+    $PLUGIN_HOOKS['add_javascript']['renamer'] = array('scripts/jquery-1.11.0.min.js',
+                                                       'scripts/jquery.ui.widget.min.js',
+                                                       'scripts/jquery-picklist.min.js',
+                                                       'scripts/renamer.js.php');
 
+    Plugin::registerClass('PluginRenamerInstall');
+    Plugin::registerClass('PluginRenamerRenamer');
+    Plugin::registerClass('PluginRenamerConfig');
+    Plugin::registerClass('PluginRenamerProfile', array('addtabon' => array('Profile')));
+
+
+    $PLUGIN_HOOKS['add_css']['renamer'] = array('css/jquery-picklist.css','jquery-picklist-ie7.css');
 
     $plugin = new Plugin();
     if (Session::getLoginUserID() && $plugin->isActivated('renamer')) {
         if(plugin_renamer_haveRight("right","w")){
             $PLUGIN_HOOKS['menu_entry']['renamer']  = 'front/renamer.form.php';
-            $PLUGIN_HOOKS['config_page']['renamer'] = 'front/renamer.form.php';
+            $PLUGIN_HOOKS['config_page']['renamer'] = 'front/config.form.php';
         }
     }
+
 }
 
 
