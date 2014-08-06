@@ -319,6 +319,7 @@ if (isset($_POST['action'])) {
 
                 $file = $renamer->getLanguageFile($lang);
                 $entries = $poParser->parse($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/'.$file);
+                $header = $poParser->getHeaders();
                 $newEntry = array();
 
                 foreach( $entries as $entry ){
@@ -339,6 +340,7 @@ if (isset($_POST['action'])) {
 
                     $poParser = new PoParser();
                     $poParser->setEntries($newEntry);
+                    $poParser->setHeaders($header);
                     $res = $poParser->write($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/'.$file);
 
                     //si write ok
@@ -532,8 +534,9 @@ function createTableRow($entry ,$word){
             $content .= "</td >";
 
             $content .= "<td rowspan=".count($entry['msgstr']).">";
-            if(isset($entry['msgid_plural']))addHighlightingWord(implode('<br>',$entry['msgid_plural']),$word);
+            if(isset($entry['msgid_plural']))$content .= addHighlightingWord(implode('<br>',$entry['msgid_plural']),$word);
             else $content .= __('No','renamer');
+
             $content .= "</td >";
             $i++;
         }
