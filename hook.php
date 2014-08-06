@@ -103,6 +103,25 @@ function plugin_renamer_install() {
         $DB->queryOrDie($query, $DB->error());
     }
 
+    //création de la table pour la configuration du plugin
+    if (!TableExists("glpi_plugin_renamer_configs")) {
+        $query = "CREATE TABLE glpi_plugin_renamer_configs (
+                  id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                  lang_selected varchar(10000) default NULL)";
+        $DB->query($query) or die($DB->error());
+
+        //insertion du occcurence dans la table (occurrence par default)
+
+
+        $query = "INSERT INTO glpi_plugin_renamer_configs
+                       (id, lang_selected)
+                VALUES (NULL, NULL)";
+
+
+        $DB->query($query) or die("error in glpi_plugin_renamer_configs table" . $DB->error());
+
+    }
+
 
 
     return true;
@@ -119,7 +138,7 @@ function plugin_renamer_uninstall() {
 
     global $DB;
 
-    $tables = array("glpi_plugin_renamer_profiles","glpi_plugin_renamer_renamers");
+    $tables = array("glpi_plugin_renamer_profiles","glpi_plugin_renamer_renamers","glpi_plugin_renamer_configs");
 
     foreach($tables as $table) {
         $DB->query("DROP TABLE IF EXISTS `$table`;");
