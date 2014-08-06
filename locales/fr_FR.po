@@ -44,7 +44,7 @@ msgstr "Erreur lors de la restauration des fichiers du dossier 'locales' de glpi
 
 #: hook.php:141
 msgid "Error while cleaning backup folder"
-msgstr "Erreour lors du nettoyage du dossier 'backup'"
+msgstr "Erreur lors du nettoyage du dossier 'backup'"
 
 #: setup.php:75
 msgid "Renamer"
@@ -76,7 +76,7 @@ msgstr "Impossible d'accéder au fichier "
 
 #: ajax/ajax.php:365
 msgid "Restoration Complete"
-msgstr "Restauration effectué avec succés"
+msgstr "Restauration effectuée avec succés"
 
 #: ajax/ajax.php:499
 msgid "No"
@@ -97,17 +97,17 @@ msgstr "Merci d'activer le plugin"
 #: inc/install.class.php:71
 #, php-format
 msgid "Error when saving files  '%1$s' "
-msgstr "Error lors de la sauvegarde du fichier '%1$s'"
+msgstr "Erreurr lors de la sauvegarde du fichier '%1$s'"
 
 #: inc/install.class.php:100
 #, php-format
 msgid "Error while deleting backup file  '%1$s' "
-msgstr "Error lors de la suppression du fichier de sauvegarde '%1$s' "
+msgstr "Erreur lors de la suppression du fichier de sauvegarde '%1$s' "
 
 #: inc/install.class.php:129
 #, php-format
 msgid "Error while cleaning local glpi file  '%1$s' "
-msgstr "Error lors du nettoyage du du fichier locale '%1$s' "
+msgstr "Erreur lors du nettoyage du du fichier locale '%1$s' "
 
 #: inc/install.class.php:160
 #, php-format
@@ -172,7 +172,7 @@ msgstr "Supprimer la surcharge"
 
 #: inc/renamer.class.php:173
 msgid "Update overload"
-msgstr "Modifieeer la surcharge"
+msgstr "Modifier la surcharge"
 
 #: inc/renamer.class.php:191
 msgid "No history to show for the moment"
@@ -180,7 +180,7 @@ msgstr "Pas d'historique à afficher pour le moment"
 
 #: inc/renamer.class.php:213
 msgid "Restore Language"
-msgstr "Restaurer toute les langues"
+msgstr "Restaurer toutes les langues"
 
 #: inc/renamer.class.php:312
 #, php-format
@@ -204,7 +204,7 @@ msgstr "Impossible d'accéder au fichier '%1$s'"
 
 #: scripts/renamer.js.php:45
 msgid "Thank you to inform the field"
-msgstr "Merci de renseigner le champs"
+msgstr "Merci de renseigner le champ"
 
 
 msgid "Restore a language "
