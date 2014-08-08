@@ -161,8 +161,11 @@ function overloadWord(index){
     var lang = $("#dropdown_language").find(":selected").text();;
     var id =  $('#msgid' + index).val();
     var wordToOverload =  $('#msgstr' + index).val();
+    var msgctxt =  $('#msgctxt' + index).val();
     var divInfo = $('#info' + index);
     var img = $('#waitLoadingOverload'+index);
+
+
 
 img.css('display', 'block');
     divInfo.empty();
@@ -173,6 +176,7 @@ img.css('display', 'block');
         data: "action=overloadWord&" +
             "word=" + newWord +"&" +
             "id=" + id +"&" +
+            "msgctxt=" + msgctxt +"&" +
             "wordToOverload=" + wordToOverload +"&" +
             "lang=" + lang, // données à transmettre
 

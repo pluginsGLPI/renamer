@@ -93,8 +93,9 @@ function plugin_renamer_install() {
                `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
                `msgid` VARCHAR(500) NOT NULL,
                `lang` VARCHAR(45) NOT NULL,
-               `overload` VARCHAR(255) NOT NULL,
-               `original` VARCHAR(255) NOT NULL,
+               `overload` VARCHAR(500) NOT NULL,
+               `original` VARCHAR(500) NOT NULL,
+               `context` VARCHAR(500) ,
                `users_id` INTEGER UNSIGNED NOT NULL,
                `date_overload` DATE NOT NULL,
                 PRIMARY KEY (`id`)

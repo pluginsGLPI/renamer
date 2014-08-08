@@ -80,14 +80,10 @@ if (isset($_POST['action'])) {
                 $renamer->updateTranslation($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/'.$file);
                 echo true;
 
-
             }else{
                 Session::addMessageAfterRedirect(__("Please give write permission to the 'locales' folder of Glpi", "renamer"), false, INFO);
                 echo false;
             }
-
-
-
 
             break;
 
@@ -104,8 +100,11 @@ if (isset($_POST['action'])) {
                 $original = $renamer->fields['original'];
                 $overload = $renamer->fields['overload'];
                 $msgid = $renamer->fields['msgid'];
+                $msgctxt = $renamer->fields['msgctxt'];
 
                 $id = unserialize(stripslashes(stripslashes($msgid)));
+                $context = unserialize(stripslashes(stripslashes($msgctxt)));
+
                 $newWord = $_POST['newWord'];
 
                 $file = $renamer->getLanguageFile($lang);
@@ -113,16 +112,37 @@ if (isset($_POST['action'])) {
                 $header = $poParser->getHeaders();
                 $newEntry = array();
 
-                foreach( $entries as $entry ){
-                    if($entry['msgid'] == $id){
-                        for($i = 0; $i < count($entry['msgstr']); ++$i) {
-                            if($entry['msgstr'][$i] == $overload){
-                                $entry['msgstr'][$i] = $newWord;
-                                $find = true;
+                if(isset($entry['msgctxt'])){
+
+                    foreach( $entries as $entry ){
+                        if($entry['msgid'] == $id){
+
+                            if($entry['msgctxt'] == $context){
+                                for($i = 0; $i < count($entry['msgstr']); ++$i) {
+                                    if($entry['msgstr'][$i] == $overload){
+                                        $entry['msgstr'][$i] = $newWord;
+                                        $find = true;
+                                    }
+                                }
                             }
                         }
+                        $newEntry[] = $entry;
                     }
-                    $newEntry[] = $entry;
+
+                }else{
+
+                    foreach( $entries as $entry ){
+                        if($entry['msgid'] == $id){
+                            for($i = 0; $i < count($entry['msgstr']); ++$i) {
+                                if($entry['msgstr'][$i] == $overload){
+                                    $entry['msgstr'][$i] = $newWord;
+                                    $find = true;
+                                }
+                            }
+                        }
+                        $newEntry[] = $entry;
+                    }
+
                 }
 
                 //sauvegarde temporaire du fichier à updaté
@@ -170,10 +190,9 @@ if (isset($_POST['action'])) {
                 echo false;
             }
 
-
-
-
             break;
+
+
 
         case 'getWords':
 
@@ -199,7 +218,8 @@ if (isset($_POST['action'])) {
                         if(existExactWord($word,$entry['msgid'],$entry['msgstr'],$file) ){
                             $content .= createTablerow($entry,$word);
                             $find = true;
-                            break;
+
+                            if(!isset($entry['msgctxt'])) break;
                         }
                     }
 
@@ -218,16 +238,23 @@ if (isset($_POST['action'])) {
                 echo returnWarning();
             }
 
-
-
             break;
+
 
 
         case 'overloadWord':
 
+            $wordToOverload = unserialize(stripslashes(stripslashes(str_replace("]","'",$_POST['wordToOverload']))));
+            $context = '';
+
+            if($_POST['msgctxt'] == 'null'){
+                $context = null;
+            }else{
+                $context = unserialize(stripslashes(stripslashes(str_replace("]","'",$_POST['msgctxt']))));
+            }
 
 
-            if($renamer->isAlreadyOverload($_POST['id'])){
+            if($renamer->isAlreadyOverload($_POST['id'],$_POST['wordToOverload'], $_POST['msgctxt'])){
                 echo returnError(__('This Word is already overload ','renamer').$file);
             }else{
 
@@ -235,30 +262,50 @@ if (isset($_POST['action'])) {
                 $lang = $_POST['lang'];
 
                 $id = unserialize(stripslashes(stripslashes($_POST['id'])));
-                $wordToOverload = unserialize(stripslashes(stripslashes(str_replace("]","'",$_POST['wordToOverload']))));
 
                 $file = $renamer->getLanguageFile($lang);
                 $entries = $poParser->parse($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/'.$file);
                 $header = $poParser->getHeaders();
                 $newEntry = array();
 
-                //on parcours chaque entry
-                foreach( $entries as $entry ){
-                    //quand on à  l'id
-                    if($entry['msgid'] == $id){
-                        //on compare chaque msgstr
-                        for($i = 0; $i < count($entry['msgstr']); ++$i) {
-                            //quand on le trouve on le modifie
-                            if($entry['msgstr'][$i] == $wordToOverload){
-                                $entry['msgstr'][$i] = $newword;
-                                $find = true;
+                if($context == null){
+                    //on parcours chaque entry
+                    foreach( $entries as $entry ){
+                        //quand on à  l'id
+                        if($entry['msgid'] == $id){
+                            //on compare chaque msgstr
+                            for($i = 0; $i < count($entry['msgstr']); ++$i) {
+                                //quand on le trouve on le modifie
+                                if($entry['msgstr'][$i] == $wordToOverload){
+                                    $entry['msgstr'][$i] = $newword;
+                                    $find = true;
+                                }
                             }
                         }
+                        //toute les entry vont dans un nouveau tableau
+                        $newEntry[] = $entry;
                     }
-                    //toute les entry vont dans un nouveau tableau
-                    $newEntry[] = $entry;
-                }
+                }else{
+                    //on parcours chaque entry
+                    foreach( $entries as $entry ){
+                        //quand on à  l'id
+                        if($entry['msgid'] == $id){
 
+                            if(isset($entry['msgctxt']) && $entry['msgctxt'] == $context){
+                                //on compare chaque msgstr
+                                for($i = 0; $i < count($entry['msgstr']); ++$i) {
+                                    //quand on le trouve on le modifie
+                                    if($entry['msgstr'][$i] == $wordToOverload){
+                                        $entry['msgstr'][$i] = $newword;
+                                        $find = true;
+                                    }
+                                }
+                            }
+                        }
+                        //toute les entry vont dans un nouveau tableau
+                        $newEntry[] = $entry;
+                    }
+                }
 
                 //sauvegarde temporaire du fichier à updaté
                 if($renamer->saveFileIntoTmp($file)){
@@ -281,6 +328,10 @@ if (isset($_POST['action'])) {
                         $input['users_id'] = Session::getLoginUserID();
                         $input['date_overload'] = date("Y-m-d") ;
                         $input['lang'] = $_POST['lang'] ;
+
+                        if($context == null)$input['context'] = $context;
+                        else $input['context'] = $_POST['msgctxt'] ;
+
                         $input['original'] = $_POST['wordToOverload'];
                         $input['overload'] = $newword;
                         //add bdd entry
@@ -334,7 +385,6 @@ if (isset($_POST['action'])) {
                     $newEntry[] = $entry;
                 }
 
-
                 //sauvegarde temporaire du fichier à updaté
                 if($renamer->saveFileIntoTmp($file)){
 
@@ -358,16 +408,18 @@ if (isset($_POST['action'])) {
 
                         Session::addMessageAfterRedirect(sprintf( __('\'%1$s\' replaced by \'%2$s\'', "renamer"),$overload,$newWord), false, INFO);
                         echo true;
+
                     }else{
+
                         $renamer->restoreFileFromTmp($file);
                         $renamer->removeFileIntoTmp($file);
                         Session::addMessageAfterRedirect(sprintf(__('Can\'t access to file ','renamer').$file), false, INFO);
-
+                        echo false;
                     }
 
                 }else{
                     Session::addMessageAfterRedirect(sprintf(__('Can\'t save file  \'%1$s\' in tmp folder', 'renamer'), $file ), false, INFO);
-                    return false;
+                    echo false;
                 }
 
             }else{
@@ -384,19 +436,19 @@ if (isset($_POST['action'])) {
             //check if right access
             if(!PluginRenamerInstall::checkRightAccessOnGlpiLocalesFiles()){
                 Session::addMessageAfterRedirect(__("Please give write permission to the 'locales' folder of Glpi", "renamer"), false, ERROR);
-                return false;
+                echo false;
             }
 
             //remove locale file of glpi
             if(!PluginRenamerInstall::cleanLocalesFilesOfGlpi()){
                 Session::addMessageAfterRedirect(__("Error while cleaning glpi locale files", "renamer"), false, ERROR);
-                return false;
+                echo false;
             }
 
             //restore local file of glpi with back og plugin renamer
             if(!PluginRenamerInstall::restoreLocalesFielsOfGlpi()){
                 Session::addMessageAfterRedirect(__("Error while restore glpi locale files", "renamer"), false, ERROR);
-                return false;
+                echo false;
             }
 
             //clean table
@@ -534,6 +586,12 @@ function createTableRow($entry ,$word){
             $content .= "</td >";
 
             $content .= "<td rowspan=".count($entry['msgstr']).">";
+            if(isset($entry['msgctxt']))$content .= implode('<br>',$entry['msgctxt']);
+            else $content .= __('No','renamer');
+
+            $content .= "</td >";
+
+            $content .= "<td rowspan=".count($entry['msgstr']).">";
             if(isset($entry['msgid_plural']))$content .= addHighlightingWord(implode('<br>',$entry['msgid_plural']),$word);
             else $content .= __('No','renamer');
 
@@ -555,7 +613,13 @@ function createTableRow($entry ,$word){
         $content .= "</td >";
 
         $content .= "<input type='hidden' name='msgid'      id='msgid".$entry['index'].$nb."'      value='" . addslashes(serialize($entry['msgid'])) . "' >";
-        $content .= "<input type='hidden' name='msgstr' id='msgstr".$entry['index'].$nb."' value='" . addslashes(serialize(str_replace("'","]",$str))). "' >";
+        $content .= "<input type='hidden' name='msgstr'     id='msgstr".$entry['index'].$nb."'     value='" . addslashes(serialize(str_replace("'","]",$str))). "' >";
+
+        if(isset($entry['msgctxt']))
+            $content .= "<input type='hidden' name='msgctxt' id='msgctxt".$entry['index'].$nb."'   value='" . addslashes(serialize(str_replace("'","]",$entry['msgctxt']))). "' >";
+        else
+            $content .= "<input type='hidden' name='msgctxt' id='msgctxt".$entry['index'].$nb."'   value='null' >";
+
 
         $content .= "</tr>";
     }

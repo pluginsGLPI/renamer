@@ -131,6 +131,7 @@ class PluginRenamerRenamer extends CommonDBTM
         $content .= "<th colspan='5'>" . __("List of words found", "renamer") . "</th>";
         $content .= "<tr class='headerRow'>";
         $content .= "<th>" . __("ID", "renamer") . "</th>";
+        $content .= "<th>" . __("msgctx", "renamer") . "</th>";
         $content .= "<th>" . __("plural", "renamer") . "</th>";
         $content .= "<th>" . __("String", "renamer") . "</th>";
         $content .= "<th colspan='2'>" . __("Overload", "renamer") . "</th>";
@@ -170,6 +171,7 @@ class PluginRenamerRenamer extends CommonDBTM
             $content .= "<tr class='headerRow'>";
             $content .= "<th>" . __("ID", "renamer") . "</th>";
             $content .= "<th>" . __("msgid", "renamer") . "</th>";
+            $content .= "<th>" . __("msgctxt", "renamer") . "</th>";
             $content .= "<th>" . __("Date", "renamer") . "</th>";
             $content .= "<th>" . __("Language", "renamer") . "</th>";
             $content .= "<th>" . __("Original", "renamer") . "</th>";
@@ -188,6 +190,10 @@ class PluginRenamerRenamer extends CommonDBTM
                 $content .= "<tr>";
                 $content .= "<td class='center'>" . $row["id"] . "</td>";
                 $content .= "<td class='center'>" . implode('<br>',unserialize(stripslashes(stripslashes($row['msgid'])))). "</td>";
+
+                if($row['context'] == null) $content .= "<td class='center'>" . __('No','renamer') . "</td>";
+                else $content .= "<td class='center'>" .  implode('<br>',unserialize(stripslashes(stripslashes(str_replace("]","'",$row['context']))))) . "</td>";
+
                 $content .= "<td class='center'>" . $row["date_overload"] . "</td>";
                 $content .= "<td class='center'>" . $row["lang"] . "</td>";
                 $content .= "<td class='center'>" . unserialize(stripslashes(stripslashes(str_replace("]","'",$row['original'])))) . "</td>";
@@ -302,8 +308,24 @@ class PluginRenamerRenamer extends CommonDBTM
      * @param $_post
      * @return true
      */
-    public function isAlreadyOverload($id){
-        return $this->getFromDBByQuery($this->getTable() . " WHERE `" . "`.`msgid` = '" . $id . "'");
+    public function isAlreadyOverload($id,$wordToOverload,$context){
+
+        //$id = stripslashes($id);
+       // $wordToOverload = stripslashes($wordToOverload);
+
+        if($context != 'null'){
+           // $context = stripslashes($context);
+
+
+            return $this->getFromDBByQuery(" WHERE `msgid` = '" . $id. "'
+        and `original` = '" . $wordToOverload . "' and `context` = '" . $context. "' ");
+        }else{
+            return $this->getFromDBByQuery(" WHERE `msgid` = '" . $id . "'
+        and `original` = '" . $wordToOverload . "'");
+        }
+
+
+
     }
 
 
