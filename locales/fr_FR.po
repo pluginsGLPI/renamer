@@ -27,6 +27,7 @@ msgid "Please give write permission to the plugin Renamer"
 msgstr "Veuillez donner les permissions d'écriture sur le dossier du plugin Renamer "
 
 #: hook.php:65
+#: hook.php:141
 msgid "Error while cleaning backup folder"
 msgstr "Erreur lors du nettoyage du dossier 'backup'"
 
@@ -41,10 +42,6 @@ msgstr "Erreur lors du nettoyage du dossier 'locales' de glpi"
 #: hook.php:136 ajax/ajax.php:359
 msgid "Error while restore glpi locale files"
 msgstr "Erreur lors de la restauration des fichiers du dossier 'locales' de glpi"
-
-#: hook.php:141
-msgid "Error while cleaning backup folder"
-msgstr "Erreur lors du nettoyage du dossier 'backup'"
 
 #: setup.php:75
 msgid "Renamer"
