@@ -78,7 +78,7 @@ function plugin_init_renamer() {
  */
 function plugin_version_renamer() {
    return array(  'name'            => __("Renamer", "renamer"),
-                  'version'         => '0.84-1.5_beta1',
+                  'version'         => '0.84-1.5_beta2',
                   'author'          => 'Stanislas KITA (teclib\')',
                   'license'         => 'GPLv3',
                   'homepage'        => 'teclib.com',
