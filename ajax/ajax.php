@@ -633,10 +633,9 @@ function createTableRow($entry ,$word){
  * @param $word
  * @return mixed
  */
-function addHighlightingWord($str , $word){
+function addHighlightingWord($str, $word) {
 
     $motif='`(.*?)('.$word.')(.*?)`si';
-    $sortie='$1<span style="background-color:#ffcc00">$2</span>$3';
-    return preg_replace($motif,$sortie,$str);
-
+    $sortie='$1<span class="highlighting">$2</span>$3';
+    return preg_replace($motif, $sortie, $str);
 }

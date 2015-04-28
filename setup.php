@@ -59,7 +59,7 @@ function plugin_init_renamer() {
     Plugin::registerClass('PluginRenamerProfile', array('addtabon' => array('Profile')));
 
 
-    //$PLUGIN_HOOKS['add_css']['renamer'] = array('css/jquery-picklist.css','jquery-picklist-ie7.css');
+    $PLUGIN_HOOKS['add_css']['renamer'] = array('css/renamer.css'); //array('css/jquery-picklist.css','jquery-picklist-ie7.css');
 
     $plugin = new Plugin();
     if (Session::getLoginUserID() && $plugin->isActivated('renamer')) {
