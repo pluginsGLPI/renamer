@@ -1,5 +1,4 @@
 <?php
-
 /*
    ------------------------------------------------------------------------
    GLPI Plugin renamer
@@ -38,25 +37,15 @@
    ------------------------------------------------------------------------
  */
 
-class PluginRenamerRenamer extends CommonDBTM
-{
-    /**
-     * Function to define if the user have right to create
-     * @return bool
-     */
-    static function canCreate(){
-        return Session::haveRight('config', 'w');
+class PluginRenamerRenamer extends CommonDBTM {
+
+    static function canCreate() {
+        return Session::haveRight('config', UPDATE);
     }
 
-    /**
-     * Function to define if the user have right to view
-     * @return bool
-     */
-    static function canView(){
-        return Session::haveRight('config', 'r');
+    static function canView() {
+        return Session::haveRight('config', READ);
     }
-
-
 
     function showForm(){
 

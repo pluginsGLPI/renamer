@@ -50,7 +50,7 @@ class PluginRenamerConfig extends CommonDBTM {
      * @return bool|booleen
      */
     static function canCreate() {
-        return Session::haveRight('config', 'w');
+        return Session::haveRight('config', UPDATE);
     }
 
 
@@ -59,7 +59,7 @@ class PluginRenamerConfig extends CommonDBTM {
      * @return bool|booleen
      */
     static function canView() {
-        return Session::haveRight('config', 'r');
+        return Session::haveRight('config', READ);
     }
 
 

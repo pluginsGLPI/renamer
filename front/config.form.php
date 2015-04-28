@@ -65,7 +65,7 @@ if($plugin->isActivated('renamer')){
                 }
             }
             $_POST['lang_selected'] = addslashes(serialize($lang));
-            session::checkRight('config','w');
+            session::checkRight('config', UPDATE);
             $config->update($_POST);
 
         }

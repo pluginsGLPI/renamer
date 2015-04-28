@@ -71,14 +71,14 @@ function plugin_renamer_install() {
         return false;
     }
 
-
-    if (!TableExists("glpi_plugin_renamer_profiles")) {
+    $table = 'glpi_plugin_renamer_profiles';
+    if (!TableExists($table)) {
         // requete de création de la table
-        $query = "CREATE TABLE `glpi_plugin_renamer_profiles` (
+        $query = "CREATE TABLE `$table` (
                `id` int(11) NOT NULL default '0' COMMENT 'RELATION to glpi_profiles (id)',
                `right` char(1) collate utf8_unicode_ci default NULL,
-               PRIMARY KEY  (`id`)
-             ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
+               PRIMARY KEY (`id`)
+             ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
 
         $DB->queryOrDie($query, $DB->error());
 
@@ -86,10 +86,10 @@ function plugin_renamer_install() {
         PluginRenamerProfile::createAdminAccess($_SESSION['glpiactiveprofile']['id']);
     }
 
+    $table = 'glpi_plugin_renamer_renamers';
+    if (!TableExists($table)){
 
-    if (!TableExists("glpi_plugin_renamer_renamers")){
-
-        $query = "CREATE TABLE `glpi_plugin_renamer_renamers` (
+        $query = "CREATE TABLE `$table` (
                `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
                `msgid` VARCHAR(500) NOT NULL,
                `lang` VARCHAR(45) NOT NULL,
@@ -99,14 +99,15 @@ function plugin_renamer_install() {
                `users_id` INTEGER UNSIGNED NOT NULL,
                `date_overload` DATE NOT NULL,
                 PRIMARY KEY (`id`)
-              ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
+              ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
 
         $DB->queryOrDie($query, $DB->error());
     }
 
     //création de la table pour la configuration du plugin
-    if (!TableExists("glpi_plugin_renamer_configs")) {
-        $query = "CREATE TABLE glpi_plugin_renamer_configs (
+    $table = "glpi_plugin_renamer_configs";
+    if (!TableExists($table)) {
+        $query = "CREATE TABLE $table (
                   id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
                   lang_selected varchar(10000) default NULL)";
         $DB->query($query) or die($DB->error());
@@ -114,12 +115,12 @@ function plugin_renamer_install() {
         //insertion du occcurence dans la table (occurrence par default)
 
 
-        $query = "INSERT INTO glpi_plugin_renamer_configs
+        $query = "INSERT INTO $table
                        (id, lang_selected)
                 VALUES (NULL, NULL)";
 
 
-        $DB->query($query) or die("error in glpi_plugin_renamer_configs table" . $DB->error());
+        $DB->query($query) or die("error in $table table" . $DB->error());
 
     }
 
