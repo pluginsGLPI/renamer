@@ -117,7 +117,7 @@ class PluginRenamerRenamer extends CommonDBTM {
         $content .= "</tr>";
 
         $content .= "<table class='tab_cadre'cellpadding='5' id='tableOverloadWord'>";
-        $content .= "<th colspan='5'>" . __("List of words found", "renamer") . "</th>";
+        $content .= "<th colspan='6'>" . __("List of words found", "renamer") . "</th>";
         $content .= "<tr class='headerRow'>";
         $content .= "<th>" . __("ID", "renamer") . "</th>";
         $content .= "<th>" . __("msgctx", "renamer") . "</th>";
