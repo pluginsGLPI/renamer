@@ -178,10 +178,17 @@ class PluginRenamerRenamer extends CommonDBTM {
 
                 $content .= "<tr>";
                 $content .= "<td class='center'>" . $row["id"] . "</td>";
-                $content .= "<td class='center'>" . implode('<br>',unserialize(stripslashes(stripslashes($row['msgid'])))). "</td>";
+                $content .= "<td class='center' lang='en' dir='ltr'>";
+                $content .= implode('<br>',unserialize(stripslashes(stripslashes($row['msgid']))));
+                $content .= "</td>";
 
-                if($row['context'] == null) $content .= "<td class='center'>" . __('No','renamer') . "</td>";
-                else $content .= "<td class='center'>" .  implode('<br>',unserialize(stripslashes(stripslashes(str_replace("]","'",$row['context']))))) . "</td>";
+                $content .= "<td class='center'>";
+                if($row['context'] == null) {
+                    $content .=  __('No','renamer');
+                } else {
+                    $content .= implode('<br>',unserialize(stripslashes(stripslashes(str_replace("]","'",$row['context'])))));
+                }
+                $content .= "</td>";
 
                 $content .= "<td class='center'>" . Html::convDate($row["date_overload"]) . "</td>";
                 $content .= "<td class='center'>" . $row["lang"] . "</td>";
