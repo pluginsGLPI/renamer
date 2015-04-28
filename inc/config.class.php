@@ -101,7 +101,7 @@ class PluginRenamerConfig extends CommonDBTM {
         $content .= '<select id="pick_list_lang" name="pick_list_lang[]" selected="selected" multiple="multiple" >';
         foreach($CFG_GLPI["languages"] as $lang){
 
-            if(in_array($lang,$langSlected)){
+            if(is_array($langSlected) && in_array($lang,$langSlected)){
                 $content .= ' <option value="'.$lang[0].'" selected="selected">'.$lang[0].'</option>';
             }else{
                 $content .= ' <option value="'.$lang[0].'">'.$lang[0].'</option>';
