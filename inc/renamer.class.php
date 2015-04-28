@@ -194,7 +194,7 @@ class PluginRenamerRenamer extends CommonDBTM
                 if($row['context'] == null) $content .= "<td class='center'>" . __('No','renamer') . "</td>";
                 else $content .= "<td class='center'>" .  implode('<br>',unserialize(stripslashes(stripslashes(str_replace("]","'",$row['context']))))) . "</td>";
 
-                $content .= "<td class='center'>" . $row["date_overload"] . "</td>";
+                $content .= "<td class='center'>" . Html::convDate($row["date_overload"]) . "</td>";
                 $content .= "<td class='center'>" . $row["lang"] . "</td>";
                 $content .= "<td class='center'>" . unserialize(stripslashes(stripslashes(str_replace("]","'",$row['original'])))) . "</td>";
                 $content .= "<td class='center'>" . $row["overload"] . "</td>";
