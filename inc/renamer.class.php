@@ -251,7 +251,7 @@ class PluginRenamerRenamer extends CommonDBTM {
 
         $content .= "<td style='text-align: center;'>";
         $content .= "<input  onclick='restoreAllLocaleFiles();'  value='" .
-            __('Restore', 'renamer') . "' class='submit'    style='width : 200px;'>";
+            __('Restore') . "' class='submit'    style='width : 200px;'>";
         $content .="</td>";
 
         $content .= "<td style='text-align: center;'>";
@@ -259,7 +259,7 @@ class PluginRenamerRenamer extends CommonDBTM {
         $content .="</td>";
         $content .= "<td style='text-align: center;'>";
         $content .= "<input  onclick='restoreLocaleFiles();'  value='" .
-            __('Restore', 'renamer') . "' class='submit'    style='width : 200px;'>";
+            __('Restore') . "' class='submit'    style='width : 200px;'>";
         $content .="</td>";
 
         $content .= "</tr>";
