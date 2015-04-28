@@ -170,15 +170,6 @@ msgstr ""
 msgid "Original"
 msgstr ""
 
-#: inc/renamer.class.php:177
-msgid "User"
-msgstr ""
-
-#: inc/renamer.class.php:178 inc/renamer.class.php:239
-#: inc/renamer.class.php:250 inc/renamer.class.php:258
-msgid "Restore"
-msgstr ""
-
 #: inc/renamer.class.php:199
 msgid "Delete overload"
 msgstr ""

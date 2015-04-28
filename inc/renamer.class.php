@@ -165,8 +165,8 @@ class PluginRenamerRenamer extends CommonDBTM {
             $content .= "<th>" . __("Language", "renamer") . "</th>";
             $content .= "<th>" . __("Original", "renamer") . "</th>";
             $content .= "<th>" . __("Overload", "renamer") . "</th>";
-            $content .= "<th>" . __("User", "renamer") . "</th>";
-            $content .= "<th>" . __("Restore", "renamer") . "</th>";
+            $content .= "<th>" . __("User") . "</th>";
+            $content .= "<th>" . __("Restore") . "</th>";
             $content .= "<th>" . __("Update", "renamer") . "</th>";
             $content .= "</tr>";
 
@@ -192,7 +192,9 @@ class PluginRenamerRenamer extends CommonDBTM {
 
                 $content .= "<td class='center'>" . Html::convDate($row["date_overload"]) . "</td>";
                 $content .= "<td class='center'>" . $row["lang"] . "</td>";
-                $content .= "<td class='center'>" . unserialize(stripslashes(stripslashes(str_replace("]","'",$row['original'])))) . "</td>";
+                $content .= "<td class='center'>";
+                $content .= unserialize(stripslashes(stripslashes(str_replace("]","'",$row['original']))));
+                $content .= "</td>";
                 $content .= "<td class='center'>" . $row["overload"] . "</td>";
                 $content .= "<td class='center'>" . $user->getName() . "</td>";
 
@@ -238,7 +240,7 @@ class PluginRenamerRenamer extends CommonDBTM {
 
         $content = "";
         $content .= "<table id='table1'  class='tab_cadre_fixe' >";
-        $content .= "<th colspan='3'>" . __("Restore", "renamer") . "</th>";
+        $content .= "<th colspan='3'>" . __("Restore") . "</th>";
 
         $content .= "<tr class='headerRow'>";
         $content .= "<th>" . __('Restore all languages', 'renamer') . "</th>";

@@ -151,14 +151,6 @@ msgstr ""
 msgid "Original"
 msgstr ""
 
-#: inc/renamer.class.php:146
-msgid "User"
-msgstr ""
-
-#: inc/renamer.class.php:147 inc/renamer.class.php:219
-msgid "Restore"
-msgstr ""
-
 #: inc/renamer.class.php:148
 msgid "Update"
 msgstr ""
