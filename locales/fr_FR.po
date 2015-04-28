@@ -3,31 +3,31 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-01 11:14+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2015-04-28 17:45+0100\n"
+"Last-Translator: Emmanuel Haguet <ehaguet@teclib.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: hook.php:54 ajax/ajax.php:131 ajax/ajax.php:335 ajax/ajax.php:347
 #: ajax/ajax.php:393
 msgid "Please give write permission to the 'locales' folder of Glpi"
-msgstr "Merci de donner les permissions d'écriture au dossier 'locales' de glpi"
+msgstr ""
+"Merci de donner les permissions d'écriture au dossier 'locales' de glpi"
 
 #: hook.php:59
 msgid "Please give write permission to the plugin Renamer"
-msgstr "Veuillez donner les permissions d'écriture sur le dossier du plugin Renamer "
+msgstr ""
+"Veuillez donner les permissions d'écriture sur le dossier du plugin Renamer "
 
-#: hook.php:65
-#: hook.php:141
+#: hook.php:65 hook.php:141
 msgid "Error while cleaning backup folder"
 msgstr "Erreur lors du nettoyage du dossier 'backup'"
 
@@ -41,7 +41,8 @@ msgstr "Erreur lors du nettoyage du dossier 'locales' de glpi"
 
 #: hook.php:136 ajax/ajax.php:359
 msgid "Error while restore glpi locale files"
-msgstr "Erreur lors de la restauration des fichiers du dossier 'locales' de glpi"
+msgstr ""
+"Erreur lors de la restauration des fichiers du dossier 'locales' de glpi"
 
 #: setup.php:75
 msgid "Renamer"
@@ -179,12 +180,14 @@ msgstr "Impossible de supprimer le fichier '%1$s' dans le dossier 'tmp'"
 #: inc/renamer.class.php:332
 #, php-format
 msgid "Can't restore file  '%1$s' in locale folder of Glpi"
-msgstr "Impossible de restaurer le fichier '%1$s' dans le dossier 'locales' de Glpi"
+msgstr ""
+"Impossible de restaurer le fichier '%1$s' dans le dossier 'locales' de Glpi"
 
 #: inc/renamer.class.php:353
 #, php-format
 msgid "Can't remove file  '%1$s' in locale folder of Glpi"
-msgstr "Impossible de supprimer le fichier '%1$s' dans le dossier 'locales' de Glpi"
+msgstr ""
+"Impossible de supprimer le fichier '%1$s' dans le dossier 'locales' de Glpi"
 
 #: lib/PoParser.php:576
 #, php-format
@@ -194,7 +197,6 @@ msgstr "Impossible d'accéder au fichier '%1$s'"
 #: scripts/renamer.js.php:45
 msgid "Thank you to inform the field"
 msgstr "Merci de renseigner le champ"
-
 
 msgid "Restore a language "
 msgstr "Restaurer une langue"
