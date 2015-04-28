@@ -48,9 +48,9 @@ function plugin_init_renamer() {
 
     $PLUGIN_HOOKS['csrf_compliant']['renamer'] = true;
     $PLUGIN_HOOKS['change_profile']['renamer'] = array('PluginRenamerProfile', 'changeProfile');
-    $PLUGIN_HOOKS['add_javascript']['renamer'] = array('scripts/jquery-1.11.0.min.js',
-                                                       'scripts/jquery.ui.widget.min.js',
-                                                       'scripts/jquery-picklist.min.js',
+    $PLUGIN_HOOKS['add_javascript']['renamer'] = array(//'scripts/jquery-1.11.0.min.js',
+                                                       //'scripts/jquery.ui.widget.min.js',
+                                                       //'scripts/jquery-picklist.min.js',
                                                        'scripts/renamer.js.php');
 
     Plugin::registerClass('PluginRenamerInstall');
@@ -59,7 +59,7 @@ function plugin_init_renamer() {
     Plugin::registerClass('PluginRenamerProfile', array('addtabon' => array('Profile')));
 
 
-    $PLUGIN_HOOKS['add_css']['renamer'] = array('css/jquery-picklist.css','jquery-picklist-ie7.css');
+    //$PLUGIN_HOOKS['add_css']['renamer'] = array('css/jquery-picklist.css','jquery-picklist-ie7.css');
 
     $plugin = new Plugin();
     if (Session::getLoginUserID() && $plugin->isActivated('renamer')) {
@@ -78,11 +78,11 @@ function plugin_init_renamer() {
  */
 function plugin_version_renamer() {
    return array(  'name'            => __("Renamer", "renamer"),
-                  'version'         => '0.84-1.5_beta2',
+                  'version'         => '0.85-1.0',
                   'author'          => 'Stanislas KITA (teclib\')',
                   'license'         => 'GPLv3',
                   'homepage'        => 'teclib.com',
-                  'minGlpiVersion'  => '0.84');
+                  'minGlpiVersion'  => '0.85');
 
 }
 
@@ -92,8 +92,8 @@ function plugin_version_renamer() {
  */
 function plugin_renamer_check_prerequisites() {
 
-   if (version_compare(GLPI_VERSION,'0.84','lt') || version_compare(GLPI_VERSION,'0.85','ge')) {
-      echo "This plugin requires GLPI >= 0.84 and GLPI < 0.85";
+   if (version_compare(GLPI_VERSION,'0.85','lt') || version_compare(GLPI_VERSION,'0.86','ge')) {
+      echo "This plugin requires GLPI >= 0.85 and GLPI < 0.86";
    } else {
       return true;
    }
