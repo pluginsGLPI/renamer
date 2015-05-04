@@ -1,4 +1,5 @@
 <?php
+
 /*
    ------------------------------------------------------------------------
    GLPI Plugin renamer
@@ -42,6 +43,7 @@
  */
 class PluginRenamerProfile extends CommonDBTM {
 
+
     static function canCreate() {
 
         if (isset($_SESSION["glpi_plugin_renamer_profile"])) {
@@ -65,26 +67,26 @@ class PluginRenamerProfile extends CommonDBTM {
         // si le profile n'existe pas déjà dans la table profile de mon plugin
         if (!$myProf->getFromDB($ID)) {
             // ajouter un champ dans la table comprenant l'ID du profil d la personne connecté et le droit d'écriture
-            $myProf->add(array('id' => $ID, 'right' => UPDATE));
+            $myProf->add(array('id' => $ID, 'right' => 'w'));
         }
 
     }
 
 
-    function showForm($id, $options = array()) {
-
-        if (!Session::haveRight("profile", READ)) {
-            return false;
-        }
+    function showForm($id, $options=array()) {
 
         $target = $this->getFormURL();
         if (isset($options['target'])) {
             $target = $options['target'];
         }
 
-        $canedit = Session::haveRight("profile", UPDATE);
+        if (!Session::haveRight("profile","r")) {
+            return false;
+        }
+
+        $canedit = Session::haveRight("profile", "w");
         $prof = new Profile();
-        if ($id) {
+        if ($id){
             $this->getFromDB($id);
             $prof->getFromDB($id);
         }
@@ -104,7 +106,7 @@ class PluginRenamerProfile extends CommonDBTM {
             echo "<tr class='tab_bg_1'>";
             echo "<td class='center' colspan='2'>";
             echo "<input type='hidden' name='id' value=$id>";
-            echo "<input type='submit' name='update_user_profile' value='".__('Update')."'
+            echo "<input type='submit' name='update_user_profile' value='Mettre à jour'
                 class='submit'>";
             echo "</td></tr>";
         }
@@ -150,3 +152,5 @@ class PluginRenamerProfile extends CommonDBTM {
         }
     }
 }
+
+?>

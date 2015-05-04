@@ -52,13 +52,6 @@ function plugin_init_renamer() {
                                                        //'scripts/jquery.ui.widget.min.js',
                                                        //'scripts/jquery-picklist.min.js',
                                                        'scripts/renamer.js.php');
-    $plugin = new Plugin();
-    if ($plugin->isInstalled('renamer') && $plugin->isActivated('renamer')) {
-        if (Session::haveRight('config', READ)) {
-            // add to 'Admin' menu :
-            $PLUGIN_HOOKS["menu_toadd"]['renamer'] = array('admin' => 'PluginRenamerMenu');
-        }
-    }
 
     Plugin::registerClass('PluginRenamerInstall');
     Plugin::registerClass('PluginRenamerRenamer');
@@ -99,7 +92,7 @@ function plugin_version_renamer() {
  */
 function plugin_renamer_check_prerequisites() {
 
-   if (version_compare(GLPI_VERSION, '0.85', 'lt') || version_compare(GLPI_VERSION, '0.86', 'ge')) {
+   if (version_compare(GLPI_VERSION,'0.85','lt') || version_compare(GLPI_VERSION,'0.86','ge')) {
       echo "This plugin requires GLPI >= 0.85 and GLPI < 0.86";
    } else {
       return true;
