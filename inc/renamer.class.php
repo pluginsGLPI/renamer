@@ -334,9 +334,8 @@ class PluginRenamerRenamer extends CommonDBTM {
      */
     public function updateTranslation($file_patch){
 
+        $file_patch_mo = substr($file_patch,0,-3).".mo";
 
-
-        $file_patch_mo = str_replace('po', 'mo', $file_patch);
         exec("msgcat ".$file_patch." | msgfmt -o ".$file_patch_mo." - ");
 
         // Convert XXX.po to XXX.mo
