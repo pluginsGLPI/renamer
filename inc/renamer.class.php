@@ -176,13 +176,13 @@ class PluginRenamerRenamer extends CommonDBTM {
 
                 $user->getFromDB($row["users_id"]);
 
-                $content .= "<tr>";
-                $content .= "<td class='center'>" . $row["id"] . "</td>";
-                $content .= "<td class='center' lang='en' dir='ltr'>";
+                $content .= "<tr class='center'>";
+                $content .= "<td>" . $row["id"] . "</td>";
+                $content .= "<td lang='en' dir='ltr'>";
                 $content .= implode('<br>',unserialize(stripslashes(stripslashes($row['msgid']))));
                 $content .= "</td>";
 
-                $content .= "<td class='center'>";
+                $content .= "<td>";
                 if($row['context'] == null) {
                     $content .=  __('No','renamer');
                 } else {
@@ -190,22 +190,23 @@ class PluginRenamerRenamer extends CommonDBTM {
                 }
                 $content .= "</td>";
 
-                $content .= "<td class='center'>" . Html::convDate($row["date_overload"]) . "</td>";
-                $content .= "<td class='center'>" . $row["lang"] . "</td>";
-                $content .= "<td class='center'>";
-                $content .= unserialize(stripslashes(stripslashes(str_replace("]","'",$row['original']))));
+                $content .= "<td>" . Html::convDate($row["date_overload"]) . "</td>";
+                $content .= "<td>" . $row["lang"] . "</td>";
+                $content .= "<td>";
+                $original = unserialize(stripslashes(stripslashes(str_replace("]","'",$row['original']))));
+                $content .= $original;
                 $content .= "</td>";
-                $content .= "<td class='center'>" . $row["overload"] . "</td>";
-                $content .= "<td class='center'>" . $user->getName() . "</td>";
+                $content .= "<td>" . $row["overload"] . "</td>";
+                $content .= "<td>" . $user->getName() . "</td>";
 
-                $content .= "<td class='center'><img src='" . $CFG_GLPI['root_doc'] .
-                    "/plugins/renamer/pics/bin16.png'  onclick='restoreWord(" . $row['id'] . ")';
-                    style='cursor: pointer;' title='" . __("Delete overload", "renamer") . "'/></td>";
+                $content .= "<td><img src='" . $CFG_GLPI['root_doc'] .
+                    "/plugins/renamer/pics/bin16.png' onclick='restoreWord(" . $row['id'] . ")".
+                    "style='cursor: pointer;' title='" . __("Delete overload", "renamer") . "'/></td>";
 
-                $content .= "<td class='center' ><input type='text' id='updateWord".$row["id"]."' />    ";
-                $content .= "<img src='" . $CFG_GLPI['root_doc'] ."/plugins/renamer/pics/update16.png'  onclick='updateOverload(" . $row['id'] . ")';
-                    style='cursor: pointer;' title='" . __("Update overload", "renamer") . "'/>
-                    <center><img id='waitLoadingOnUpdate' style='min-width:24px; display:none;' src='../pics/please_wait.gif'></center></td>";
+                $content .= "<td><input type='text' id='updateWord".$row["id"]."' value='$original' /> ";
+                $content .= "<img src='" . $CFG_GLPI['root_doc'] ."/plugins/renamer/pics/update16.png' onclick='updateOverload(".$row['id'].")'".
+                    "style='cursor: pointer;' title='" . __("Update overload", "renamer") . "'/>
+                    <img id='waitLoadingOnUpdate' style='min-width:24px; display:none;' class='center' src='../pics/please_wait.gif'></td>";
 
             }
             $content .= "</table>";

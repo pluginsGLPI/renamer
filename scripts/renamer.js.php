@@ -36,45 +36,39 @@ http://www.gnu.org/licenses/gpl.html
 
 ------------------------------------------------------------------------
 */
-
 include ('../../../inc/includes.php');
 
 global $CFG_GLPI;
 
 $root_ajax = $CFG_GLPI['root_doc']."/plugins/renamer/ajax/ajax.php";
-$info = __('Thank you to inform the field','renamer');
-$noSelected = __('No selected','renamer');
-$selected = __('Selected','renamer');
+$info = __('Thank you to inform the field', 'renamer');
+$noSelected = __('No selected', 'renamer');
+$selected = __('Selected', 'renamer');
 
 $JS = <<<JAVASCRIPT
 
-
-
-
 function restoreLocaleFiles(){
 
- var lang = $("#dropdown_language").find(":selected").text();
+    var lang = $("#dropdown_language").find(":selected").text();
 
- $.ajax({ // fonction permettant de faire de l'ajax
-                type: "POST", // methode de transmission des données au fichier php
-                url: "{$root_ajax}", // url du fichier php
-                data: "action=restoreALanguage&" +
-                    "lang=" + lang , // données à transmettre
+    $.ajax({
+        type: "POST",
+        url: "{$root_ajax}",
+        data: "action=restoreALanguage&" +
+            "lang=" + lang ,
 
-                success: function (msg) { // si l'appel a bien fonctionné
+        success: function (msg) {
 
-                     window.location.reload();
+             window.location.reload();
 
-                },
-                error: function () {
+        },
+        error: function () {
 
-                }
-            });
-            return false; // permet de rester sur la même page à la soumission du formulaire
+        }
+    });
+    return false; // permet de rester sur la même page à la soumission du formulaire
 
 }
-
-
 
 function updateOverload(id){
 
@@ -84,22 +78,20 @@ function updateOverload(id){
     var img = $("#waitLoadingOnUpdate");
 
     if(newWord.length == 0 || newWord == ' '){
-
         input.css('border-color','red');
         alert('Veuillez renseigner le nouveau mot');
 
     }else{
-img.css('display', 'block');
+        img.css('display', 'block');
         input.css('border-color','#888888');
         $.ajax({ // fonction permettant de faire de l'ajax
-                type: "POST", // methode de transmission des données au fichier php
-                url: "{$root_ajax}", // url du fichier php
+                type: "POST",
+                url: "{$root_ajax}",
                 data: "action=updateOverload&" +
                     "newWord=" + newWord +"&" +
-                    "id=" + id , // données à transmettre
+                    "id=" + id ,
 
-                success: function (msg) { // si l'appel a bien fonctionné
-
+                success: function (msg) {
                      window.location.reload();
 
                 },
@@ -114,11 +106,24 @@ img.css('display', 'block');
 
 }
 
-
-jQuery(document).ready(function()
+$(document).ready(function()
 {
+    //Note : Port pickList can be port in 0.85
+    /*
+    $("#pick_list_lang").pickList({
+        mainClass:       "foobar",
+        sourceListLabel: "{$noSelected}",
+        targetListLabel: "{$selected}",
+        addAllLabel:     ">>",
+        addLabel:        ">",
+        removeAllLabel:  "<<",
+        removeLabel:     "<",
+        sortItems:       true
+    });
+    */
+
     var currentRequest = null;
-    jQuery('#searchword').keyup(function()
+    $('#searchword').keyup(function()
     {
 
         var table = $("#tableOverloadWord");
@@ -127,19 +132,19 @@ jQuery(document).ready(function()
         var img = $("#waitLoading");
         img.css('display', 'block');
 
-        currentRequest = jQuery.ajax(
+        currentRequest = $.ajax(
             {
-                type: "POST", // methode de transmission des données au fichier php
-                url: "{$root_ajax}", // url du fichier php
+                type: "POST",
+                url: "{$root_ajax}",
                 data: "action=getWords&" +
                     "word=" + word +"&" +
-                    "lang=" + lang, // données à transmettre
+                    "lang=" + lang,
                 beforeSend : function() {
                    if(currentRequest != null){
                         currentRequest.abort();
                    }
                 },
-                success: function (msg) { // si l'appel a bien fonctionné
+                success: function (msg) {
                     $("#tbody").children().remove();
                     $("#tbody").append(msg);
                     img.css('display', 'none');
@@ -165,29 +170,26 @@ function overloadWord(index){
     var divInfo = $('#info' + index);
     var img = $('#waitLoadingOverload'+index);
 
-
-
-img.css('display', 'block');
+    img.css('display', 'block');
     divInfo.empty();
 
-    $.ajax({ // fonction permettant de faire de l'ajax
-        type: "POST", // methode de transmission des données au fichier php
-        url: "{$root_ajax}", // url du fichier php
+    $.ajax({
+        type: "POST",
+        url: "{$root_ajax}",
         data: "action=overloadWord&" +
             "word=" + newWord +"&" +
             "id=" + id +"&" +
             "msgctxt=" + msgctxt +"&" +
             "wordToOverload=" + wordToOverload +"&" +
-            "lang=" + lang, // données à transmettre
+            "lang=" + lang,
 
-        success: function (msg) { // si l'appel a bien fonctionné
-img.css('display', 'none');
-        divInfo.html(msg);
-
+        success: function (msg) {
+            img.css('display', 'none');
+            divInfo.html(msg);
         },
 
         error: function () {
-img.css('display', 'none');
+            img.css('display', 'none');
         }
     });
     return false; // permet de rester sur la même page à la soumission du formulaire
@@ -198,33 +200,26 @@ img.css('display', 'none');
 
 function findWord(){
 
-var table = $("#tableOverloadWord");
-var word = $("#word").val();
-var lang = $("#dropdown_language").find(":selected").text();
-var xhr = null ;  //notre appel ajax
+    var table = $("#tableOverloadWord");
+    var word = $("#word").val();
+    var lang = $("#dropdown_language").find(":selected").text();
+    var xhr = null;  //notre appel ajax
 
-xhr = $.ajax({ // fonction permettant de faire de l'ajax
-        type: "POST", // methode de transmission des données au fichier php
-        url: "{$root_ajax}", // url du fichier php
+    xhr = $.ajax({
+        type: "POST",
+        url: "{$root_ajax}",
         data: "action=getWords&" +
             "word=" + word +"&" +
-            "lang=" + lang, // données à transmettre
+            "lang=" + lang,
         beforeSend : function()    {
             if(xhr != null) { //kill de l'appel ajax car mutliple
                 alert("abort");
                  xhr.abort();
             }
         },
-        success: function (msg) { // si l'appel a bien fonctionné
-
-
-                $("#tbody").children().remove();
-                $("#tbody").append(msg);
-
-
-
-
-
+        success: function (msg) {
+            $("#tbody").children().remove();
+            $("#tbody").append(msg);
         },
         error: function () {
             alert('pb ajax');
@@ -235,16 +230,14 @@ xhr = $.ajax({ // fonction permettant de faire de l'ajax
 }
 
 
-
-
 //Function to restore all locales files
 function restoreAllLocaleFiles(){
 
     $.ajax({ // fonction permettant de faire de l'ajax
-        type: "POST", // methode de transmission des données au fichier php
-        url: "{$root_ajax}", // url du fichier php
-        data: "action=restore", // données à transmettre
-        success: function (msg) { // si l'appel a bien fonctionné
+        type: "POST",
+        url: "{$root_ajax}",
+        data: "action=restore",
+        success: function (msg) {
             window.location.reload();
         },
         error: function () {
@@ -252,47 +245,22 @@ function restoreAllLocaleFiles(){
         }
     });
 }
-
 
 //Function to restore an overload word
 function restoreWord(id){
-
-    $.ajax({ // fonction permettant de faire de l'ajax
-        type: "POST", // methode de transmission des données au fichier php
-        url: "{$root_ajax}", // url du fichier php
+    $.ajax({
+        type: "POST",
+        url: "{$root_ajax}",
         data: "action=restoreWord&"+
-            "id=" + id, // données à transmettre
-        success: function (msg) { // si l'appel a bien fonctionné
-
+            "id=" + id,
+        success: function (msg) {
             window.location.reload();
-
         },
         error: function () {
             alert("Ajax problem");
         }
     });
 }
-
-
-$(document).ready(function() {
-       $("#pick_list_lang").pickList({
-    mainClass:       "foobar",
-    sourceListLabel: "{$noSelected}",
-    targetListLabel: "{$selected}",
-    addAllLabel:     ">>",
-    addLabel:        ">",
-    removeAllLabel:  "<<",
-    removeLabel:     "<",
-    sortItems:       true
-});
-});
-
-
-
-
-
-
-
 
 JAVASCRIPT;
 
