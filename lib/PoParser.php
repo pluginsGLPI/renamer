@@ -202,7 +202,8 @@ class PoParser
 
                         case 'msgstr':
                             if ($str == "\"\"") {
-                                $entry['msgstr'][] = trim($str, '"');
+                                //$entry['msgstr'][] = trim($str, '"');
+                                $entry['msgstr'][] = $str;
                             } else {
                                 $entry['msgstr'][] = $str;
                             }
@@ -289,7 +290,7 @@ class PoParser
         // - Cleanup header data
         $this->headers = array();
         foreach ($headers as $header) {
-            $this->headers[] = "\"" . preg_replace("/\\n/", "\\n", $this->clean($header)) . "\"";
+            $this->headers[] = "\"" . preg_replace("/\\n/", "\\n", $this->clean($header, false)) . "\"";
         }
 
         // - Cleanup data,
@@ -300,7 +301,7 @@ class PoParser
         foreach ($temp as $entry) {
             foreach ($entry as &$v) {
                 $or = $v;
-                $v = $this->clean($v);
+                $v = $this->clean($v, false);
                 if ($v === false) {
                     // parse error
                     throw new \Exception(
@@ -477,7 +478,8 @@ class PoParser
 
                 if (isset($entry['ccomment'])) {
                     foreach ($entry['ccomment'] as $comment) {
-                        fwrite($handle, '#. ' . $comment . "\n");
+                        $comment = str_replace("\n", "", $comment); //Quick fix
+                        //fwrite($handle, '#. ' . $comment . "\n");
                     }
                 }
 
@@ -550,7 +552,13 @@ class PoParser
                                     fwrite($handle, "#~ ");
                                 }
 
-                                fwrite($handle, 'msgstr ' . $this->cleanExport($t) . "\n");
+                                //fwrite($handle, 'msgstr ' . $this->cleanExport($t) . "\n");
+                                $t = str_replace('"', "\"", $t);
+                                $cleanStr = $this->cleanExport($t);
+                                //$cleanStr = '"'.$t.'"';
+                                $cleanStr = str_replace("\n", "", $cleanStr);
+                                $cleanStr = str_replace('""', "", $cleanStr);
+                                fwrite($handle, 'msgstr ' . $cleanStr . "\n");
                             } else {
                                 if ($isObsolete) {
                                     fwrite($handle, "#~ ");
@@ -630,7 +638,7 @@ class PoParser
      * @param string|array $x
      * @return string|array.
      */
-    protected function clean($x)
+    protected function clean($x, $doStripCSlashes = true)
     {
         if (is_array($x)) {
             foreach ($x as $k => $v) {
@@ -646,7 +654,9 @@ class PoParser
                 $x = substr($x, 1, -1);
             }
 
-            $x = stripcslashes($x);
+            if ($doStripCSlashes) {
+                $x = stripcslashes($x);
+            }
         }
 
         return $x;

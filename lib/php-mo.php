@@ -145,7 +145,7 @@ function phpmo_parse_po_file($in) {
    $hash = array ();
    foreach ($temp as $entry) {
       foreach ($entry as & $v) {
-         $v = phpmo_clean_helper($v);
+         //$v = phpmo_clean_helper($v);
          if ($v === FALSE) {
             // parse error
             return FALSE;
