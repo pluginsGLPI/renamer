@@ -28,7 +28,7 @@
    ------------------------------------------------------------------------
 
    @package   GLPI Plugin Renamer
-   @author    Stanislas Kita (teclib')
+   @author    Stanislas Kita (Teclib')
    @copyright Copyright (c) 2014 GLPI Plugin Renamer Development team
    @license   GPLv3 or (at your option) any later version
               http://www.gnu.org/licenses/gpl.html
@@ -43,7 +43,6 @@
  * @global array $PLUGIN_HOOKS
  */
 function plugin_init_renamer() {
-
     global $PLUGIN_HOOKS;
 
     $PLUGIN_HOOKS['csrf_compliant']['renamer'] = true;
@@ -58,12 +57,15 @@ function plugin_init_renamer() {
     Plugin::registerClass('PluginRenamerConfig');
     Plugin::registerClass('PluginRenamerProfile', array('addtabon' => array('Profile')));
 
+    // Add link in GLPI plugins list :
+    $PLUGIN_HOOKS['config_page']['renamer'] = "front/config.form.php";
+
 
     $PLUGIN_HOOKS['add_css']['renamer'] = array('css/renamer.css'); //array('css/jquery-picklist.css','jquery-picklist-ie7.css');
 
     $plugin = new Plugin();
     if (Session::getLoginUserID() && $plugin->isActivated('renamer')) {
-        if(plugin_renamer_haveRight("right","w")){
+        if (plugin_renamer_haveRight("right", "w")) {
             $PLUGIN_HOOKS['menu_entry']['renamer']  = 'front/renamer.form.php';
             $PLUGIN_HOOKS['config_page']['renamer'] = 'front/config.form.php';
         }
@@ -83,7 +85,6 @@ function plugin_version_renamer() {
                   'license'         => 'GPLv3',
                   'homepage'        => 'teclib.com',
                   'minGlpiVersion'  => '0.85');
-
 }
 
 /**
@@ -92,7 +93,7 @@ function plugin_version_renamer() {
  */
 function plugin_renamer_check_prerequisites() {
 
-   if (version_compare(GLPI_VERSION,'0.85','lt') || version_compare(GLPI_VERSION,'0.86','ge')) {
+   if (version_compare(GLPI_VERSION, '0.85', 'lt') || version_compare(GLPI_VERSION, '0.86', 'ge')) {
       echo "This plugin requires GLPI >= 0.85 and GLPI < 0.86";
    } else {
       return true;
