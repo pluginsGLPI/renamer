@@ -47,7 +47,7 @@ class PluginRenamerConfig extends CommonDBTM {
 
     /**
      * Function to define if the user have right to create
-     * @return bool|booleen
+     * @return bool
      */
     static function canCreate() {
         return Session::haveRight('config', UPDATE);
@@ -56,7 +56,7 @@ class PluginRenamerConfig extends CommonDBTM {
 
     /**
      * Function to define if the user have right to view
-     * @return bool|booleen
+     * @return bool
      */
     static function canView() {
         return Session::haveRight('config', READ);
@@ -91,9 +91,8 @@ class PluginRenamerConfig extends CommonDBTM {
         $content .= "<th>" . __("Choose languages to display","renamer") . "</th>";
 
         $content .= '<td>';
-        $content .= '<select id="pick_list_lang" name="pick_list_lang[]" selected="selected" multiple="multiple" >';
+        $content .= '<select id="pick_list_lang" name="pick_list_lang[]" multiple="multiple">';
         foreach($CFG_GLPI["languages"] as $lang){
-
             if(is_array($langSlected) && in_array($lang,$langSlected)){
                 $content .= ' <option value="'.$lang[0].'" selected="selected">'.$lang[0].'</option>';
             }else{

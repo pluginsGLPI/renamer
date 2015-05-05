@@ -108,8 +108,7 @@ function updateOverload(id){
 
 $(document).ready(function()
 {
-    //Note : Port pickList can be port in 0.85
-    /*
+    
     $("#pick_list_lang").pickList({
         mainClass:       "foobar",
         sourceListLabel: "{$noSelected}",
@@ -118,9 +117,9 @@ $(document).ready(function()
         addLabel:        ">",
         removeAllLabel:  "<<",
         removeLabel:     "<",
-        sortItems:       true
+        sortItems:       false, //true
     });
-    */
+
 
     var currentRequest = null;
     $('#searchword').keyup(function()

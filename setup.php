@@ -47,10 +47,6 @@ function plugin_init_renamer() {
 
     $PLUGIN_HOOKS['csrf_compliant']['renamer'] = true;
     $PLUGIN_HOOKS['change_profile']['renamer'] = array('PluginRenamerProfile', 'changeProfile');
-    $PLUGIN_HOOKS['add_javascript']['renamer'] = array(//'scripts/jquery-1.11.0.min.js',
-                                                       //'scripts/jquery.ui.widget.min.js',
-                                                       //'scripts/jquery-picklist.min.js',
-                                                       'scripts/renamer.js.php');
 
     Plugin::registerClass('PluginRenamerInstall');
     Plugin::registerClass('PluginRenamerRenamer');
@@ -70,11 +66,13 @@ function plugin_init_renamer() {
         }
     }
 
-
-    $PLUGIN_HOOKS['add_css']['renamer'] = array('css/renamer.css'); //array('css/jquery-picklist.css','jquery-picklist-ie7.css');
-
     $plugin = new Plugin();
     if (Session::getLoginUserID() && $plugin->isActivated('renamer')) {
+
+        $PLUGIN_HOOKS['add_javascript']['renamer'] = array('scripts/jquery-picklist.min.js',
+                                                       'scripts/renamer.js.php');
+        $PLUGIN_HOOKS['add_css']['renamer'] = array('css/renamer.css', 'css/jquery-picklist.css','jquery-picklist-ie7.css');
+
         if (plugin_renamer_haveRight("right", "w")) {
             $PLUGIN_HOOKS['menu_entry']['renamer']  = 'front/renamer.form.php';
             $PLUGIN_HOOKS['config_page']['renamer'] = 'front/config.form.php';
@@ -91,7 +89,7 @@ function plugin_init_renamer() {
 function plugin_version_renamer() {
    return array(  'name'            => __("Renamer", "renamer"),
                   'version'         => '0.85-1.0',
-                  'author'          => 'Stanislas KITA (teclib\')',
+                  'author'          => 'Stanislas KITA (Teclib\')',
                   'license'         => 'GPLv3',
                   'homepage'        => 'teclib.com',
                   'minGlpiVersion'  => '0.85');
