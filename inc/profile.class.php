@@ -75,16 +75,16 @@ class PluginRenamerProfile extends CommonDBTM {
 
     function showForm($id, $options=array()) {
 
+        if (!Session::haveRight("profile", READ)) {
+            return false;
+        }
+
         $target = $this->getFormURL();
         if (isset($options['target'])) {
             $target = $options['target'];
         }
 
-        if (!Session::haveRight("profile","r")) {
-            return false;
-        }
-
-        $canedit = Session::haveRight("profile", "w");
+        $canedit = Session::haveRight("profile", UPDATE);
         $prof = new Profile();
         if ($id){
             $this->getFromDB($id);
@@ -106,8 +106,7 @@ class PluginRenamerProfile extends CommonDBTM {
             echo "<tr class='tab_bg_1'>";
             echo "<td class='center' colspan='2'>";
             echo "<input type='hidden' name='id' value=$id>";
-            echo "<input type='submit' name='update_user_profile' value='Mettre à jour'
-                class='submit'>";
+            echo "<input type='submit' name='update_user_profile' value='Mettre à jour' class='submit'>";
             echo "</td></tr>";
         }
         echo "</table>";
