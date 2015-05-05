@@ -7,7 +7,7 @@ class PluginRenamerMenu extends CommonGLPI {
    }
    
    static function getMenuName() {
-      return __('Renamer', 'renamer'); //OK
+      return __('Renamer', 'renamer');
    }
 
    static function getMenuContent() {
