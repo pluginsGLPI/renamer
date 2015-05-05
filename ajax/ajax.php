@@ -156,9 +156,9 @@ if (isset($_POST['action'])) {
                     //si write ok
                     if($res){
 
-                        //update tranlate
+                        //update translate
                         $renamer->updateTranslation($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/'.$file);
-                        //del tmp file
+                        //delete tmp file
                         $renamer->removeFileIntoTmp($file);
 
                         //update bdd entry
@@ -583,43 +583,39 @@ function createTableRow($entry ,$word){
         if($i != 1){
             $content .= "<td rowspan=".count($entry['msgstr']).">";
             $content .= addHighlightingWord(implode('<br>',$entry['msgid']),$word);
-            $content .= "</td >";
+            $content .= "</td>";
 
             $content .= "<td rowspan=".count($entry['msgstr']).">";
             if(isset($entry['msgctxt']))$content .= implode('<br>',$entry['msgctxt']);
             else $content .= __('No','renamer');
 
-            $content .= "</td >";
+            $content .= "</td>";
 
             $content .= "<td rowspan=".count($entry['msgstr']).">";
             if(isset($entry['msgid_plural']))$content .= addHighlightingWord(implode('<br>',$entry['msgid_plural']),$word);
             else $content .= __('No','renamer');
 
-            $content .= "</td >";
+            $content .= "</td>";
             $i++;
         }
 
-        $content .= "<td >";
-        $content .= addHighlightingWord($str , $word);
-        $content .= "</td >";
-
-        $content .= "<td >";
+        $content .= "<td>" . addHighlightingWord($str, $word) . "</td>";
+        $content .= "<td>";
         $content .= "<input type='text' id='newWord".$entry['index'].$nb."' /> ";
-        $content .= "<input  onclick='overloadWord(".$entry['index'].$nb.");'  value='" .__('Overload', 'renamer') . "' class='submit'    style='width : 80px;'>";
-        $content .= "</td >";
+        $content .= "<input onclick='overloadWord(".$entry['index'].$nb.");' value='" .__('Overload', 'renamer') . "' class='submit' style='width: 80px;'>";
+        $content .= "</td>";
 
-        $content .= "<td >";
-        $content .= "<div style='min-width:24px; float:right; padding-left:10px; ' id='info".$entry['index'].$nb."'></div><img id='waitLoadingOverload".$entry['index'].$nb."' style='width:24px; display:none;' src='../pics/loading.gif'>";
-        $content .= "</td >";
+        $content .= "<td>";
+        $content .= "<div style='min-width:24px; float:right; padding-left:10px;' id='info".$entry['index'].$nb."'></div><img id='waitLoadingOverload".$entry['index'].$nb."' style='width:24px; display:none;' src='../pics/loading.gif'>";
+        $content .= "</td>";
 
-        $content .= "<input type='hidden' name='msgid'      id='msgid".$entry['index'].$nb."'      value='" . addslashes(serialize($entry['msgid'])) . "' >";
-        $content .= "<input type='hidden' name='msgstr'     id='msgstr".$entry['index'].$nb."'     value='" . addslashes(serialize(str_replace("'","]",$str))). "' >";
+        $content .= "<input type='hidden' name='msgid' id='msgid".$entry['index'].$nb."' value='" . addslashes(serialize($entry['msgid'])) . "'>";
+        $content .= "<input type='hidden' name='msgstr' id='msgstr".$entry['index'].$nb."' value='" . addslashes(serialize(str_replace("'","]",$str))). "'>";
 
         if(isset($entry['msgctxt']))
-            $content .= "<input type='hidden' name='msgctxt' id='msgctxt".$entry['index'].$nb."'   value='" . addslashes(serialize(str_replace("'","]",$entry['msgctxt']))). "' >";
+            $content .= "<input type='hidden' name='msgctxt' id='msgctxt".$entry['index'].$nb."' value='" . addslashes(serialize(str_replace("'","]",$entry['msgctxt']))). "'>";
         else
-            $content .= "<input type='hidden' name='msgctxt' id='msgctxt".$entry['index'].$nb."'   value='null' >";
-
+            $content .= "<input type='hidden' name='msgctxt' id='msgctxt".$entry['index'].$nb."' value='null'>";
 
         $content .= "</tr>";
     }

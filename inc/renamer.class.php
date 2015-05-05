@@ -79,8 +79,7 @@ class PluginRenamerRenamer extends CommonDBTM {
         $lang_user = $this->getLanguage($_SESSION['glpilanguage'],$lang);
 
 
-        $content  = "";
-        $content .= "<table class='tab_cadre'cellpadding='5'>";
+        $content  = "<table class='tab_cadre'cellpadding='5'>";
         $content .= "<th colspan='2'>" . __('Overload Language', 'renamer') . "</th>";
 
         $content .= "<tr class='headerRow'>";
@@ -108,12 +107,12 @@ class PluginRenamerRenamer extends CommonDBTM {
             $content .= '</select>';
         }
 
-        $content .= "</td >";
+        $content .= "</td>";
 
         $content .= "<td class='center'>";
         $content .= "<input type='text' id='searchword' />";
         $content .= "<div style='width:24px; float:right; padding-left:10px;' id='infoSearchWord'><img id='waitLoading' style='width:24px; display:none;' src='../pics/loading.gif'></div>";
-        $content .= "</td >";
+        $content .= "</td>";
         $content .= "</tr>";
 
         $content .= "<table class='tab_cadre'cellpadding='5' id='tableOverloadWord'>";
@@ -134,13 +133,12 @@ class PluginRenamerRenamer extends CommonDBTM {
         $content .= "</tbody>";
         $content .= "</table>";
 
-        $content .= "<input type='hidden' name='users_id'      id='users_id'      value=" . Session::getLoginUserID() . " >";
-        $content .= "<input type='hidden' name='date_overload' id='date_overload' value=" . date("Y-m-d") . " >";
+        $content .= "<input type='hidden' name='users_id'      id='users_id'      value=" . Session::getLoginUserID() . ">";
+        $content .= "<input type='hidden' name='date_overload' id='date_overload' value=" . date("Y-m-d") . ">";
 
         $content .= "</table>";
 
         echo $content;
-
 
     }
 
@@ -150,11 +148,10 @@ class PluginRenamerRenamer extends CommonDBTM {
     function showHistory(){
         global $CFG_GLPI;
         $res = $this->getHistory();
-        $content = "";
 
         if ($res->num_rows > 0) {
 
-            $content .= "<table id='table2'  class='tab_cadre_fixe' >";
+            $content  = "<table id='table2' class='tab_cadre_fixe'>";
             $content .= "<th colspan='10'>" . __("History of overload", "renamer") . "</th>";
 
             $content .= "<tr class='headerRow'>";
@@ -212,8 +209,7 @@ class PluginRenamerRenamer extends CommonDBTM {
             $content .= "</table>";
 
         } else {
-            $content = "";
-            $content .= "<table id='table1'  class='tab_cadre_fixe' >";
+            $content  = "<table id='table1' class='tab_cadre_fixe'>";
             $content .= "<th colspan='10'>" . __("History of overload", "renamer") . "</th>";
 
             $content .= "<tr class='tab_bg_1'>";
@@ -239,8 +235,7 @@ class PluginRenamerRenamer extends CommonDBTM {
 
         global $CFG_GLPI;
 
-        $content = "";
-        $content .= "<table id='table1'  class='tab_cadre_fixe' >";
+        $content  = "<table id='table1'  class='tab_cadre_fixe'>";
         $content .= "<th colspan='3'>" . __("Restore") . "</th>";
 
         $content .= "<tr class='headerRow'>";
@@ -259,8 +254,8 @@ class PluginRenamerRenamer extends CommonDBTM {
         $content .= Dropdown::showLanguages("languageToRestore", array('display' => false, 'value' => $_SESSION['glpilanguage'], 'rand' => ''));
         $content .="</td>";
         $content .= "<td style='text-align: center;'>";
-        $content .= "<input  onclick='restoreLocaleFiles();'  value='" .
-            __('Restore') . "' class='submit'    style='width : 200px;'>";
+        $content .= "<input onclick='restoreLocaleFiles();' value='" .
+            __('Restore') . "' class='submit' style='width: 200px;'>";
         $content .="</td>";
 
         $content .= "</tr>";
@@ -424,10 +419,8 @@ class PluginRenamerRenamer extends CommonDBTM {
 
     private function getLanguage($glpilanguage , $langSelected){
 
-
         global $CFG_GLPI;
         $lang = '';
-
 
         foreach ($CFG_GLPI["languages"] as $key => $value) {
             if ($glpilanguage == $key){

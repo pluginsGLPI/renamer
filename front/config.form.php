@@ -45,11 +45,12 @@ include ('../../../inc/includes.php');
 Html::header(__("Setup - Renamer","renamer"), $_SERVER['PHP_SELF'],
     'plugins', 'Renamer', 'configuration');
 
+global $CFG_GLPI;
+
 $plugin = new Plugin();
 
 if($plugin->isActivated('renamer')){
     $config = new PluginRenamerConfig();
-    global $CFG_GLPI;
     if(isset($_POST['update'])){
 
         if($_POST['pick_list_lang'] == NULL){
@@ -76,7 +77,6 @@ if($plugin->isActivated('renamer')){
         $config->showConfigForm();
     }
 }else{
-    global $CFG_GLPI;
     echo '<div class=\'center\'><br><br><img src=\''.$CFG_GLPI['root_doc'].
         '/pics/warning.png\' alt=\'warning\'><br><br>';
     echo '<b>'.__("Thank you to activate plugin","renamer").'</b></div>';

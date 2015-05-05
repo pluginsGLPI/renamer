@@ -64,7 +64,7 @@ class PluginRenamerConfig extends CommonDBTM {
 
 
     /**
-     * Function to show form to configure the plugin MantisBT
+     * Function to show form to configure the plugin
      */
     function showConfigForm() {
         global $CFG_GLPI;
@@ -79,9 +79,7 @@ class PluginRenamerConfig extends CommonDBTM {
             $target = $options['target'];
         }
 
-
-        $content  = '';
-        $content .= "<form method='post' action='" . $target . "' method='post'>";
+        $content  = "<form method='post' action='" . $target . "' method='post'>";
         $content .= "<table class='tab_cadre' >";
 
         $content .= "<tr>";
@@ -90,14 +88,9 @@ class PluginRenamerConfig extends CommonDBTM {
 
 
         $content .= "<tr class='tab_bg_1'>";
-
         $content .= "<th>" . __("Choose languages to display","renamer") . "</th>";
 
-
-
-
         $content .= '<td>';
-
         $content .= '<select id="pick_list_lang" name="pick_list_lang[]" selected="selected" multiple="multiple" >';
         foreach($CFG_GLPI["languages"] as $lang){
 
@@ -108,21 +101,16 @@ class PluginRenamerConfig extends CommonDBTM {
             }
         }
         $content .= '</select>';
-
-
-
         $content .= '</td>';
 
-
-        $content .= "<input type='hidden' name='id' value=".$this->fields['id']." class='submit'>";
+        $content .= "<input type='hidden' name='id' value=".$this->fields['id'].">";
         $content .= "</table>";
 
-        $content .= "<br><center><input id='update'  class='submit center-h' type='submit' name='update' value='"
-            . __("Update","renamer") . "' ></center>";
+        $content .= "<br><center><input id='update' class='submit center-h' type='submit' name='update' value='"
+            . __("Update","renamer") . "'></center>";
         $content .= Html::closeForm(false);
 
         echo $content;
-
 
     }
 

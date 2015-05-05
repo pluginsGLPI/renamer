@@ -3,7 +3,7 @@
 class PluginRenamerMenu extends CommonGLPI {
 
    static function getTypeName($nb = 0) {
-      return __('getTypeName', 'renamer'); //__('Link ItilCategory - Groups', 'itilcategorygroups');
+      return __('Renamer', 'renamer'); //useless ?
    }
    
    static function getMenuName() {

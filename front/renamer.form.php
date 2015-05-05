@@ -40,13 +40,10 @@
 
 include ('../../../inc/includes.php');
 
-
-
 $plugin = new Plugin();
+$renamer = new PluginRenamerRenamer();
 
 if($plugin->isActivated('renamer')){
-
-    $renamer = new PluginRenamerRenamer();
 
     if (isset($_GET['action']) && $_GET['action'] == 'overloadlanguage') {
 
@@ -60,17 +57,10 @@ if($plugin->isActivated('renamer')){
         $renamer->showFormToUpdateOverloadLanguage($_GET['id']);
         Html::popFooter();
 
-    }
-
-
-
-    else{
+    } else{
         Html::header(__("Setup - Renamer","renamer"), $_SERVER['PHP_SELF'],  'plugins', 'Renamer', 'configuration');
-        $renamer = new PluginRenamerRenamer();
         $renamer->showForm();
     }
-
-
 
 }else{
     global $CFG_GLPI;
