@@ -54,15 +54,13 @@ function plugin_init_renamer() {
     Plugin::registerClass('PluginRenamerProfile', array('addtabon' => array('Profile')));
 
     if (Session::getLoginUserID()) {
-         if (Session::haveRight("plugin_uninstall_use", READ)) {
+         if (Session::haveRight("config", UPDATE)) {
             
             // Add link in GLPI plugins list :
             $PLUGIN_HOOKS['config_page']['renamer'] = "front/config.form.php";
             
-            if (Session::haveRight('config', READ)) {
-               // add to 'Admin' menu :
-               $PLUGIN_HOOKS["menu_toadd"]['renamer'] = array('admin' => 'PluginRenamerMenu');
-            }
+            // add to 'Admin' menu :
+            $PLUGIN_HOOKS["menu_toadd"]['renamer'] = array('admin' => 'PluginRenamerMenu');
         }
     }
 
