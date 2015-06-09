@@ -43,42 +43,38 @@
  * @global array $PLUGIN_HOOKS
  */
 function plugin_init_renamer() {
-    global $PLUGIN_HOOKS;
+   global $PLUGIN_HOOKS;
 
-    $PLUGIN_HOOKS['csrf_compliant']['renamer'] = true;
-    $PLUGIN_HOOKS['change_profile']['renamer'] = array('PluginRenamerProfile', 'changeProfile');
+   $plugin = new Plugin();
 
-    Plugin::registerClass('PluginRenamerInstall');
-    Plugin::registerClass('PluginRenamerRenamer');
-    Plugin::registerClass('PluginRenamerConfig');
-    Plugin::registerClass('PluginRenamerProfile', array('addtabon' => array('Profile')));
+   $PLUGIN_HOOKS['csrf_compliant']['renamer'] = true;
+   $PLUGIN_HOOKS['change_profile']['renamer'] = array('PluginRenamerProfile', 'changeProfile');
 
-    if (Session::getLoginUserID()) {
-         if (Session::haveRight("config", UPDATE)) {
-            
-            // Add link in GLPI plugins list :
-            $PLUGIN_HOOKS['config_page']['renamer'] = "front/config.form.php";
-            
-            // add to 'Admin' menu :
-            $PLUGIN_HOOKS["menu_toadd"]['renamer'] = array('admin' => 'PluginRenamerMenu');
-        }
-    }
+   Plugin::registerClass('PluginRenamerInstall');
+   Plugin::registerClass('PluginRenamerRenamer');
+   Plugin::registerClass('PluginRenamerConfig');
+   Plugin::registerClass('PluginRenamerProfile', array('addtabon' => array('Profile')));
 
-    $plugin = new Plugin();
-    if (Session::getLoginUserID() && $plugin->isActivated('renamer')) {
+   if (Session::getLoginUserID()) {
+      if (Session::haveRight("config", UPDATE)) {
 
-        $PLUGIN_HOOKS['add_javascript']['renamer'] = array('scripts/jquery-picklist.min.js',
-                                                       'scripts/renamer.js.php');
-        $PLUGIN_HOOKS['add_css']['renamer'] = array('css/renamer.css', 'css/jquery-picklist.css','jquery-picklist-ie7.css');
+         // Add link in GLPI plugins list :
+         $PLUGIN_HOOKS['config_page']['renamer'] = "front/config.form.php";
 
-        if (plugin_renamer_haveRight("right", "w")) {
-            $PLUGIN_HOOKS['menu_entry']['renamer']  = 'front/renamer.form.php';
-            $PLUGIN_HOOKS['config_page']['renamer'] = 'front/config.form.php';
-        }
-    }
+         // add to 'Admin' menu :
+         $PLUGIN_HOOKS["menu_toadd"]['renamer'] = array('admin' => 'PluginRenamerMenu');
+      }
+   }
 
+   if (Session::getLoginUserID() && $plugin->isActivated('renamer')) {
+
+      $PLUGIN_HOOKS['add_javascript']['renamer'] = array('scripts/jquery-picklist.min.js',
+                                                         'scripts/renamer.js.php');
+      $PLUGIN_HOOKS['add_css']['renamer'] = array( 'css/renamer.css', 
+                                                   'css/jquery-picklist.css',
+                                                   'jquery-picklist-ie7.css');
+   }
 }
-
 
 /**
  *function to define the version for glpi for plugin
@@ -87,9 +83,9 @@ function plugin_init_renamer() {
 function plugin_version_renamer() {
    return array(  'name'            => __("Renamer", "renamer"),
                   'version'         => '0.85-1.0',
-                  'author'          => 'Stanislas KITA (Teclib\')',
+                  'author'          => 'TECLIB\'',
                   'license'         => 'GPLv3',
-                  'homepage'        => 'teclib.com',
+                  'homepage'        => 'https://github.com/TECLIB/renamer',
                   'minGlpiVersion'  => '0.85');
 }
 
@@ -125,25 +121,4 @@ function plugin_renamer_check_config($verbose = false) {
    }
 
    return false;
-}
-
-/**
- * function to check rights on plugin
- * @param string $module
- * @param string $right
- * @return boolean
- */
-function plugin_renamer_haveRight($module,$right) {
-   $matches=array(
-   ""  => array("","r","w"), // ne doit pas arriver normalement
-   "r" => array("r","w"),
-   "w" => array("w"),
-   "1" => array("1"),
-   "0" => array("0","1"), // ne doit pas arriver non plus
-   );
-
-   if (isset($_SESSION["glpi_plugin_renamer_profile"][$module])
-         && in_array($_SESSION["glpi_plugin_renamer_profile"][$module],$matches[$right]))
-      return true;
-   else return false;
 }
