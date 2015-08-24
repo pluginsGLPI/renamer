@@ -81,12 +81,12 @@ function plugin_init_renamer() {
  * @return array
  */
 function plugin_version_renamer() {
-   return array(  'name'            => __("Renamer", "renamer"),
-                  'version'         => '0.90-1.0',
-                  'author'          => 'TECLIB\'',
-                  'license'         => 'GPLv3',
-                  'homepage'        => 'https://github.com/TECLIB/renamer',
-                  'minGlpiVersion'  => '0.85');
+   return array('name'            => __("Renamer", "renamer"),
+                'version'         => '0.90-1.0',
+                'author'          => 'TECLIB\'',
+                'license'         => 'GPLv3',
+                'homepage'        => 'https://github.com/TECLIB/renamer',
+                'minGlpiVersion'  => '0.85');
 }
 
 /**
@@ -97,10 +97,10 @@ function plugin_renamer_check_prerequisites() {
 
    if (version_compare(GLPI_VERSION, '0.85', 'lt')) {
       echo "This plugin requires GLPI >= 0.85";
-   } else {
-      return true;
+      return false;
    }
-   return false;
+
+   return true;
 }
 
 
