@@ -25,9 +25,13 @@
    </authors>
    <versions>
       <version>
-          <num>0.90+1.0</num>
+          <num>0.90-1.0</num>
           <compatibility>0.85</compatibility>
           <compatibility>0.90</compatibility>
+      </version>
+      <version>
+          <num>0.85-1.0</num>
+          <compatibility>0.85</compatibility>
       </version>
       <version>
           <num>2.0.0</num>
