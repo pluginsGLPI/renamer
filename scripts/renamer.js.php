@@ -47,30 +47,21 @@ $selected = __('Selected', 'renamer');
 
 $JS = <<<JAVASCRIPT
 
-function restoreLocaleFiles(){
-
+function restoreLocaleFiles() {
     var lang = $("#dropdown_languageToRestore").find(":selected").text();
 
     $.ajax({
         type: "POST",
         url: "{$root_ajax}",
-        data: "action=restoreALanguage&" +
-            "lang=" + lang ,
-
+        data: "action=restoreALanguage&" + "lang=" + lang ,
         success: function (msg) {
-
              window.location.reload();
-
-        },
-        error: function () {
-
         }
     });
     return false; // permet de rester sur la même page à la soumission du formulaire
-
 }
 
-function updateOverload(id){
+function updateOverload(id) {
 
     var input = $('#updateWord' + id);
     var newWord = $('#updateWord' + id).val();
@@ -88,26 +79,17 @@ function updateOverload(id){
                 type: "POST",
                 url: "{$root_ajax}",
                 data: "action=updateOverload&" +
-                    "newWord=" + newWord +"&" +
-                    "id=" + id ,
-
+                      "newWord=" + newWord +"&" +
+                      "id=" + id ,
                 success: function (msg) {
                      window.location.reload();
-
-                },
-                error: function () {
-
                 }
             });
             return false; // permet de rester sur la même page à la soumission du formulaire
-
     }
-
-
 }
 
-$(document).ready(function()
-{
+$(document).ready(function() {
     
     $("#pick_list_lang").pickList({
         mainClass:       "foobar",
@@ -122,8 +104,7 @@ $(document).ready(function()
 
 
     var currentRequest = null;
-    $('#searchword').keyup(function()
-    {
+    $('#searchword').keyup(function() {
 
         var table = $("#tableOverloadWord");
         var word = $("#searchword").val();
@@ -136,8 +117,8 @@ $(document).ready(function()
                 type: "POST",
                 url: "{$root_ajax}",
                 data: "action=getWords&" +
-                    "word=" + word +"&" +
-                    "lang=" + lang,
+                      "word=" + word +"&" +
+                      "lang=" + lang,
                 beforeSend : function() {
                    if(currentRequest != null){
                         currentRequest.abort();
@@ -149,11 +130,9 @@ $(document).ready(function()
                     img.css('display', 'none');
                 },
                 error: function (request, status, error) {
-                       if(error == 'abort'){
-                       }else{
-                       alert(error);
-                       }
-
+                  if(error != 'abort') {
+                     alert(error);
+                  }
                 }
             });
     });
@@ -174,26 +153,22 @@ function overloadWord(index){
 
     $.ajax({
         type: "POST",
-        url: "{$root_ajax}",
+        url:  "{$root_ajax}",
         data: "action=overloadWord&" +
-            "word=" + newWord +"&" +
-            "id=" + id +"&" +
-            "msgctxt=" + msgctxt +"&" +
-            "wordToOverload=" + wordToOverload +"&" +
-            "lang=" + lang,
-
+              "word=" + newWord +"&" +
+              "id=" + id +"&" +
+              "msgctxt=" + msgctxt +"&" +
+              "wordToOverload=" + wordToOverload +"&" +
+              "lang=" + lang,
         success: function (msg) {
             img.css('display', 'none');
             divInfo.html(msg);
         },
-
         error: function () {
             img.css('display', 'none');
         }
     });
     return false; // permet de rester sur la même page à la soumission du formulaire
-
-
 }
 
 
@@ -225,7 +200,6 @@ function findWord(){
         }
     });
     return false; // permet de rester sur la même page à la soumission du formulaire
-
 }
 
 
