@@ -49,7 +49,7 @@ $JS = <<<JAVASCRIPT
 
 function restoreLocaleFiles(){
 
-    var lang = $("#dropdown_language").find(":selected").text();
+    var lang = $("#dropdown_languageToRestore").find(":selected").text();
 
     $.ajax({
         type: "POST",
