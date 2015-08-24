@@ -119,12 +119,16 @@ class PluginRenamerConfig extends CommonDBTM {
         $this->getFromDB(1);
         $langSelected = unserialize(stripslashes($this->fields['lang_selected']));
         $lang = array();
+
+        if ($langSelected === false) {
+         return false;
+        }
+
         foreach($langSelected as $l){
             $lang[] = $l[0];
         }
 
         return $lang;
-
     }
 
 }
