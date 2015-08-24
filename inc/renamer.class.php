@@ -197,7 +197,7 @@ class PluginRenamerRenamer extends CommonDBTM {
                 $content .= "<td>" . $user->getName() . "</td>";
 
                 $content .= "<td><img src='" . $CFG_GLPI['root_doc'] .
-                    "/plugins/renamer/pics/bin16.png' onclick='restoreWord(" . $row['id'] . ")".
+                    "/plugins/renamer/pics/bin16.png' onclick='restoreWord(" . $row['id'] . ")'".
                     "style='cursor: pointer;' title='" . __("Delete overload", "renamer") . "'/></td>";
 
                 $content .= "<td><input type='text' id='updateWord".$row["id"]."' value='$original' /> ";
