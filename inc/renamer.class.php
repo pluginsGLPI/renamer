@@ -324,16 +324,9 @@ class PluginRenamerRenamer extends CommonDBTM {
     * $file_patch -> file to update
     * @param $file_patch
     */
-   public function updateTranslation($file_patch) {
-      
-      $file_patch_mo = substr($file_patch, 0, -3) . ".mo";
-      
-      exec("msgcat " . $file_patch . " | msgfmt -o " . $file_patch_mo . " - ");
-      
-      // Convert XXX.po to XXX.mo
-      //global $CFG_GLPI;
-      //require($_SERVER['DOCUMENT_ROOT'].$CFG_GLPI["root_doc"].'/plugins/renamer/lib/php-mo.php');
-      //@phpmo_convert($file_patch,substr($file_patch,0,-3).".mo");
+   public function updateTranslation($po_file) {
+      $mo_file = substr($po_file, 0, -3) . ".mo";
+      exec("msgcat " . $po_file . " | msgfmt -o " . $mo_file . " - ");
    }
    
    
