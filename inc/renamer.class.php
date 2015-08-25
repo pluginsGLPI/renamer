@@ -303,21 +303,20 @@ class PluginRenamerRenamer extends CommonDBTM {
     * @param $_post
     * @return true
     */
-   public function isAlreadyOverload($id, $wordToOverload, $context) {
-      
-      //$id = stripslashes($id);
-      // $wordToOverload = stripslashes($wordToOverload);
-      
+   public function isAlreadyOverload(Array $params) {
+      $id             = $params['id'];
+      $wordToOverload = $params['wordToOverload'];
+      $context        = $params['msgctxt'];
+      $lang           = $params['lang'];
+
+      $context_sql = "";
       if ($context != 'null') {
-         // $context = stripslashes($context);
-         
-         
-         return $this->getFromDBByQuery(" WHERE `msgid` = '" . $id . "'
-        and `original` = '" . $wordToOverload . "' and `context` = '" . $context . "' ");
-      } else {
-         return $this->getFromDBByQuery(" WHERE `msgid` = '" . $id . "'
-        and `original` = '" . $wordToOverload . "'");
-      } 
+         $context_sql = " AND `context` = '" . $context . "'";
+      }
+      return $this->getFromDBByQuery(" WHERE `msgid`    = '$id'
+                                       AND   `original` = '$wordToOverload' 
+                                       AND   `lang`     = '$lang' 
+                                       $context_sql");
    }
    
    

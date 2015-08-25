@@ -249,7 +249,7 @@ if (isset($_POST['action'])) {
          }
          
          
-         if ($renamer->isAlreadyOverload($_POST['id'], $_POST['wordToOverload'], $_POST['msgctxt'])) {
+         if ($renamer->isAlreadyOverload($_POST)) {
             echo returnError(__('This Word is already overload ', 'renamer') . $file);
          } else {
             
