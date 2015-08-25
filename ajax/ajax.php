@@ -96,7 +96,7 @@ if (isset($_POST['action'])) {
             $original = $renamer->fields['original'];
             $overload = $renamer->fields['overload'];
             $msgid    = $renamer->fields['msgid'];
-            $msgctxt  = $renamer->fields['msgctxt'];
+            $msgctxt  = $renamer->fields['context'];
             
             $id      = unserialize(stripslashes(stripslashes($msgid)));
             $context = unserialize(stripslashes(stripslashes($msgctxt)));
