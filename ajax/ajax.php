@@ -238,7 +238,7 @@ if (isset($_POST['action'])) {
       
       
       case 'overloadWord':
-         
+
          $wordToOverload = unserialize(stripslashes(stripslashes(str_replace("]", "'", $_POST['wordToOverload']))));
          $context        = '';
          
@@ -273,7 +273,6 @@ if (isset($_POST['action'])) {
                         //quand on le trouve on le modifie
                         if ($entry['msgstr'][$i] == $wordToOverload) {
                            $entry['msgstr'][$i] = $newword;
-                           $find                = true;
                         }
                      }
                   }
@@ -292,13 +291,21 @@ if (isset($_POST['action'])) {
                            //quand on le trouve on le modifie
                            if ($entry['msgstr'][$i] == $wordToOverload) {
                               $entry['msgstr'][$i] = $newword;
-                              $find                = true;
                            }
                         }
                      }
                   }
                   //toute les entry vont dans un nouveau tableau
                   $newEntry[] = $entry;
+               }
+            }
+
+            // clean empty entries (without msgcat crash)
+            foreach ($newEntry as &$current) {
+               for ($i = 0; $i < count($current['msgstr']); ++$i) {
+                  if (strlen(trim($current['msgstr'][$i])) === 0) {
+                     $current['msgstr'][$i] = $current['msgid'][$i];
+                  }
                }
             }
             
