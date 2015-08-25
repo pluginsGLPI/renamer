@@ -90,6 +90,14 @@ function updateOverload(id) {
    }
 }
 
+var delay = (function(){
+  var timer = 0;
+  return function(callback, ms){
+    clearTimeout (timer);
+    timer = setTimeout(callback, ms);
+  };
+})();
+
 
 $(document).ready(function() {
     
@@ -107,35 +115,36 @@ $(document).ready(function() {
 
    var currentRequest = null;
    $('#searchword').keyup(function() {
+      delay(function(){
+         var table = $("#tableOverloadWord");
+         var word = $("#searchword").val();
+         var lang = $("#dropdown_language").find(":selected").text();
+         var img = $("#waitLoading");
+         img.css('display', 'block');
 
-      var table = $("#tableOverloadWord");
-      var word = $("#searchword").val();
-      var lang = $("#dropdown_language").find(":selected").text();
-      var img = $("#waitLoading");
-      img.css('display', 'block');
-
-      currentRequest = $.ajax({
-         type: "POST",
-         url:  "{$root_ajax}",
-         data: "action=getWords&" +
-               "word=" + word +"&" +
-               "lang=" + lang,
-         beforeSend : function() {
-            if(currentRequest != null){
-               currentRequest.abort();
+         currentRequest = $.ajax({
+            type: "POST",
+            url:  "{$root_ajax}",
+            data: "action=getWords&" +
+                  "word=" + word +"&" +
+                  "lang=" + lang,
+            beforeSend : function() {
+               if(currentRequest != null){
+                  currentRequest.abort();
+               }
+            },
+            success: function (msg) {
+               $("#tbody").children().remove();
+               $("#tbody").append(msg);
+               img.css('display', 'none');
+            },
+            error: function (request, status, error) {
+               if(error != 'abort') {
+                  alert(error);
+               }
             }
-         },
-         success: function (msg) {
-            $("#tbody").children().remove();
-            $("#tbody").append(msg);
-            img.css('display', 'none');
-         },
-         error: function (request, status, error) {
-            if(error != 'abort') {
-               alert(error);
-            }
-         }
-    });
+         });
+      }, 500);
    });
 });
 
