@@ -37,6 +37,8 @@ http://www.gnu.org/licenses/gpl.html
 ------------------------------------------------------------------------
 */
 
+use Gettext\Translations;
+
 class PluginRenamerRenamer extends CommonDBTM {
    
    static function canCreate() {
@@ -326,7 +328,13 @@ class PluginRenamerRenamer extends CommonDBTM {
     */
    public function updateTranslation($po_file) {
       $mo_file = substr($po_file, 0, -3) . ".mo";
-      exec("msgcat " . $po_file . " | msgfmt -o " . $mo_file . " - ");
+      //exec("msgcat " . $po_file . " | msgfmt -o " . $mo_file . " - ");
+
+      include_once "../lib/gettext/gettext/src/autoloader.php";
+      include_once "../lib/gettext/languages/src/autoloader.php";
+
+      $translations = Translations::fromPoFile($po_file);
+      $translations->toMoFile($mo_file);
    }
    
    
