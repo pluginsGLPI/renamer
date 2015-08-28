@@ -109,7 +109,7 @@ function plugin_renamer_install() {
    if (!TableExists($table)) {
       $query = "CREATE TABLE $table (
                   id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-                  lang_selected varchar(10000) COLLATE utf8_unicode_ci DEFAULT NULL
+                  lang_selected TEXT COLLATE utf8_unicode_ci DEFAULT NULL
                ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
       $DB->query($query) or die($DB->error());
       
