@@ -128,7 +128,7 @@ class PluginRenamerRenamer extends CommonDBTM {
       $content .= "<th>" . __("msgctx", "renamer") . "</th>";
       $content .= "<th>" . __("plural", "renamer") . "</th>";
       $content .= "<th>" . __("String", "renamer") . "</th>";
-      $content .= "<th colspan='2'>" . __("Overload", "renamer") . "</th>";
+      $content .= "<th colspan='2'>" . _sx("field", "Overload", "renamer") . "</th>";
       //$content .= "<th></th>";
       $content .= "</tr>";
       
@@ -166,7 +166,7 @@ class PluginRenamerRenamer extends CommonDBTM {
          $content .= "<th>" . __("Date", "renamer") . "</th>";
          $content .= "<th>" . __("Language", "renamer") . "</th>";
          $content .= "<th>" . __("Original", "renamer") . "</th>";
-         $content .= "<th>" . __("Overload", "renamer") . "</th>";
+         $content .= "<th>" . __("field", "Overload", "renamer") . "</th>";
          $content .= "<th>" . __("User") . "</th>";
          $content .= "<th>" . __("Restore") . "</th>";
          $content .= "<th>" . __("Update", "renamer") . "</th>";
