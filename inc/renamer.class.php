@@ -92,7 +92,7 @@ class PluginRenamerRenamer extends CommonDBTM {
       $content .= "<tr class='tab_bg_1'>";
       $content .= "<td class='center'>";
       
-      if ($conf->fields['lang_selected'] == null) {
+      if ($conf->fields['lang_selected'] == null || count($lang) === 0) {
          
          $content .= Dropdown::showLanguages("language", array(
             'display' => false,
