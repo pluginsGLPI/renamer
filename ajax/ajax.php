@@ -500,13 +500,15 @@ function searchOnMsgid($word, $msgid, $exact = false) {
    
    if ($exact) {
       foreach ($msgid as $id) {
-         if (strtolower($id) == strtolower($word))
+         if (strtolower($id) === strtolower($word)) {
             return true;
+         }
       }
    } else {
       foreach ($msgid as $id) {
-         if (preg_match_all("#" . $word . "#i", $id))
+         if (preg_match_all("#" . preg_quote($word) . "#i", $id)) {
             return true;
+         }
       }
    }
    
@@ -524,12 +526,13 @@ function searchOnMsgstr($word, $msgstr, $exact = false) {
    
    if ($exact) {
       foreach ($msgstr as $str) {
-         if (strtolower($str) == stripslashes(strtolower($word)))
+         if (strtolower($str) === stripslashes(strtolower($word))) {
             return true;
+         }
       }
    } else {
       foreach ($msgstr as $str) {
-         if (preg_match_all("#" . $word . "#i", $str)) {
+         if (preg_match_all("#" . preg_quote($word) . "#i", $str)) {
             return true;
          }
       }
@@ -566,8 +569,9 @@ function existword($word, $string, $id, $file) {
    
    $resultId     = searchOnMsgid($word, $id, false);
    $resultString = searchOnMsgstr($word, $string, false);
-   if ($resultString || $resultId)
+   if ($resultString || $resultId)  {
       return true;
+   }
    
 }
 
@@ -643,7 +647,7 @@ function createTableRow($entry, $word) {
  */
 function addHighlightingWord($str, $word) {
    
-   $motif  = '`(.*?)(' . $word . ')(.*?)`si';
+   $motif  = '`(.*?)(' . preg_quote($word) . ')(.*?)`si';
    $sortie = '$1<span class="highlighting">$2</span>$3';
    return preg_replace($motif, $sortie, $str);
 }
