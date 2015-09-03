@@ -618,7 +618,7 @@ function createTableRow($entry, $word) {
       $content .= "<td>" . addHighlightingWord($str, $word) . "</td>";
       $content .= "<td>";
       $content .= "<input type='text' id='newWord" . $entry['index'] . $nb . "' /> ";
-      $content .= "<input onclick='overloadWord(" . $entry['index'] . $nb . ");' value='" . _x('verb', 'Overload', 'renamer') . "' class='submit' style='width: 80px;'>";
+      $content .= "<input onclick='overloadWord(" . $entry['index'] . $nb . ");' value='" . _x('action', 'Overload', 'renamer') . "' class='submit' style='width: 80px;'>";
       $content .= "</td>";
       
       $content .= "<td>";
