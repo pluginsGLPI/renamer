@@ -38,6 +38,8 @@
    ------------------------------------------------------------------------
  */
 
+define ('PLUGIN_RENAMER_VERSION', '1.1.0');
+
 /**
  * function to initialize the plugin
  * @global array $PLUGIN_HOOKS
@@ -82,7 +84,7 @@ function plugin_init_renamer() {
  */
 function plugin_version_renamer() {
    return array('name'            => __("Renamer", "renamer"),
-                'version'         => '0.90-1.0',
+                'version'         => PLUGIN_RENAMER_VERSION,
                 'author'          => 'TECLIB\'',
                 'license'         => 'GPLv3',
                 'homepage'        => 'https://github.com/TECLIB/renamer',
