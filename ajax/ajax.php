@@ -104,7 +104,7 @@ if (isset($_POST['action'])) {
             $newWord = $_POST['newWord'];
             
             $file     = $renamer->getLanguageFile($lang);
-            $entries  = $poParser->parse($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/' . $file);
+            $entries  = $poParser->parse(GLPI_ROOT . '/locales/' . $file);
             $header   = $poParser->getHeaders();
             $newEntry = array();
             
@@ -147,13 +147,13 @@ if (isset($_POST['action'])) {
                $poParser = new PoParser();
                $poParser->setEntries($newEntry);
                $poParser->setHeaders($header);
-               $res = $poParser->write($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/' . $file);
+               $res = $poParser->write(GLPI_ROOT . '/locales/' . $file);
                
                //si write ok
                if ($res) {
                   
                   //update translate
-                  $renamer->updateTranslation($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/' . $file);
+                  $renamer->updateTranslation(GLPI_ROOT. '/locales/' . $file);
                   //delete tmp file
                   $renamer->removeFileIntoTmp($file);
                   
@@ -199,7 +199,7 @@ if (isset($_POST['action'])) {
                $word = $_POST['word'];
                
                if ($lang == null || ($lang != null && $lang != $_POST['lang'])) {
-                  $GLOBALS['entries'] = $entries = $poParser->parse($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/' . $file);
+                  $GLOBALS['entries'] = $entries = $poParser->parse(GLPI_ROOT . '/locales/' . $file);
                   $lang               = $_POST['lang'];
                } else {
                   $entries = $GLOBALS['entries'];
@@ -259,7 +259,7 @@ if (isset($_POST['action'])) {
             $id = unserialize(stripslashes(stripslashes($_POST['id'])));
             
             $file     = $renamer->getLanguageFile($lang);
-            $entries  = $poParser->parse($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/' . $file);
+            $entries  = $poParser->parse(GLPI_ROOT . '/locales/' . $file);
             $header   = $poParser->getHeaders();
             $newEntry = array();
             
@@ -315,13 +315,13 @@ if (isset($_POST['action'])) {
                $poParser = new PoParser();
                $poParser->setEntries($newEntry);
                $poParser->setHeaders($header);
-               $res = $poParser->write($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/' . $file);
+               $res = $poParser->write(GLPI_ROOT . '/locales/' . $file);
                
                //si write ok
                if ($res) {
                   
                   //update tranlate
-                  $renamer->updateTranslation($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/' . $file);
+                  $renamer->updateTranslation(GLPI_ROOT . '/locales/' . $file);
                   //del tmp file
                   $renamer->removeFileIntoTmp($file);
                   
@@ -373,7 +373,7 @@ if (isset($_POST['action'])) {
             $newWord = unserialize(stripslashes(stripslashes(str_replace("]", "'", $original))));
             
             $file     = $renamer->getLanguageFile($lang);
-            $entries  = $poParser->parse($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/' . $file);
+            $entries  = $poParser->parse(GLPI_ROOT . '/locales/' . $file);
             $header   = $poParser->getHeaders();
             $newEntry = array();
             
@@ -395,13 +395,13 @@ if (isset($_POST['action'])) {
                $poParser = new PoParser();
                $poParser->setEntries($newEntry);
                $poParser->setHeaders($header);
-               $res = $poParser->write($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/' . $file);
+               $res = $poParser->write(GLPI_ROOT. '/locales/' . $file);
                
                //si write ok
                if ($res) {
                   
                   //update tranlate
-                  $renamer->updateTranslation($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/' . $file);
+                  $renamer->updateTranslation(GLPI_ROOT . '/locales/' . $file);
                   //del tmp file
                   $renamer->removeFileIntoTmp($file);
                   
