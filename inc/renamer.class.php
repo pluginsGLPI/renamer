@@ -345,7 +345,7 @@ class PluginRenamerRenamer extends CommonDBTM {
    public function saveFileIntoTmp($file) {
       
       global $CFG_GLPI;
-      if (!copy($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/' . $file, $_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/plugins/renamer/tmp/' . $file)) {
+      if (!copy(GLPI_ROOT. '/locales/' . $file, GLPI_ROOT . '/plugins/renamer/tmp/' . $file)) {
          Toolbox::logInFile('renamer', sprintf(__('Can\'t save file  \'%1$s\' in tmp folder', 'renamer'), $file) . "\n");
          return false;
       } 
@@ -359,7 +359,7 @@ class PluginRenamerRenamer extends CommonDBTM {
     */
    public function removeFileIntoTmp($file) {
       global $CFG_GLPI;
-      if (!unlink($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/plugins/renamer/tmp/' . $file)) {
+      if (!unlink(GLPI_ROOT . '/plugins/renamer/tmp/' . $file)) {
          Toolbox::logInFile('renamer', sprintf(__('Can\'t remove file  \'%1$s\' in tmp folder', 'renamer'), $file) . "\n");
          return false;
       } 
@@ -375,7 +375,7 @@ class PluginRenamerRenamer extends CommonDBTM {
       global $CFG_GLPI;
       
       if ($this->removeFileFromLocaleOfGlpi($file)) {
-         if (!copy($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/plugins/renamer/tmp/' . $file, $_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/' . $file)) {
+         if (!copy(GLPI_ROOT . '/plugins/renamer/tmp/' . $file, GLPI_ROOT . '/locales/' . $file)) {
             Toolbox::logInFile('renamer', sprintf(__('Can\'t restore file  \'%1$s\' in locale folder of Glpi', 'renamer'), $file) . "\n");
             return false;
          } else {
@@ -392,7 +392,7 @@ class PluginRenamerRenamer extends CommonDBTM {
     */
    public function removeFileFromLocaleOfGlpi($file) {
       global $CFG_GLPI;
-      if (!unlink($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/' . $file)) {
+      if (!unlink(GLPI_ROOT . '/locales/' . $file)) {
          Toolbox::logInFile('renamer', sprintf(__('Can\'t remove file  \'%1$s\' in locale folder of Glpi', 'renamer'), $file) . "\n");
          return false;
       } 
