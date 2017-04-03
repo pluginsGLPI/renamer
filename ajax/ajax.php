@@ -73,7 +73,7 @@ if (isset($_POST['action'])) {
                         WHERE `glpi_plugin_renamer_renamers`.`lang` = '" . $lang . "'", "renamer");
             Session::addMessageAfterRedirect(__("Restoration Complete", "renamer"), false, INFO);
             
-            $renamer->updateTranslation($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/' . $file);
+            $renamer->updateTranslation(GLPI_ROOT. '/locales/' . $file);
             echo true;
             
          } else {
