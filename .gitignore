@@ -1,3 +1,7 @@
 backup/*.mo
 backup/*.po
 backup/*.pot
+dist/
+vendor/
+.gh_token
+*.min.*
