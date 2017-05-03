@@ -44,7 +44,7 @@ http://www.gnu.org/licenses/gpl.html
  * Class PluginMantisConfig pour la partie gestion de la configuration
  */
 class PluginRenamerConfig extends CommonDBTM {
-   
+
    /**
     * Function to define if the user have right to create
     * @return bool
@@ -52,8 +52,8 @@ class PluginRenamerConfig extends CommonDBTM {
    static function canCreate() {
       return Session::haveRight('config', UPDATE);
    }
-   
-   
+
+
    /**
     * Function to define if the user have right to view
     * @return bool
@@ -61,8 +61,8 @@ class PluginRenamerConfig extends CommonDBTM {
    static function canView() {
       return Session::haveRight('config', READ);
    }
-   
-   
+
+
    /**
     * Function to show form to configure the plugin
     */
@@ -70,25 +70,24 @@ class PluginRenamerConfig extends CommonDBTM {
       global $CFG_GLPI;
       //we recover the first and only record
       $this->getFromDB(1);
-      
+
       $langSlected = unserialize(stripslashes($this->fields['lang_selected']));
 
       $target = $this->getFormURL();
       if (isset($options['target'])) {
          $target = $options['target'];
       }
-      
+
       $content = "<form method='post' action='" . $target . "' method='post'>";
       $content .= "<table class='tab_cadre' >";
-      
+
       $content .= "<tr>";
       $content .= "<th colspan='2'>" . __("Setup - Renamer", "renamer") . "</th>";
       $content .= "</tr>";
-      
-      
+
       $content .= "<tr class='tab_bg_1'>";
       $content .= "<th>" . __("Choose languages to display", "renamer") . "</th>";
-      
+
       $content .= '<td>';
       $content .= '<select id="pick_list_lang" name="pick_list_lang[]" multiple="multiple">';
       foreach ($CFG_GLPI["languages"] as $lang) {
@@ -100,29 +99,29 @@ class PluginRenamerConfig extends CommonDBTM {
       }
       $content .= '</select>';
       $content .= '</td>';
-      
+
       $content .= "<input type='hidden' name='id' value=" . $this->fields['id'] . ">";
       $content .= "</table>";
-      
+
       $content .= "<br><center><input id='update' class='submit center-h' type='submit' name='update' value='" . __("Update", "renamer") . "'></center>";
       $content .= Html::closeForm(false);
-      
+
       echo $content;
    }
 
-   public function getelectedLanguage() {    
+   public function getelectedLanguage() {
       $this->getFromDB(1);
       $langSelected = unserialize(stripslashes($this->fields['lang_selected']));
       $lang         = array();
-      
+
       if ($langSelected === false) {
          return false;
       }
-      
+
       foreach ($langSelected as $l) {
          $lang[] = $l[0];
       }
-      
+
       return $lang;
    }
 }

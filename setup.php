@@ -72,7 +72,7 @@ function plugin_init_renamer() {
 
       $PLUGIN_HOOKS['add_javascript']['renamer'] = array('scripts/jquery-picklist.min.js',
                                                          'scripts/renamer.js.php');
-      $PLUGIN_HOOKS['add_css']['renamer'] = array( 'css/renamer.css', 
+      $PLUGIN_HOOKS['add_css']['renamer'] = array( 'css/renamer.css',
                                                    'css/jquery-picklist.css',
                                                    'jquery-picklist-ie7.css');
    }

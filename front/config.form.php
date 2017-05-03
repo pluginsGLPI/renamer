@@ -51,22 +51,23 @@ $plugin = new Plugin();
 if ($plugin->isActivated('renamer')) {
    $config = new PluginRenamerConfig();
    if (isset($_POST['update'])) {
-               
+
       $lang = array();
       if (isset($_POST['pick_list_lang'])) {
          foreach ($_POST['pick_list_lang'] as $select) {
             foreach ($CFG_GLPI["languages"] as &$local) {
-               if ($select == $local[0])
+               if ($select == $local[0]) {
                   $lang[] = $local;
+               }
             }
          }
       }
       $_POST['lang_selected'] = addslashes(serialize($lang));
       session::checkRight('config', UPDATE);
       $config->update($_POST);
-      
+
       Html::back();
-      
+
    } else {
       $config->showConfigForm();
    }

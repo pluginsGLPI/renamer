@@ -41,7 +41,7 @@ http://www.gnu.org/licenses/gpl.html
 */
 
 class PluginRenamerInstall extends CommonDBTM {
-   
+
    /**
     * Function to check if 'locales' folder of glpi is writable
     * @return bool
@@ -49,12 +49,13 @@ class PluginRenamerInstall extends CommonDBTM {
    static function checkRightAccessOnGlpiLocalesFiles() {
       global $CFG_GLPI;
       $locale_path = GLPI_ROOT . "/locales/";
-      
+
       if ($dossier = opendir($locale_path)) {
          while (false !== ($fichier = readdir($dossier))) {
             if ($fichier != '.' && $fichier != '..' && $fichier != '.htaccess') {
-               if (!is_writable($locale_path . $fichier))
+               if (!is_writable($locale_path . $fichier)) {
                   return false;
+               }
             }
          }
       } else {
@@ -62,8 +63,8 @@ class PluginRenamerInstall extends CommonDBTM {
       }
       return true;
    }
-   
-   
+
+
    /**
     * Function to check if renamer plugin is writable
     * @return bool
@@ -71,19 +72,20 @@ class PluginRenamerInstall extends CommonDBTM {
    static function checkRightAccesOnRenamerPlugin() {
       global $CFG_GLPI;
       $locale_path = GLPI_ROOT . "/plugins/renamer/backup/";
-      
+
       if ($dossier = opendir($locale_path)) {
          while (false !== ($fichier = readdir($dossier))) {
             if ($fichier != '.' && $fichier != '..' && $fichier != '.htaccess') {
-               if (!is_writable($locale_path . $fichier))
+               if (!is_writable($locale_path . $fichier)) {
                   return false;
+               }
             }
          }
          return true;
-      } 
+      }
       return false;
    }
-   
+
    /**
     * Function to backup locale files of glpi into backup folder of renamer plugin
     * @return bool
@@ -92,7 +94,7 @@ class PluginRenamerInstall extends CommonDBTM {
       global $CFG_GLPI;
       $source_path      = GLPI_ROOT . "/locales/";
       $destination_path = GLPI_ROOT . "/plugins/renamer/backup/";
-      
+
       if ($dossier = opendir($source_path)) {
          while (false !== ($fichier = readdir($dossier))) {
             if ($fichier != '.' && $fichier != '..' && $fichier != '.htaccess') {
@@ -103,10 +105,10 @@ class PluginRenamerInstall extends CommonDBTM {
             }
          }
          return true;
-      } 
+      }
       return false;
    }
-   
+
    /**
     * Function to clean backup folder
     * @return bool
@@ -114,7 +116,7 @@ class PluginRenamerInstall extends CommonDBTM {
    static function cleanBackupFolder() {
       global $CFG_GLPI;
       $source_path = GLPI_ROOT . "/plugins/renamer/backup/";
-      
+
       if ($dossier = opendir($source_path)) {
          while (false !== ($fichier = readdir($dossier))) {
             if ($fichier != '.' && $fichier != '..' && $fichier != '.htaccess' && $fichier != 'test.txt') {
@@ -125,11 +127,11 @@ class PluginRenamerInstall extends CommonDBTM {
             }
          }
          return true;
-      } 
+      }
       return false;
    }
-   
-   
+
+
    /**
     * Function to clean locales folder of glpi
     * @return bool
@@ -137,7 +139,7 @@ class PluginRenamerInstall extends CommonDBTM {
    static function cleanLocalesFilesOfGlpi() {
       global $CFG_GLPI;
       $source_path = GLPI_ROOT . "/locales/";
-      
+
       if ($dossier = opendir($source_path)) {
          while (false !== ($fichier = readdir($dossier))) {
             if ($fichier != '.' && $fichier != '..' && $fichier != '.htaccess' && $fichier != 'test.txt') {
@@ -148,21 +150,21 @@ class PluginRenamerInstall extends CommonDBTM {
             }
          }
          return true;
-      } 
+      }
       return false;
    }
-   
-   
+
+
    /**
     * Function to restore locales file of renamer plugin into locales folder of glpi
     * @return bool
     */
    static function restoreLocalesFielsOfGlpi() {
       global $CFG_GLPI;
-      
+
       $destination_path = GLPI_ROOT . "/locales/";
       $source_path      = GLPI_ROOT . "/plugins/renamer/backup/";
-      
+
       if ($dossier = opendir($source_path)) {
          while (false !== ($fichier = readdir($dossier))) {
             if ($fichier != '.' && $fichier != '..' && $fichier != '.htaccess') {
@@ -173,16 +175,16 @@ class PluginRenamerInstall extends CommonDBTM {
             }
          }
          return true;
-      } 
+      }
       return false;
    }
-   
-   
+
+
    public static function cleanLocalesFileOfGlpi($file) {
-      
+
       global $CFG_GLPI;
       $source_path = GLPI_ROOT . "/locales/";
-      
+
       if ($dossier = opendir($source_path)) {
          while (false !== ($fichier = readdir($dossier))) {
             if ($fichier != '.' && $fichier != '..' && $fichier != '.htaccess' && $fichier != 'test.txt' && $fichier == $file) {
@@ -196,15 +198,15 @@ class PluginRenamerInstall extends CommonDBTM {
       }
       return false;
    }
-   
-   
-   
+
+
+
    public static function restoreLocalesFielOfGlpi($file) {
-      
+
       global $CFG_GLPI;
       $destination_path = GLPI_ROOT . "/locales/";
       $source_path      = GLPI_ROOT . "/plugins/renamer/backup/";
-      
+
       if ($dossier = opendir($source_path)) {
          while (false !== ($fichier = readdir($dossier))) {
             if ($fichier != '.' && $fichier != '..' && $fichier != '.htaccess' && $fichier == $file) {
@@ -215,7 +217,7 @@ class PluginRenamerInstall extends CommonDBTM {
             }
          }
          return true;
-      } 
+      }
       return false;
    }
 }

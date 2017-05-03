@@ -43,23 +43,23 @@ http://www.gnu.org/licenses/gpl.html
  */
 class PluginRenamerProfile extends CommonDBTM {
    static function canCreate() {
-      
+
       if (isset($_SESSION["glpi_plugin_renamer_profile"])) {
          return ($_SESSION["glpi_plugin_renamer_profile"]['renamer'] == 'w');
       }
       return false;
    }
-   
+
    static function canView() {
-      
+
       if (isset($_SESSION["glpi_plugin_renamer_profile"])) {
          return ($_SESSION["glpi_plugin_renamer_profile"]['renamer'] == 'w' || $_SESSION["glpi_plugin_renamer_profile"]['renamer'] == 'r');
       }
       return false;
    }
-   
+
    static function createAdminAccess($ID) {
-      
+
       $myProf = new self();
       // si le profile n'existe pas déjà dans la table profile de mon plugin
       if (!$myProf->getFromDB($ID)) {
@@ -69,37 +69,37 @@ class PluginRenamerProfile extends CommonDBTM {
             'right' => 'w'
          ));
       }
-      
+
    }
-   
+
    function showForm($id, $options = array()) {
-      
+
       if (!Session::haveRight("profile", READ)) {
          return false;
       }
-      
+
       $target = $this->getFormURL();
       if (isset($options['target'])) {
          $target = $options['target'];
       }
-      
+
       $canedit = Session::haveRight("profile", UPDATE);
       $prof    = new Profile();
       if ($id) {
          $this->getFromDB($id);
          $prof->getFromDB($id);
       }
-      
+
       echo "<form action='" . $target . "' method='post'>";
       echo "<table class='tab_cadre_fixe'>";
       echo "<tr><th colspan='2' class='center b'>" . sprintf(__('%1$s %2$s'), ('gestion des droits :'), Dropdown::getDropdownName("glpi_profiles", $this->fields["id"]));
       echo "</th></tr>";
-      
+
       echo "<tr class='tab_bg_2'>";
       echo "<td>Utiliser Mon Plugin</td><td>";
       Profile::dropdownNoneReadWrite("right", $this->fields["right"], 1, 1, 1);
       echo "</td></tr>";
-      
+
       if ($canedit) {
          echo "<tr class='tab_bg_1'>";
          echo "<td class='center' colspan='2'>";
@@ -110,39 +110,39 @@ class PluginRenamerProfile extends CommonDBTM {
       echo "</table>";
       Html::closeForm();
    }
-   
-   
+
+
    function getTabNameForItem(CommonGLPI $item, $withtemplate = 0) {
-      
+
       if ($item->getType() == 'Profile') {
          return "Renamer";
       }
       return '';
    }
-   
+
    static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0) {
-      
+
       if ($item->getType() == 'Profile') {
          $prof = new self();
          $ID   = $item->getField('id');
-         
+
          if (!$prof->GetfromDB($ID)) {
             $prof->createAccess($ID);
          }
-         
+
          $prof->showForm($ID);
       }
       return true;
    }
-   
+
    function createAccess($ID) {
       $this->add(array(
          'id' => $ID
       ));
    }
-   
+
    static function changeProfile() {
-      
+
       $prof = new self();
       if ($prof->getFromDB($_SESSION['glpiactiveprofile']['id'])) {
          $_SESSION["glpi_plugin_renamer_profile"] = $prof->fields;

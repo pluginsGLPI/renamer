@@ -44,24 +44,24 @@ $plugin  = new Plugin();
 $renamer = new PluginRenamerRenamer();
 
 if ($plugin->isActivated('renamer')) {
-   
+
    if (isset($_GET['action']) && $_GET['action'] == 'overloadlanguage') {
-      
+
       Html::popHeader('Renamer', $_SERVER['PHP_SELF']);
       $renamer->showFormToOverloadLanguage();
       Html::popFooter();
-      
+
    } else if (isset($_GET['action']) && $_GET['action'] == 'updateWord') {
-      
+
       Html::popHeader('Renamer', $_SERVER['PHP_SELF']);
       $renamer->showFormToUpdateOverloadLanguage($_GET['id']);
       Html::popFooter();
-      
+
    } else {
       Html::header(__("Setup - Renamer", "renamer"), $_SERVER['PHP_SELF'], 'plugins', 'Renamer', 'configuration');
       $renamer->showForm();
    }
-   
+
 } else {
    global $CFG_GLPI;
    echo '<div class=\'center\'><br><br><img src=\'' . $CFG_GLPI['root_doc'] . '/pics/warning.png\' alt=\'warning\'><br><br>';

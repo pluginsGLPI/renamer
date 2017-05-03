@@ -44,33 +44,31 @@ http://www.gnu.org/licenses/gpl.html
  * @return boolean
  */
 function plugin_renamer_install() {
-   
+
    global $CFG_GLPI, $DB;
    include_once("inc/install.class.php");
    include_once("inc/profile.class.php");
-   
-   
+
    if (!PluginRenamerInstall::checkRightAccessOnGlpiLocalesFiles()) {
       Session::addMessageAfterRedirect(__("Please give write permission to the 'locales' folder of Glpi", "renamer"), false, ERROR);
       return false;
    }
-   
+
    if (!PluginRenamerInstall::checkRightAccesOnRenamerPlugin()) {
       Session::addMessageAfterRedirect(__("Please give write permission to the plugin Renamer", "renamer"), false, ERROR);
       return false;
    }
-   
-   
+
    if (!PluginRenamerInstall::cleanBackupFolder()) {
       Session::addMessageAfterRedirect(__("Error while cleaning backup folder", "renamer"), false, ERROR);
       return false;
    }
-   
+
    if (!PluginRenamerInstall::backupLocaleFiles()) {
       Session::addMessageAfterRedirect(__("Error while backup glpi locale files", "renamer"), false, ERROR);
       return false;
    }
-   
+
    $table = 'glpi_plugin_renamer_profiles';
    if (!TableExists($table)) {
       // requete de création de la table
@@ -79,16 +77,16 @@ function plugin_renamer_install() {
                `right` char(1) collate utf8_unicode_ci default NULL,
                PRIMARY KEY (`id`)
              ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
-      
+
       $DB->queryOrDie($query, $DB->error());
-      
+
       //creation du premier accès nécessaire lors de l'installation du plugin
       PluginRenamerProfile::createAdminAccess($_SESSION['glpiactiveprofile']['id']);
    }
-   
+
    $table = 'glpi_plugin_renamer_renamers';
    if (!TableExists($table)) {
-      
+
       $query = "CREATE TABLE `$table` (
                `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
                `msgid` VARCHAR(500) NOT NULL,
@@ -100,10 +98,10 @@ function plugin_renamer_install() {
                `date_overload` DATE NOT NULL,
                 PRIMARY KEY (`id`)
               ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
-      
+
       $DB->queryOrDie($query, $DB->error());
    }
-   
+
    //création de la table pour la configuration du plugin
    $table = "glpi_plugin_renamer_configs";
    if (!TableExists($table)) {
@@ -112,17 +110,15 @@ function plugin_renamer_install() {
                   lang_selected TEXT COLLATE utf8_unicode_ci DEFAULT NULL
                ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
       $DB->query($query) or die($DB->error());
-      
+
       //insertion du occcurence dans la table (occurrence par default)
-      
-      
+
       $query = "INSERT INTO $table
                        (id, lang_selected)
                 VALUES (NULL, NULL)";
-      
-      
+
       $DB->query($query) or die("error in $table table" . $DB->error());
-      
+
    }
    return true;
 }
@@ -133,35 +129,35 @@ function plugin_renamer_install() {
  * @return boolean
  */
 function plugin_renamer_uninstall() {
-   
+
    include_once("inc/install.class.php");
-   
+
    global $DB;
-   
+
    $tables = array(
       "glpi_plugin_renamer_profiles",
       "glpi_plugin_renamer_renamers",
       "glpi_plugin_renamer_configs"
    );
-   
+
    foreach ($tables as $table) {
       $DB->query("DROP TABLE IF EXISTS `$table`;");
    }
-   
+
    if (!PluginRenamerInstall::cleanLocalesFilesOfGlpi()) {
       Session::addMessageAfterRedirect(__("Error while cleaning glpi locale files", "renamer"), false, ERROR);
       return false;
    }
-   
+
    if (!PluginRenamerInstall::restoreLocalesFielsOfGlpi()) {
       Session::addMessageAfterRedirect(__("Error while restore glpi locale files", "renamer"), false, ERROR);
       return false;
    }
-   
+
    if (!PluginRenamerInstall::cleanBackupFolder()) {
       Session::addMessageAfterRedirect(__("Error while cleaning backup folder", "renamer"), false, ERROR);
       return false;
    }
-   
+
    return true;
 }

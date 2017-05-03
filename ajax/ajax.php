@@ -45,42 +45,42 @@ $file               = null;
 $GLOBALS['entries'] = null;
 
 if (isset($_POST['action'])) {
-   
+
    $renamer  = new PluginRenamerRenamer();
    $poParser = new PoParser();
-   
+
    switch ($_POST['action']) {
       case 'restoreALanguage':
          if (PluginRenamerInstall::checkRightAccessOnGlpiLocalesFiles()) {
-            
+
             $lang = $_POST['lang'];
             $file = $renamer->getLanguageFile($lang);
-            
+
             //remove locale file of glpi
             if (!PluginRenamerInstall::cleanLocalesFileOfGlpi($file)) {
                Session::addMessageAfterRedirect(__("Error while cleaning glpi locale files", "renamer"), false, ERROR);
                return false;
             }
-            
+
             //restore local file of glpi with back og plugin renamer
             if (!PluginRenamerInstall::restoreLocalesFielOfGlpi($file)) {
                Session::addMessageAfterRedirect(__("Error while restore glpi locale files", "renamer"), false, ERROR);
                return false;
             }
-            
+
             //clean table
             $DB->query("DELETE FROM `glpi_plugin_renamer_renamers` 
                         WHERE `glpi_plugin_renamer_renamers`.`lang` = '" . $lang . "'", "renamer");
             Session::addMessageAfterRedirect(__("Restoration Complete", "renamer"), false, INFO);
-            
+
             $renamer->updateTranslation(GLPI_ROOT. '/locales/' . $file);
             echo true;
-            
+
          } else {
             Session::addMessageAfterRedirect(__("Please give write permission to the 'locales' folder of Glpi", "renamer"), false, INFO);
             echo false;
          }
-         
+
          break;
 
 
@@ -88,31 +88,31 @@ if (isset($_POST['action'])) {
       case 'updateOverload':
          //checl if right access on glpi locales file
          if (PluginRenamerInstall::checkRightAccessOnGlpiLocalesFiles()) {
-            
+
             //get record to update on bdd
             $renamer->getFromDB($_POST['id']);
-            
+
             $lang     = $renamer->fields['lang'];
             $original = $renamer->fields['original'];
             $overload = $renamer->fields['overload'];
             $msgid    = $renamer->fields['msgid'];
             $msgctxt  = $renamer->fields['context'];
-            
+
             $id      = unserialize(stripslashes(stripslashes($msgid)));
             $context = unserialize(stripslashes(stripslashes($msgctxt)));
-            
+
             $newWord = $_POST['newWord'];
-            
+
             $file     = $renamer->getLanguageFile($lang);
             $entries  = $poParser->parse(GLPI_ROOT . '/locales/' . $file);
             $header   = $poParser->getHeaders();
             $newEntry = array();
-            
+
             if (isset($entry['msgctxt'])) {
-               
+
                foreach ($entries as $entry) {
                   if ($entry['msgid'] == $id) {
-                     
+
                      if ($entry['msgctxt'] == $context) {
                         for ($i = 0; $i < count($entry['msgstr']); ++$i) {
                            if ($entry['msgstr'][$i] == $overload) {
@@ -124,9 +124,9 @@ if (isset($_POST['action'])) {
                   }
                   $newEntry[] = $entry;
                }
-               
+
             } else {
-               
+
                foreach ($entries as $entry) {
                   if ($entry['msgid'] == $id) {
                      for ($i = 0; $i < count($entry['msgstr']); ++$i) {
@@ -138,34 +138,34 @@ if (isset($_POST['action'])) {
                   }
                   $newEntry[] = $entry;
                }
-               
+
             }
-            
+
             //sauvegarde temporaire du fichier à updaté
             if ($renamer->saveFileIntoTmp($file)) {
-               
+
                $poParser = new PoParser();
                $poParser->setEntries($newEntry);
                $poParser->setHeaders($header);
                $res = $poParser->write(GLPI_ROOT . '/locales/' . $file);
-               
+
                //si write ok
                if ($res) {
-                  
+
                   //update translate
                   $renamer->updateTranslation(GLPI_ROOT. '/locales/' . $file);
                   //delete tmp file
                   $renamer->removeFileIntoTmp($file);
-                  
+
                   //update bdd entry
                   $input                  = array();
                   $input['id']            = $_POST['id'];
                   $input['overload']      = $newWord;
                   $input['date_overload'] = date("Y-m-d");
-                  
+
                   $renamer->update($input);
                   Session::addMessageAfterRedirect(sprintf(__('\'%1$s\' replaced by \'%2$s\'', "renamer"), $overload, $newWord), false, INFO);
-                  
+
                   echo true;
                } else {
                   //restore locales file from tmp
@@ -174,50 +174,51 @@ if (isset($_POST['action'])) {
                   $renamer->removeFileIntoTmp($file);
                   Session::addMessageAfterRedirect(sprintf(__('Can\'t access to file \'%1$s\'', 'renamer') . $file), false, INFO);
                }
-               
+
             } else {
                Session::addMessageAfterRedirect(sprintf(__('Can\'t save file  \'%1$s\' in tmp folder', 'renamer'), $file), false, INFO);
                return false;
             }
-            
+
          } else {
             Session::addMessageAfterRedirect(__("Please give write permission to the 'locales' folder of Glpi", "renamer"), false, INFO);
             echo false;
          }
-         
+
          break;
-      
-      
-      
+
+
+
       case 'getWords':
-         
+
          if (PluginRenamerInstall::checkRightAccessOnGlpiLocalesFiles()) {
-            
+
             if (isset($_POST['word']) && $_POST['word'] != "" && isset($_POST['lang']) && $_POST['lang'] != "") {
-               
+
                $file = $renamer->getLanguageFile($_POST['lang']);
                $word = $_POST['word'];
-               
+
                if ($lang == null || ($lang != null && $lang != $_POST['lang'])) {
                   $GLOBALS['entries'] = $entries = $poParser->parse(GLPI_ROOT . '/locales/' . $file);
                   $lang               = $_POST['lang'];
                } else {
                   $entries = $GLOBALS['entries'];
                }
-               
+
                $content = "";
-               
+
                $find = false;
                foreach ($entries AS $entry) {
                   if (existExactWord($word, $entry['msgid'], $entry['msgstr'], $file)) {
                      $content .= createTablerow($entry, $word);
                      $find = true;
-                     
-                     if (!isset($entry['msgctxt']))
+
+                     if (!isset($entry['msgctxt'])) {
                         break;
+                     }
                   }
                }
-               
+
                if (!$find) {
                   foreach ($entries AS $entry) {
                      if (existWord($word, $entry['msgid'], $entry['msgstr'], $file)) {
@@ -225,44 +226,44 @@ if (isset($_POST['action'])) {
                      }
                   }
                }
-               
+
                echo $content;
             }
-            
+
          } else {
             echo returnWarning();
          }
-         
+
          break;
-      
-      
-      
+
+
+
       case 'overloadWord':
 
          $wordToOverload = unserialize(stripslashes(stripslashes(str_replace("]", "'", $_POST['wordToOverload']))));
          $context        = '';
-         
+
          if ($_POST['msgctxt'] == 'null') {
             $context = null;
          } else {
             $context = unserialize(stripslashes(stripslashes(str_replace("]", "'", $_POST['msgctxt']))));
          }
-         
-         
+
+
          if ($renamer->isAlreadyOverload($_POST)) {
             echo returnError(__('This Word is already overload ', 'renamer') . $file);
          } else {
-            
+
             $newword = $_POST['word'];
             $lang    = $_POST['lang'];
-            
+
             $id = unserialize(stripslashes(stripslashes($_POST['id'])));
-            
+
             $file     = $renamer->getLanguageFile($lang);
             $entries  = $poParser->parse(GLPI_ROOT . '/locales/' . $file);
             $header   = $poParser->getHeaders();
             $newEntry = array();
-            
+
             if ($context == null) {
                //on parcours chaque entry
                foreach ($entries as $entry) {
@@ -284,7 +285,7 @@ if (isset($_POST['action'])) {
                foreach ($entries as $entry) {
                   //quand on à  l'id
                   if ($entry['msgid'] == $id) {
-                     
+
                      if (isset($entry['msgctxt']) && $entry['msgctxt'] == $context) {
                         //on compare chaque msgstr
                         for ($i = 0; $i < count($entry['msgstr']); ++$i) {
@@ -308,75 +309,76 @@ if (isset($_POST['action'])) {
                   }
                }
             }
-            
+
             //sauvegarde temporaire du fichier à updaté
             if ($renamer->saveFileIntoTmp($file)) {
-               
+
                $poParser = new PoParser();
                $poParser->setEntries($newEntry);
                $poParser->setHeaders($header);
                $res = $poParser->write(GLPI_ROOT . '/locales/' . $file);
-               
+
                //si write ok
                if ($res) {
-                  
+
                   //update tranlate
                   $renamer->updateTranslation(GLPI_ROOT . '/locales/' . $file);
                   //del tmp file
                   $renamer->removeFileIntoTmp($file);
-                  
+
                   $input                  = array();
                   $input['msgid']         = $_POST['id'];
                   $input['users_id']      = Session::getLoginUserID();
                   $input['date_overload'] = date("Y-m-d");
                   $input['lang']          = $_POST['lang'];
-                  
-                  if ($context == null)
+
+                  if ($context == null) {
                      $input['context'] = $context;
-                  else
+                  } else {
                      $input['context'] = $_POST['msgctxt'];
-                  
+                  }
+
                   $input['original'] = $_POST['wordToOverload'];
                   $input['overload'] = $newword;
                   //add bdd entry
                   $renamer->add($input);
-                  
+
                   echo returnSuccess();
                } else {
                   $renamer->restoreFileFromTmp($file);
                   $renamer->removeFileIntoTmp($file);
                   echo returnError(sprintf(__('Can\'t access to file \'%1$s\'', 'renamer') . $file));
                }
-               
+
             } else {
                echo returnError(sprintf(__('Can\'t save file  \'%1$s\' in tmp folder', 'renamer'), $file));
             }
-            
+
          }
-         
+
          break;
-      
-      
-      
+
+
+
       case 'restoreWord':
-         
+
          if (PluginRenamerInstall::checkRightAccessOnGlpiLocalesFiles()) {
-            
+
             $renamer->getFromDB($_POST['id']);
-            
+
             $lang     = $renamer->fields['lang'];
             $original = $renamer->fields['original'];
             $overload = $renamer->fields['overload'];
             $msgid    = $renamer->fields['msgid'];
-            
+
             $id      = unserialize(stripslashes(stripslashes($msgid)));
             $newWord = unserialize(stripslashes(stripslashes(str_replace("]", "'", $original))));
-            
+
             $file     = $renamer->getLanguageFile($lang);
             $entries  = $poParser->parse(GLPI_ROOT . '/locales/' . $file);
             $header   = $poParser->getHeaders();
             $newEntry = array();
-            
+
             foreach ($entries as $entry) {
                if ($entry['msgid'] == $id) {
                   for ($i = 0; $i < count($entry['msgstr']); ++$i) {
@@ -388,85 +390,85 @@ if (isset($_POST['action'])) {
                }
                $newEntry[] = $entry;
             }
-            
+
             //sauvegarde temporaire du fichier à updaté
             if ($renamer->saveFileIntoTmp($file)) {
-               
+
                $poParser = new PoParser();
                $poParser->setEntries($newEntry);
                $poParser->setHeaders($header);
                $res = $poParser->write(GLPI_ROOT. '/locales/' . $file);
-               
+
                //si write ok
                if ($res) {
-                  
+
                   //update tranlate
                   $renamer->updateTranslation(GLPI_ROOT . '/locales/' . $file);
                   //del tmp file
                   $renamer->removeFileIntoTmp($file);
-                  
+
                   //del bdd entry
                   $input       = array();
                   $input['id'] = $_POST['id'];
                   $renamer->delete($input);
-                  
+
                   Session::addMessageAfterRedirect(sprintf(__('\'%1$s\' replaced by \'%2$s\'', "renamer"), $overload, $newWord), false, INFO);
                   echo true;
-                  
+
                } else {
-                  
+
                   $renamer->restoreFileFromTmp($file);
                   $renamer->removeFileIntoTmp($file);
                   Session::addMessageAfterRedirect(sprintf(__('Can\'t access to file ', 'renamer') . $file), false, INFO);
                   echo false;
                }
-               
+
             } else {
                Session::addMessageAfterRedirect(sprintf(__('Can\'t save file  \'%1$s\' in tmp folder', 'renamer'), $file), false, INFO);
                echo false;
             }
-            
+
          } else {
             Session::addMessageAfterRedirect(__("Please give write permission to the 'locales' folder of Glpi", "renamer"), false, INFO);
             echo false;
          }
-         
+
          break;
-      
-      
-      
+
+
+
       case 'restore':
-         
+
          //check if right access
          if (!PluginRenamerInstall::checkRightAccessOnGlpiLocalesFiles()) {
             Session::addMessageAfterRedirect(__("Please give write permission to the 'locales' folder of Glpi", "renamer"), false, ERROR);
             echo false;
          }
-         
+
          //remove locale file of glpi
          if (!PluginRenamerInstall::cleanLocalesFilesOfGlpi()) {
             Session::addMessageAfterRedirect(__("Error while cleaning glpi locale files", "renamer"), false, ERROR);
             echo false;
          }
-         
+
          //restore local file of glpi with back og plugin renamer
          if (!PluginRenamerInstall::restoreLocalesFielsOfGlpi()) {
             Session::addMessageAfterRedirect(__("Error while restore glpi locale files", "renamer"), false, ERROR);
             echo false;
          }
-         
+
          //clean table
          $DB->query("TRUNCATE TABLE `glpi_plugin_renamer_renamers`", "renamer");
          Session::addMessageAfterRedirect(__("Restoration Complete", "renamer"), false, INFO);
-         
+
          echo true;
-         
+
          break;
-      
+
       default:
          echo 0;
    }
-   
+
 } else {
    echo 0;
 }
@@ -497,7 +499,7 @@ function returnWarning() {
  * @return bool
  */
 function searchOnMsgid($word, $msgid, $exact = false) {
-   
+
    if ($exact) {
       foreach ($msgid as $id) {
          if (strtolower($id) === strtolower($word)) {
@@ -511,7 +513,7 @@ function searchOnMsgid($word, $msgid, $exact = false) {
          }
       }
    }
-   
+
 }
 
 
@@ -523,7 +525,7 @@ function searchOnMsgid($word, $msgid, $exact = false) {
  * @return bool
  */
 function searchOnMsgstr($word, $msgstr, $exact = false) {
-   
+
    if ($exact) {
       foreach ($msgstr as $str) {
          if (strtolower($str) === stripslashes(strtolower($word))) {
@@ -537,7 +539,7 @@ function searchOnMsgstr($word, $msgstr, $exact = false) {
          }
       }
    }
-   
+
 }
 
 
@@ -550,12 +552,13 @@ function searchOnMsgstr($word, $msgstr, $exact = false) {
  * @return bool
  */
 function existExactWord($word, $id, $string, $file) {
-   
+
    $resultId     = searchOnMsgid($word, $id, true);
    $resultString = searchOnMsgstr($word, $string, true);
-   if ($resultString || $resultId)
+   if ($resultString || $resultId) {
       return true;
-   
+   }
+
 }
 
 /**
@@ -566,13 +569,13 @@ function existExactWord($word, $id, $string, $file) {
  * @return bool
  */
 function existword($word, $string, $id, $file) {
-   
+
    $resultId     = searchOnMsgid($word, $id, false);
    $resultString = searchOnMsgstr($word, $string, false);
-   if ($resultString || $resultId)  {
+   if ($resultString || $resultId) {
       return true;
    }
-   
+
 }
 
 /**
@@ -581,61 +584,64 @@ function existword($word, $string, $id, $file) {
  * @return string
  */
 function createTableRow($entry, $word) {
-   
+
    global $CFG_GLPI;
    $i       = 0;
    $content = "";
-   
+
    foreach ($entry['msgstr'] as $str) {
-      
+
       $nb = rand();
-      
+
       $content .= "<tr class='tab_bg_1'>";
-      
+
       if ($i != 1) {
          $content .= "<td rowspan=" . count($entry['msgstr']) . ">";
          $content .= addHighlightingWord(implode('<br>', $entry['msgid']), $word);
          $content .= "</td>";
-         
+
          $content .= "<td rowspan=" . count($entry['msgstr']) . ">";
-         if (isset($entry['msgctxt']))
+         if (isset($entry['msgctxt'])) {
             $content .= implode('<br>', $entry['msgctxt']);
-         else
+         } else {
             $content .= __('No', 'renamer');
-         
+         }
+
          $content .= "</td>";
-         
+
          $content .= "<td rowspan=" . count($entry['msgstr']) . ">";
-         if (isset($entry['msgid_plural']))
+         if (isset($entry['msgid_plural'])) {
             $content .= addHighlightingWord(implode('<br>', $entry['msgid_plural']), $word);
-         else
+         } else {
             $content .= __('No', 'renamer');
-         
+         }
+
          $content .= "</td>";
          $i++;
       }
-      
+
       $content .= "<td>" . addHighlightingWord($str, $word) . "</td>";
       $content .= "<td>";
       $content .= "<input type='text' id='newWord" . $entry['index'] . $nb . "' /> ";
       $content .= "<input onclick='overloadWord(" . $entry['index'] . $nb . ");' value='" . _x('action', 'Overload', 'renamer') . "' class='submit' style='width: 80px;'>";
       $content .= "</td>";
-      
+
       $content .= "<td>";
       $content .= "<div style='min-width:24px; float:right; padding-left:10px;' id='info" . $entry['index'] . $nb . "'></div><img id='waitLoadingOverload" . $entry['index'] . $nb . "' style='width:24px; display:none;' src='../pics/loading.gif'>";
       $content .= "</td>";
-      
+
       $content .= "<input type='hidden' name='msgid' id='msgid" . $entry['index'] . $nb . "' value='" . addslashes(serialize($entry['msgid'])) . "'>";
       $content .= "<input type='hidden' name='msgstr' id='msgstr" . $entry['index'] . $nb . "' value='" . addslashes(serialize(str_replace("'", "]", $str))) . "'>";
-      
-      if (isset($entry['msgctxt']))
+
+      if (isset($entry['msgctxt'])) {
          $content .= "<input type='hidden' name='msgctxt' id='msgctxt" . $entry['index'] . $nb . "' value='" . addslashes(serialize(str_replace("'", "]", $entry['msgctxt']))) . "'>";
-      else
+      } else {
          $content .= "<input type='hidden' name='msgctxt' id='msgctxt" . $entry['index'] . $nb . "' value='null'>";
-      
+      }
+
       $content .= "</tr>";
    }
-   
+
    return $content;
 }
 
@@ -646,7 +652,7 @@ function createTableRow($entry, $word) {
  * @return mixed
  */
 function addHighlightingWord($str, $word) {
-   
+
    $motif  = '`(.*?)(' . preg_quote($word) . ')(.*?)`si';
    $sortie = '$1<span class="highlighting">$2</span>$3';
    return preg_replace($motif, $sortie, $str);
