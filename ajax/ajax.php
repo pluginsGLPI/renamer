@@ -147,7 +147,7 @@ if (isset($_POST['action'])) {
                $poParser = new PoParser();
                $poParser->setEntries($newEntry);
                $poParser->setHeaders($header);
-               $res = $poParser->write($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/' . $file);
+               $res = $poParser->write(GLPI_ROOT . '/locales/' . $file);
                
                //si write ok
                if ($res) {
