@@ -97,7 +97,11 @@ class PluginRenamerProfile extends CommonDBTM {
 
       echo "<tr class='tab_bg_2'>";
       echo "<td>Utiliser Mon Plugin</td><td>";
-      Profile::dropdownNoneReadWrite("right", $this->fields["right"], 1, 1, 1);
+      Profile::dropdownRight("right",
+                             ['value'   => $this->fields["right"],
+                              'nonone'  => 0,
+                              'noread'  => 0,
+                              'nowrite' => 0]);
       echo "</td></tr>";
 
       if ($canedit) {

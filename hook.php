@@ -70,7 +70,7 @@ function plugin_renamer_install() {
    }
 
    $table = 'glpi_plugin_renamer_profiles';
-   if (!TableExists($table)) {
+   if (!$DB->tableExists($table)) {
       // requete de création de la table
       $query = "CREATE TABLE `$table` (
                `id` int(11) NOT NULL default '0' COMMENT 'RELATION to glpi_profiles (id)',
@@ -85,7 +85,7 @@ function plugin_renamer_install() {
    }
 
    $table = 'glpi_plugin_renamer_renamers';
-   if (!TableExists($table)) {
+   if (!$DB->tableExists($table)) {
 
       $query = "CREATE TABLE `$table` (
                `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -104,7 +104,7 @@ function plugin_renamer_install() {
 
    //création de la table pour la configuration du plugin
    $table = "glpi_plugin_renamer_configs";
-   if (!TableExists($table)) {
+   if (!$DB->tableExists($table)) {
       $query = "CREATE TABLE $table (
                   id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
                   lang_selected TEXT COLLATE utf8_unicode_ci DEFAULT NULL
