@@ -5,7 +5,7 @@
 GLPI Plugin Renamer
 Copyright (C) 2014 by the GLPI Plugin Renamer Development Team.
 
-https://forge.indepnet.net/projects/mantis
+https://github.com/pluginsGLPI/renamer
 ------------------------------------------------------------------------
 
 LICENSE
@@ -34,7 +34,7 @@ along with GLPI Plugin Renamer. If not, see <http://www.gnu.org/licenses/>.
 @copyright Copyright (c) 2014 GLPI Plugin Renamer Development team
 @license   GPLv3 or (at your option) any later version
 http://www.gnu.org/licenses/gpl.html
-@link      https://forge.indepnet.net/projects/mantis
+@link      https://github.com/pluginsGLPI/renamer
 @since     2014
 
 ------------------------------------------------------------------------
@@ -47,7 +47,6 @@ class PluginRenamerInstall extends CommonDBTM {
     * @return bool
     */
    static function checkRightAccessOnGlpiLocalesFiles() {
-      global $CFG_GLPI;
       $locale_path = GLPI_ROOT . "/locales/";
 
       if ($dossier = opendir($locale_path)) {
@@ -70,7 +69,6 @@ class PluginRenamerInstall extends CommonDBTM {
     * @return bool
     */
    static function checkRightAccesOnRenamerPlugin() {
-      global $CFG_GLPI;
       $locale_path = GLPI_ROOT . "/plugins/renamer/backup/";
 
       if ($dossier = opendir($locale_path)) {
@@ -91,7 +89,6 @@ class PluginRenamerInstall extends CommonDBTM {
     * @return bool
     */
    static function backupLocaleFiles() {
-      global $CFG_GLPI;
       $source_path      = GLPI_ROOT . "/locales/";
       $destination_path = GLPI_ROOT . "/plugins/renamer/backup/";
 
@@ -114,7 +111,6 @@ class PluginRenamerInstall extends CommonDBTM {
     * @return bool
     */
    static function cleanBackupFolder() {
-      global $CFG_GLPI;
       $source_path = GLPI_ROOT . "/plugins/renamer/backup/";
 
       if ($dossier = opendir($source_path)) {
@@ -137,7 +133,6 @@ class PluginRenamerInstall extends CommonDBTM {
     * @return bool
     */
    static function cleanLocalesFilesOfGlpi() {
-      global $CFG_GLPI;
       $source_path = GLPI_ROOT . "/locales/";
 
       if ($dossier = opendir($source_path)) {
@@ -160,8 +155,6 @@ class PluginRenamerInstall extends CommonDBTM {
     * @return bool
     */
    static function restoreLocalesFielsOfGlpi() {
-      global $CFG_GLPI;
-
       $destination_path = GLPI_ROOT . "/locales/";
       $source_path      = GLPI_ROOT . "/plugins/renamer/backup/";
 
@@ -181,8 +174,6 @@ class PluginRenamerInstall extends CommonDBTM {
 
 
    public static function cleanLocalesFileOfGlpi($file) {
-
-      global $CFG_GLPI;
       $source_path = GLPI_ROOT . "/locales/";
 
       if ($dossier = opendir($source_path)) {
@@ -202,8 +193,6 @@ class PluginRenamerInstall extends CommonDBTM {
 
 
    public static function restoreLocalesFielOfGlpi($file) {
-
-      global $CFG_GLPI;
       $destination_path = GLPI_ROOT . "/locales/";
       $source_path      = GLPI_ROOT . "/plugins/renamer/backup/";
 

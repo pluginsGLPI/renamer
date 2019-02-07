@@ -31,7 +31,7 @@ along with GLPI Plugin Renamer. If not, see <http://www.gnu.org/licenses/>.
 @copyright Copyright (c) 2014 GLPI Plugin Renamer Development team
 @license   GPLv3 or (at your option) any later version
 http://www.gnu.org/licenses/gpl.html
-@link      https://forge.indepnet.net/projects/renamer
+@link      https://github.com/pluginsGLPI/renamer
 @since     2014
 
 ------------------------------------------------------------------------
@@ -69,11 +69,11 @@ if (isset($_POST['action'])) {
             }
 
             //clean table
-            $DB->query("DELETE FROM `glpi_plugin_renamer_renamers` 
+            $DB->query("DELETE FROM `glpi_plugin_renamer_renamers`
                         WHERE `glpi_plugin_renamer_renamers`.`lang` = '" . $lang . "'", "renamer");
             Session::addMessageAfterRedirect(__("Restoration Complete", "renamer"), false, INFO);
 
-            $renamer->updateTranslation(GLPI_ROOT. '/locales/' . $file);
+            $renamer->updateTranslation($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/' . $file);
             echo true;
 
          } else {
@@ -106,7 +106,7 @@ if (isset($_POST['action'])) {
             $file     = $renamer->getLanguageFile($lang);
             $entries  = $poParser->parse(GLPI_ROOT . '/locales/' . $file);
             $header   = $poParser->getHeaders();
-            $newEntry = array();
+            $newEntry = [];
 
             if (isset($entry['msgctxt'])) {
 
@@ -147,7 +147,7 @@ if (isset($_POST['action'])) {
                $poParser = new PoParser();
                $poParser->setEntries($newEntry);
                $poParser->setHeaders($header);
-               $res = $poParser->write(GLPI_ROOT . '/locales/' . $file);
+               $res = $poParser->write($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/' . $file);
 
                //si write ok
                if ($res) {
@@ -158,7 +158,7 @@ if (isset($_POST['action'])) {
                   $renamer->removeFileIntoTmp($file);
 
                   //update bdd entry
-                  $input                  = array();
+                  $input                  = [];
                   $input['id']            = $_POST['id'];
                   $input['overload']      = $newWord;
                   $input['date_overload'] = date("Y-m-d");
@@ -262,7 +262,7 @@ if (isset($_POST['action'])) {
             $file     = $renamer->getLanguageFile($lang);
             $entries  = $poParser->parse(GLPI_ROOT . '/locales/' . $file);
             $header   = $poParser->getHeaders();
-            $newEntry = array();
+            $newEntry = [];
 
             if ($context == null) {
                //on parcours chaque entry
@@ -316,7 +316,8 @@ if (isset($_POST['action'])) {
                $poParser = new PoParser();
                $poParser->setEntries($newEntry);
                $poParser->setHeaders($header);
-               $res = $poParser->write(GLPI_ROOT . '/locales/' . $file);
+               $res = $poParser->write($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/' . $file);
+
 
                //si write ok
                if ($res) {
@@ -326,7 +327,7 @@ if (isset($_POST['action'])) {
                   //del tmp file
                   $renamer->removeFileIntoTmp($file);
 
-                  $input                  = array();
+                  $input                  = [];
                   $input['msgid']         = $_POST['id'];
                   $input['users_id']      = Session::getLoginUserID();
                   $input['date_overload'] = date("Y-m-d");
@@ -377,7 +378,7 @@ if (isset($_POST['action'])) {
             $file     = $renamer->getLanguageFile($lang);
             $entries  = $poParser->parse(GLPI_ROOT . '/locales/' . $file);
             $header   = $poParser->getHeaders();
-            $newEntry = array();
+            $newEntry = [];
 
             foreach ($entries as $entry) {
                if ($entry['msgid'] == $id) {
@@ -397,7 +398,7 @@ if (isset($_POST['action'])) {
                $poParser = new PoParser();
                $poParser->setEntries($newEntry);
                $poParser->setHeaders($header);
-               $res = $poParser->write(GLPI_ROOT. '/locales/' . $file);
+               $res = $poParser->write($_SERVER['DOCUMENT_ROOT'] . $CFG_GLPI["root_doc"] . '/locales/' . $file);
 
                //si write ok
                if ($res) {
@@ -408,7 +409,7 @@ if (isset($_POST['action'])) {
                   $renamer->removeFileIntoTmp($file);
 
                   //del bdd entry
-                  $input       = array();
+                  $input       = [];
                   $input['id'] = $_POST['id'];
                   $renamer->delete($input);
 
@@ -584,8 +585,6 @@ function existword($word, $string, $id, $file) {
  * @return string
  */
 function createTableRow($entry, $word) {
-
-   global $CFG_GLPI;
    $i       = 0;
    $content = "";
 
@@ -652,7 +651,6 @@ function createTableRow($entry, $word) {
  * @return mixed
  */
 function addHighlightingWord($str, $word) {
-
    $motif  = '`(.*?)(' . preg_quote($word) . ')(.*?)`si';
    $sortie = '$1<span class="highlighting">$2</span>$3';
    return preg_replace($motif, $sortie, $str);

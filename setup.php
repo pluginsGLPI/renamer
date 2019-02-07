@@ -5,7 +5,7 @@
    GLPI Plugin Renamer
    Copyright (C) 2014 by the GLPI Plugin Renamer Development Team.
 
-   https://forge.indepnet.net/projects/renamer
+   https://github.com/pluginsGLPI/renamer
    ------------------------------------------------------------------------
 
    LICENSE
@@ -32,30 +32,36 @@
    @copyright Copyright (c) 2014 GLPI Plugin Renamer Development team
    @license   GPLv3 or (at your option) any later version
               http://www.gnu.org/licenses/gpl.html
-   @link      https://forge.indepnet.net/projects/renamer
+   @link      https://github.com/pluginsGLPI/renamer
    @since     2014
 
    ------------------------------------------------------------------------
  */
 
-define ('PLUGIN_RENAMER_VERSION', '1.1.0');
+define('PLUGIN_RENAMER_VERSION', '2.0');
 
-/**
- * function to initialize the plugin
- * @global array $PLUGIN_HOOKS
- */
+// Minimal GLPI version, inclusive
+define("PLUGIN_RENAMER_MIN_GLPI", "9.4");
+// Maximum GLPI version, exclusive
+define("PLUGIN_RENAMER_MAX_GLPI", "9.5");
+
 function plugin_init_renamer() {
    global $PLUGIN_HOOKS;
 
    $plugin = new Plugin();
 
    $PLUGIN_HOOKS['csrf_compliant']['renamer'] = true;
-   $PLUGIN_HOOKS['change_profile']['renamer'] = array('PluginRenamerProfile', 'changeProfile');
+   $PLUGIN_HOOKS['change_profile']['renamer'] = [
+      'PluginRenamerProfile',
+      'changeProfile'
+   ];
 
    Plugin::registerClass('PluginRenamerInstall');
    Plugin::registerClass('PluginRenamerRenamer');
    Plugin::registerClass('PluginRenamerConfig');
-   Plugin::registerClass('PluginRenamerProfile', array('addtabon' => array('Profile')));
+   Plugin::registerClass('PluginRenamerProfile', [
+      'addtabon' => ['Profile']
+   ]);
 
    if (Session::getLoginUserID()) {
       if (Session::haveRight("config", UPDATE)) {
@@ -64,63 +70,43 @@ function plugin_init_renamer() {
          $PLUGIN_HOOKS['config_page']['renamer'] = "front/config.form.php";
 
          // add to 'Admin' menu :
-         $PLUGIN_HOOKS["menu_toadd"]['renamer'] = array('admin' => 'PluginRenamerMenu');
+         $PLUGIN_HOOKS["menu_toadd"]['renamer'] = [
+            'admin' => 'PluginRenamerMenu'
+         ];
       }
    }
 
    if (Session::getLoginUserID() && $plugin->isActivated('renamer')) {
-
-      $PLUGIN_HOOKS['add_javascript']['renamer'] = array('scripts/jquery-picklist.min.js',
-                                                         'scripts/renamer.js.php');
-      $PLUGIN_HOOKS['add_css']['renamer'] = array( 'css/renamer.css',
-                                                   'css/jquery-picklist.css',
-                                                   'jquery-picklist-ie7.css');
+      $PLUGIN_HOOKS['add_javascript']['renamer'] = [
+         'scripts/jquery-picklist.min.js',
+         'scripts/renamer.js.php'
+      ];
+      $PLUGIN_HOOKS['add_css']['renamer'] = [
+         'css/renamer.css',
+         'css/jquery-picklist.css',
+         'jquery-picklist-ie7.css'
+      ];
    }
 }
 
-/**
- *function to define the version for glpi for plugin
- * @return array
- */
 function plugin_version_renamer() {
-   return array('name'            => __("Renamer", "renamer"),
-                'version'         => PLUGIN_RENAMER_VERSION,
-                'author'          => 'TECLIB\'',
-                'license'         => 'GPLv3',
-                'homepage'        => 'https://github.com/TECLIB/renamer',
-                'minGlpiVersion'  => '0.85');
-}
-
-/**
- * function to check the prerequisites
- * @return boolean
- */
-function plugin_renamer_check_prerequisites() {
-
-   if (version_compare(GLPI_VERSION, '0.85', 'lt')) {
-      echo "This plugin requires GLPI >= 0.85";
-      return false;
-   }
-
-   return true;
+   return [
+      'name'            => "Renamer",
+      'version'         => PLUGIN_RENAMER_VERSION,
+      'author'          => 'TECLIB\'',
+      'license'         => 'GPLv3',
+      'homepage'        => 'https://github.com/TECLIB/renamer',
+      'requirements'   => [
+         'glpi' => [
+            'min' => PLUGIN_RENAMER_MIN_GLPI,
+            'max' => PLUGIN_RENAMER_MAX_GLPI,
+         ]
+      ]
+   ];
 }
 
 
-/**
- * function to check the initial configuration
- * @param boolean $verbose
- * @return boolean
- */
 function plugin_renamer_check_config($verbose = false) {
 
-   if (true) {
-      //your configuration check
-      return true;
-   }
-
-   if ($verbose) {
-      echo _x('plugin', 'Installed / not configured');
-   }
-
-   return false;
+   return true;
 }

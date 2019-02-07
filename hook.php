@@ -5,25 +5,25 @@
 GLPI Plugin Renamer
 Copyright (C) 2014 by the GLPI Plugin renamer Development Team.
 
-https://forge.indepnet.net/projects/renamer
+https://github.com/pluginsGLPI/renamer
 ------------------------------------------------------------------------
 
 LICENSE
 
-This file is part of GLPI Plugin MantisBT project.
+This file is part of GLPI Plugin Renamer project.
 
-GLPI Plugin MantisBT is free software; you can redistribute it and/or modify
+GLPI Plugin Renamer is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 
-GLPI Plugin MantisBT is distributed in the hope that it will be useful,
+GLPI Plugin Renamer is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with GLPI Plugin MantisBT. If not, see <http://www.gnu.org/licenses/>.
+along with GLPI Plugin Renamer. If not, see <http://www.gnu.org/licenses/>.
 
 ------------------------------------------------------------------------
 
@@ -33,7 +33,7 @@ along with GLPI Plugin MantisBT. If not, see <http://www.gnu.org/licenses/>.
 @copyright Copyright (c) 2014 GLPI Plugin Renamer Development team
 @license   GPLv3 or (at your option) any later version
 http://www.gnu.org/licenses/gpl.html
-@link      https://forge.indepnet.net/projects/mantis
+@link      https://github.com/pluginsGLPI/renamer
 @since     2014
 
 ------------------------------------------------------------------------
@@ -44,8 +44,8 @@ http://www.gnu.org/licenses/gpl.html
  * @return boolean
  */
 function plugin_renamer_install() {
+   global $DB;
 
-   global $CFG_GLPI, $DB;
    include_once("inc/install.class.php");
    include_once("inc/profile.class.php");
 
@@ -129,16 +129,15 @@ function plugin_renamer_install() {
  * @return boolean
  */
 function plugin_renamer_uninstall() {
-
    include_once("inc/install.class.php");
 
    global $DB;
 
-   $tables = array(
+   $tables = [
       "glpi_plugin_renamer_profiles",
       "glpi_plugin_renamer_renamers",
       "glpi_plugin_renamer_configs"
-   );
+   ];
 
    foreach ($tables as $table) {
       $DB->query("DROP TABLE IF EXISTS `$table`;");

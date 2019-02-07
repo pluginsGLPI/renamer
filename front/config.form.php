@@ -5,7 +5,7 @@
 GLPI Plugin Renamer
 Copyright (C) 2014 by the GLPI Plugin Renamer Development Team.
 
-https://forge.indepnet.net/projects/mantis
+https://github.com/pluginsGLPI/renamer
 ------------------------------------------------------------------------
 
 LICENSE
@@ -34,7 +34,7 @@ along with GLPI Plugin Renamer. If not, see <http://www.gnu.org/licenses/>.
 @copyright Copyright (c) 2014 GLPI Plugin Renamer Development team
 @license   GPLv3 or (at your option) any later version
 http://www.gnu.org/licenses/gpl.html
-@link      https://forge.indepnet.net/projects/mantis
+@link      https://github.com/pluginsGLPI/renamer
 @since     2014
 
 ------------------------------------------------------------------------
@@ -44,15 +44,12 @@ include('../../../inc/includes.php');
 
 Html::header(__("Setup - Renamer", "renamer"), $_SERVER['PHP_SELF'], 'plugins', 'Renamer', 'configuration');
 
-global $CFG_GLPI;
-
 $plugin = new Plugin();
 
 if ($plugin->isActivated('renamer')) {
    $config = new PluginRenamerConfig();
    if (isset($_POST['update'])) {
-
-      $lang = array();
+      $lang = [];
       if (isset($_POST['pick_list_lang'])) {
          foreach ($_POST['pick_list_lang'] as $select) {
             foreach ($CFG_GLPI["languages"] as &$local) {

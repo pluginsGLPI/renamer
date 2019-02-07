@@ -5,7 +5,7 @@
 GLPI Plugin renamer
 Copyright (C) 2014 by the GLPI Plugin renamer Development Team.
 
-https://forge.indepnet.net/projects/renamer
+https://github.com/pluginsGLPI/renamer
 ------------------------------------------------------------------------
 
 LICENSE
@@ -32,7 +32,7 @@ along with GLPI Plugin renamer. If not, see <http://www.gnu.org/licenses/>.
 @copyright Copyright (c) 2014 GLPI Plugin renamer Development team
 @license   GPLv3 or (at your option) any later version
 http://www.gnu.org/licenses/gpl.html
-@link      https://forge.indepnet.net/projects/renamer
+@link      https://github.com/pluginsGLPI/renamer
 @since     2014
 
 ------------------------------------------------------------------------
@@ -64,15 +64,15 @@ class PluginRenamerProfile extends CommonDBTM {
       // si le profile n'existe pas déjà dans la table profile de mon plugin
       if (!$myProf->getFromDB($ID)) {
          // ajouter un champ dans la table comprenant l'ID du profil d la personne connecté et le droit d'écriture
-         $myProf->add(array(
+         $myProf->add([
             'id' => $ID,
             'right' => 'w'
-         ));
+         ]);
       }
 
    }
 
-   function showForm($id, $options = array()) {
+   function showForm($id, $options = []) {
 
       if (!Session::haveRight("profile", READ)) {
          return false;
@@ -97,11 +97,12 @@ class PluginRenamerProfile extends CommonDBTM {
 
       echo "<tr class='tab_bg_2'>";
       echo "<td>Utiliser Mon Plugin</td><td>";
-      Profile::dropdownRight("right",
-                             ['value'   => $this->fields["right"],
-                              'nonone'  => 0,
-                              'noread'  => 0,
-                              'nowrite' => 0]);
+      Profile::dropdownRight("right", [
+         'value'   => $this->fields["right"],
+         'nonone'  => 0,
+         'noread'  => 0,
+         'nowrite' => 0
+      ]);
       echo "</td></tr>";
 
       if ($canedit) {
@@ -140,9 +141,9 @@ class PluginRenamerProfile extends CommonDBTM {
    }
 
    function createAccess($ID) {
-      $this->add(array(
+      $this->add([
          'id' => $ID
-      ));
+      ]);
    }
 
    static function changeProfile() {

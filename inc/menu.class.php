@@ -5,7 +5,7 @@
 GLPI Plugin Renamer
 Copyright (C) 2014 by the GLPI Plugin Renamer Development Team.
 
-https://forge.indepnet.net/projects/mantis
+https://github.com/pluginsGLPI/renamer
 ------------------------------------------------------------------------
 
 LICENSE
@@ -34,16 +34,15 @@ along with GLPI Plugin Renamer. If not, see <http://www.gnu.org/licenses/>.
 @copyright Copyright (c) 2014 GLPI Plugin Renamer Development team
 @license   GPLv3 or (at your option) any later version
 http://www.gnu.org/licenses/gpl.html
-@link      https://forge.indepnet.net/projects/mantis
+@link      https://github.com/pluginsGLPI/renamer
 @since     2014
 
 ------------------------------------------------------------------------
 */
 
 class PluginRenamerMenu extends CommonGLPI {
-
    static function getTypeName($nb = 0) {
-      return __('Renamer', 'renamer'); //useless ?
+      return __('Renamer', 'renamer');
    }
 
    static function getMenuName() {
@@ -51,8 +50,7 @@ class PluginRenamerMenu extends CommonGLPI {
    }
 
    static function getMenuContent() {
-      global $CFG_GLPI;
-      $menu          = array();
+      $menu          = [];
       $menu['title'] = self::getMenuName();
       $menu['page']  = '/plugins/renamer/front/renamer.form.php';
 

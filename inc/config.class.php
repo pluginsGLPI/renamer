@@ -5,7 +5,7 @@
 GLPI Plugin Renamer
 Copyright (C) 2014 by the GLPI Plugin Renamer Development Team.
 
-https://forge.indepnet.net/projects/mantis
+https://github.com/pluginsGLPI/renamer
 ------------------------------------------------------------------------
 
 LICENSE
@@ -34,15 +34,12 @@ along with GLPI Plugin Renamer. If not, see <http://www.gnu.org/licenses/>.
 @copyright Copyright (c) 2014 GLPI Plugin Renamer Development team
 @license   GPLv3 or (at your option) any later version
 http://www.gnu.org/licenses/gpl.html
-@link      https://forge.indepnet.net/projects/mantis
+@link      https://github.com/pluginsGLPI/renamer
 @since     2014
 
 ------------------------------------------------------------------------
 */
 
-/**
- * Class PluginMantisConfig pour la partie gestion de la configuration
- */
 class PluginRenamerConfig extends CommonDBTM {
 
    /**
@@ -112,7 +109,7 @@ class PluginRenamerConfig extends CommonDBTM {
    public function getelectedLanguage() {
       $this->getFromDB(1);
       $langSelected = unserialize(stripslashes($this->fields['lang_selected']));
-      $lang         = array();
+      $lang         = [];
 
       if ($langSelected === false) {
          return false;

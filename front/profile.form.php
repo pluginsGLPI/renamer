@@ -5,7 +5,7 @@
 GLPI Plugin Renamer
 Copyright (C) 2014 by the GLPI Plugin Renamer Development Team.
 
-https://forge.indepnet.net/projects/mantis
+https://github.com/pluginsGLPI/renamer
 ------------------------------------------------------------------------
 
 LICENSE
@@ -34,7 +34,7 @@ along with GLPI Plugin Renamer. If not, see <http://www.gnu.org/licenses/>.
 @copyright Copyright (c) 2014 GLPI Plugin Renamer Development team
 @license   GPLv3 or (at your option) any later version
 http://www.gnu.org/licenses/gpl.html
-@link      https://forge.indepnet.net/projects/mantis
+@link      https://github.com/pluginsGLPI/renamer
 @since     2014
 
 ------------------------------------------------------------------------
@@ -47,6 +47,6 @@ Session::checkRight("profile", READ);
 $prof = new PluginRenamerProfile();
 
 if (isset($_POST['update_user_profile'])) {
-    $prof->update($_POST);
-    Html::back();
+   $prof->update($_POST);
+   Html::back();
 }

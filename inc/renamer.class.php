@@ -4,7 +4,7 @@
 GLPI Plugin renamer
 Copyright (C) 2014 by the GLPI Plugin renamer Development Team.
 
-https://forge.indepnet.net/projects/renamer
+https://github.com/pluginsGLPI/renamer
 ------------------------------------------------------------------------
 
 LICENSE
@@ -31,7 +31,7 @@ along with GLPI Plugin renamer. If not, see <http://www.gnu.org/licenses/>.
 @copyright Copyright (c) 2014 GLPI Plugin renamer Development team
 @license   GPLv3 or (at your option) any later version
 http://www.gnu.org/licenses/gpl.html
-@link      https://forge.indepnet.net/projects/renamer
+@link      https://github.com/pluginsGLPI/renamer
 @since     2014
 
 ------------------------------------------------------------------------
@@ -73,8 +73,6 @@ class PluginRenamerRenamer extends CommonDBTM {
 
 
    function showFormToOverload() {
-      global $CFG_GLPI;
-
       $conf = new PluginRenamerConfig();
       $conf->getFromDB(1);
       $lang      = $conf->getelectedLanguage();
@@ -92,13 +90,11 @@ class PluginRenamerRenamer extends CommonDBTM {
       $content .= "<td class='center'>";
 
       if ($conf->fields['lang_selected'] == null || count($lang) === 0) {
-
-         $content .= Dropdown::showLanguages("language", array(
+         $content .= Dropdown::showLanguages("language", [
             'display' => false,
-            'value' => $_SESSION['glpilanguage'],
-            'rand' => ''
-         ));
-
+            'value'   => $_SESSION['glpilanguage'],
+            'rand'    => ''
+         ]);
       } else {
 
          $content .= '<select id="dropdown_language" name="dropdown_language" selected="selected"  >';
@@ -231,9 +227,6 @@ class PluginRenamerRenamer extends CommonDBTM {
     * function to show boutton to overload Language or restore
     */
    function showBtnToRestoreLanguage() {
-
-      global $CFG_GLPI;
-
       $content = "<table id='table1'  class='tab_cadre_fixe'>";
       $content .= "<th colspan='3'>" . __("Restore") . "</th>";
 
@@ -249,11 +242,11 @@ class PluginRenamerRenamer extends CommonDBTM {
       $content .= "</td>";
 
       $content .= "<td style='text-align: center;'>";
-      $content .= Dropdown::showLanguages("languageToRestore", array(
+      $content .= Dropdown::showLanguages("languageToRestore", [
          'display' => false,
          'value' => $_SESSION['glpilanguage'],
          'rand' => ''
-      ));
+      ]);
       $content .= "</td>";
       $content .= "<td style='text-align: center;'>";
       $content .= "<input onclick='restoreLocaleFiles();' value='" . __('Restore') . "' class='submit' style='width: 200px;'>";
@@ -304,19 +297,18 @@ class PluginRenamerRenamer extends CommonDBTM {
     * @return true
     */
    public function isAlreadyOverload(Array $params) {
-      $id             = $params['id'];
-      $wordToOverload = $params['wordToOverload'];
-      $context        = $params['msgctxt'];
-      $lang           = $params['lang'];
-
-      $context_sql = "";
+      $context = [];
       if ($context != 'null') {
-         $context_sql = " AND `context` = '" . $context . "'";
+         $context = [
+            'context' => $params['msgctxt'],
+         ];
       }
-      return $this->getFromDBByQuery(" WHERE `msgid`    = '$id'
-                                       AND   `original` = '$wordToOverload' 
-                                       AND   `lang`     = '$lang' 
-                                       $context_sql");
+
+      return $this->getFromDBByCrit([
+         'msgid'    => $params['id'],
+         'original' => $params['wordToOverload'],
+         'lang'     => $params['lang'],
+      ] + $context);
    }
 
 

@@ -5,7 +5,7 @@
 GLPI Plugin renamer
 Copyright (C) 2014 by the GLPI Plugin renamer Development Team.
 
-https://forge.indepnet.net/projects/renamer
+https://github.com/pluginsGLPI/renamer
 ------------------------------------------------------------------------
 
 LICENSE
@@ -32,7 +32,7 @@ along with GLPI Plugin renamer. If not, see <http://www.gnu.org/licenses/>.
 @copyright Copyright (c) 2014 GLPI Plugin renamer Development team
 @license   GPLv3 or (at your option) any later version
 http://www.gnu.org/licenses/gpl.html
-@link      https://forge.indepnet.net/projects/renamer
+@link      https://github.com/pluginsGLPI/renamer
 @since     2014
 
 ------------------------------------------------------------------------
@@ -63,7 +63,6 @@ if ($plugin->isActivated('renamer')) {
    }
 
 } else {
-   global $CFG_GLPI;
    echo '<div class=\'center\'><br><br><img src=\'' . $CFG_GLPI['root_doc'] . '/pics/warning.png\' alt=\'warning\'><br><br>';
    echo '<b>' . __("Thank you to activate plugin", "renamer") . '</b></div>';
 }
