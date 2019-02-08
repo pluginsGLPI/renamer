@@ -42,7 +42,8 @@ http://www.gnu.org/licenses/gpl.html
 
 include('../../../inc/includes.php');
 
-Html::header(__("Setup - Renamer", "renamer"), $_SERVER['PHP_SELF'], 'plugins', 'Renamer', 'configuration');
+Html::header(__("Setup - Renamer", "renamer"), $_SERVER['PHP_SELF'],
+             'admin', 'pluginrenamermenu', 'config');
 
 $plugin = new Plugin();
 

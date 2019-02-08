@@ -42,7 +42,7 @@ http://www.gnu.org/licenses/gpl.html
 
 class PluginRenamerMenu extends CommonGLPI {
    static function getTypeName($nb = 0) {
-      return __('Renamer', 'renamer');
+      return __('Overload Language', 'renamer');
    }
 
    static function getMenuName() {
@@ -50,19 +50,34 @@ class PluginRenamerMenu extends CommonGLPI {
    }
 
    static function getMenuContent() {
-      $menu          = [];
-      $menu['title'] = self::getMenuName();
-      $menu['page']  = '/plugins/renamer/front/renamer.form.php';
+      $search_url = PluginRenamerRenamer::getFormUrl(false);
+
+      $menu = [
+         'title' => self::getMenuName(),
+         'page'  => $search_url,
+      ];
+
+      $links = [
+         'search' => $search_url,
+      ];
+
+      if (Session::haveRight('config', UPDATE)) {
+         $links['config'] = PluginRenamerConfig::getFormUrl(false);
+      }
 
       if (Session::haveRight('config', READ)) {
-
-         $menu['options']['model']['title']           = self::getTypeName();
-         $menu['options']['model']['page']            = Toolbox::getItemTypeSearchUrl('PluginRenamerRenamer', false);
-         $menu['options']['model']['links']['search'] = Toolbox::getItemTypeSearchUrl('PluginRenamerRenamer', false);
-
-         if (Session::haveRight('config', UPDATE)) {
-            $menu['options']['model']['links']['add'] = Toolbox::getItemTypeFormUrl('PluginRenamerRenamer', false);
-         }
+         $menu['options'] = [
+            'overload' => [
+               'title' => self::getTypeName(),
+               'page'  => $search_url,
+               'links' => $links,
+            ],
+            'config' => [
+               'title' => PluginRenamerConfig::getTypeName(),
+               'page'  => PluginRenamerConfig::getFormUrl(false),
+               'links' => $links,
+            ]
+         ];
 
       }
 

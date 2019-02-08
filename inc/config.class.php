@@ -59,6 +59,10 @@ class PluginRenamerConfig extends CommonDBTM {
       return Session::haveRight('config', READ);
    }
 
+   static function getTypeName($nb = 0) {
+      return __('Setup');
+   }
+
 
    /**
     * Function to show form to configure the plugin

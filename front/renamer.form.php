@@ -58,7 +58,8 @@ if ($plugin->isActivated('renamer')) {
       Html::popFooter();
 
    } else {
-      Html::header(__("Setup - Renamer", "renamer"), $_SERVER['PHP_SELF'], 'plugins', 'Renamer', 'configuration');
+      Html::header(__("Setup - Renamer", "renamer"), $_SERVER['PHP_SELF'],
+                   'admin', 'pluginrenamermenu', 'overload');
       $renamer->showForm();
    }
 
