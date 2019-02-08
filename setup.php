@@ -56,9 +56,6 @@ function plugin_init_renamer() {
       'changeProfile'
    ];
 
-   Plugin::registerClass('PluginRenamerInstall');
-   Plugin::registerClass('PluginRenamerRenamer');
-   Plugin::registerClass('PluginRenamerConfig');
    Plugin::registerClass('PluginRenamerProfile', [
       'addtabon' => ['Profile']
    ]);
