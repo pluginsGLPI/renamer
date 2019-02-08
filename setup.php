@@ -83,6 +83,8 @@ function plugin_init_renamer() {
          'css/jquery-picklist.css',
          'jquery-picklist-ie7.css'
       ];
+
+      include_once GLPI_ROOT . "/plugins/renamer/vendor/autoload.php";
    }
 }
 
