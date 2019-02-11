@@ -181,7 +181,12 @@ class PluginRenamerRenamer extends CommonDBTM {
             $content .= "<tr class='center'>";
             $content .= "<td>".$row["id"]."</td>";
             $content .= "<td lang='en' dir='ltr'>";
-            $content .= implode('<br>', unserialize(stripslashes(stripslashes($row['msgid']))));
+            $msgid = unserialize(stripslashes(stripslashes($row['msgid'])));
+            if (is_array($msgid)) {
+               $content .= implode('<br>', $msgid);
+            } else {
+               $content .= $msgid;
+            }
             $content .= "</td>";
 
             $content .= "<td>";
@@ -545,8 +550,6 @@ class PluginRenamerRenamer extends CommonDBTM {
             $content .= "<td rowspan=".count($entry_strings).">";
             if ($entry->getMsgCtxt() !== null) {
                $content .= implode('<br>', $entry->getMsgCtxt());
-            } else {
-               $content .= __('No', 'renamer');
             }
 
             $content .= "</td>";
@@ -554,8 +557,6 @@ class PluginRenamerRenamer extends CommonDBTM {
             $content .= "<td rowspan=".count($entry_strings).">";
             if ($entry->isPlural()) {
                $content .= self::addHighlightingWord($entry->getMsgIdPlural(), $word);
-            } else {
-               $content .= __('No', 'renamer');
             }
 
             $content .= "</td>";
@@ -792,7 +793,7 @@ class PluginRenamerRenamer extends CommonDBTM {
       $newword  = $params['word'];
       $overload = unserialize(stripslashes(stripslashes(str_replace("]", "'", $_POST['wordToOverload']))));
       $lang     = $params['lang'];
-      $msgid    = unserialize(stripslashes(stripslashes($params['id'])))[0];
+      $msgid    = unserialize(stripslashes(stripslashes($params['id'])));
       $context  = strlen($params['msgctxt']) && $params['msgctxt'] !== "null"
                      ? unserialize(stripslashes(stripslashes($params['msgctxt'])))
                      : null;
