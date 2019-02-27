@@ -73,7 +73,9 @@ function plugin_init_renamer() {
       }
    }
 
-   if (Session::getLoginUserID() && $plugin->isActivated('renamer')) {
+   if (Session::getLoginUserID()
+       && $plugin->isActivated('renamer')
+       && strpos($_SERVER['REQUEST_URI'], "plugins/renamer") !== false) {
       $PLUGIN_HOOKS['add_javascript']['renamer'] = [
          'scripts/jquery-picklist.min.js',
          'scripts/renamer.js.php'
@@ -106,6 +108,9 @@ function plugin_version_renamer() {
 
 
 function plugin_renamer_check_config($verbose = false) {
+   return true;
+}
 
+function plugin_renamer_check_prerequisites() {
    return true;
 }
